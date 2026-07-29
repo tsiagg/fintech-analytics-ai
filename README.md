@@ -4,6 +4,10 @@ Analytics engineering portfolio: dbt marts, a MetricFlow semantic layer, Airflow
 
 **[Read the full documentation site](https://tsiagg.github.io/fintech-analytics-ai/)**
 
+<!-- Hero screenshot slot: uncomment once the file exists. See docs/assets/screenshots/CAPTURE-GUIDE.md
+![Executive dashboard](docs/assets/screenshots/executive-dashboard.png)
+-->
+
 ---
 
 ## What this is

@@ -30,8 +30,8 @@ defaults:
     values:
       layout: default
 
-# Internal drafts of the CFO report. cfo_report_latest.html is deliberately kept
-# so the site can link to a real generated report.
+# Internal notes that live in docs/ but should not become pages.
+# cfo_report_latest.html is deliberately NOT excluded: the site links to it as a
+# real generated artifact.
 exclude:
-  - cfo_report_mockup.html
-  - cfo_report_rendered_sample.html
+  - assets/screenshots/CAPTURE-GUIDE.md

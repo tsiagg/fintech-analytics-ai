@@ -43,7 +43,7 @@ Framed for an **analytics engineer** role. Everything below points at something 
 
 Stated deliberately. Every one of these is real.
 
-**Front-end work.** Streamlit and Plotly are not my strength, and the app code shows it — one dashboard page runs to about 590 lines with helpers and mock generators inline, and a `components/` folder exists that the pages do not actually use. *What I do about it:* I own which visual answers which question and the SQL behind it, and I built the Data Spot Check page so that app-layer bugs can never be mistaken for warehouse bugs.
+**Front-end work.** Streamlit and Plotly are not my strength, and the app code shows it — one dashboard page runs to about 590 lines with chart helpers and mock-data generators inline, where a tidier build would have factored them out. *What I do about it:* I own which visual answers which question and the SQL behind it, and I built the Data Spot Check page so that app-layer bugs can never be mistaken for warehouse bugs.
 
 **Authoring large Python systems.** I specified and reviewed `bi_engine.py` and `reporting/inputs.py`; I did not write them from scratch and could not have done so at that speed. *What I do about it:* the parts where correctness is load-bearing are small, isolated and readable — `forecasting.py` and `anomalies.py` are around 120 lines each of pure functions — and the architecture keeps computation in Python and language out of it, so the complex modules are wiring rather than logic I cannot verify.
 

@@ -22,6 +22,10 @@ flowchart TD
 
 ## Why the layers are split this way
 
+<!-- Screenshot slot: uncomment once the file exists. See assets/screenshots/CAPTURE-GUIDE.md
+![dbt lineage for mrt_company_daily_kpi, from raw through staging, intermediate and marts to serving](assets/screenshots/dbt-lineage.png)
+-->
+
 **Staging** is one view per source object. Renaming, casting, light cleaning, nothing else. Five views over the raw `public` tables and three over seeds. The rule is that if you need to understand the business to read a staging model, the logic is in the wrong place.
 
 **Intermediate** is where business logic actually happens, and it is split by process rather than by output. [`int_fct_daily_trading`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/dbt/models/intermediate/int_fct_daily_trading.sql) handles trading economics, `int_fct_daily_funding` handles cash movement, `int_fct_affiliates_cost` handles acquisition cost, and `int_dim_users` is the conformed user dimension. They are separate because they have different grains and different failure modes; a bug in cashback logic should not be tangled up with a bug in withdrawal handling. `int_fct_daily_user_activity` then combines them onto one spine.

@@ -51,7 +51,17 @@ Skim only, unless you specifically want to see the AI plumbing: **[`app/services
 ## Skip these
 
 - **`app/pages/1_Executive_Dashboard.py`** — around 590 lines of Plotly and mock-data helpers. Low signal unless charting is what you came for.
-- **`app/components/`** — three small modules that the pages never import. Leftover scaffolding, honestly noted rather than quietly deleted.
-- **`docs/cfo_report_mockup.html`** and **`docs/cfo_report_rendered_sample.html`** — design drafts. The one to look at is [the real generated report](cfo_report_latest.html).
 - **`model-implementation-planning/phase-*/README.md`** — agent briefs. Useful as evidence of how the work was scoped, not as reading.
-- **`.venv/`, `logs/`, `dbt/target/`, `dbt/dbt_packages/`** — not in the repository at all. Listed here so you know their absence is deliberate.
+- **`reporting/templates/cfo_report.html.j2`** — around 380 lines of styled HTML. Read [the rendered output](cfo_report_latest.html) instead.
+
+## Deliberately not in the repository
+
+Absences you might otherwise wonder about:
+
+- **`.venv/`, `logs/`, `dbt/target/`, `dbt/dbt_packages/`, `__pycache__/`** — build output and dependencies.
+- **`.env`** — holds the API key. `.env.example` documents every variable it needs.
+- **`dbt/profiles.yml`** — machine-specific connection details; `dbt/profiles.example.yml` is the template.
+- **`infra/airflow/config/airflow.cfg`** — 109 KB of generated Airflow defaults, recreated automatically on first start. It was tracked initially and removed; keeping generated config under version control makes every upgrade look like a change you made.
+- **Two earlier CFO report drafts** — superseded by [the real generated report](cfo_report_latest.html), which is the only one worth looking at.
+- **The original project brief, a `.docx`** — a binary GitHub cannot render. Everything in it that still matters is in these pages or in [ROADMAP.md](https://github.com/tsiagg/fintech-analytics-ai/blob/main/model-implementation-planning/ROADMAP.md).
+- **`app/components/`** — three small modules that no page ever imported. They were committed in the first push and then deleted; dead code in a repository is noise, and the history has it if it is ever wanted.
