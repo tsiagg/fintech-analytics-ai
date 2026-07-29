@@ -19,6 +19,11 @@ plugins:
 search_enabled: true
 heading_anchors: true
 
+# just-the-docs does not render mermaid unless this is set; without it the
+# architecture and guardrail diagrams appear as plain code blocks.
+mermaid:
+  version: "9.1.6"
+
 aux_links:
   View on GitHub:
     - https://github.com/tsiagg/fintech-analytics-ai
