@@ -1,0 +1,37 @@
+# GitHub Pages config. The site is served from this /docs folder on the main branch.
+# Settings -> Pages -> Source: Deploy from a branch -> Branch: main, Folder: /docs
+
+title: Fintech Analytics AI
+description: >-
+  An analytics engineering portfolio: dbt marts, a MetricFlow semantic layer,
+  Airflow orchestration, and a guardrailed AI BI layer on a simulated fintech warehouse.
+
+url: https://tsiagg.github.io
+baseurl: /fintech-analytics-ai
+
+remote_theme: just-the-docs/just-the-docs
+plugins:
+  - jekyll-remote-theme
+  # Rewrites relative .md links to their built .html paths, so cross-page links
+  # work both on github.com and on the published site.
+  - jekyll-relative-links
+
+search_enabled: true
+heading_anchors: true
+
+aux_links:
+  View on GitHub:
+    - https://github.com/tsiagg/fintech-analytics-ai
+
+# Every page uses the theme layout unless it overrides it.
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+# Internal drafts of the CFO report. cfo_report_latest.html is deliberately kept
+# so the site can link to a real generated report.
+exclude:
+  - cfo_report_mockup.html
+  - cfo_report_rendered_sample.html

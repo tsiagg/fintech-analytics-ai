@@ -1,6 +1,8 @@
 # Implementation roadmap (visual progress)
 
-**Last updated:** 2026-06-20 — **Phases 1–4 effectively complete.** `generate_cfo_report` is now a wired task in the Airflow DAG (`reporting.generate`), and the `new_users` column on `mrt_company_daily_kpi` has been built and tested by dbt (verified in `target/run_results.json`, documented in `serving.yml` with a `not_null` test). AI CFO, BI Assistant, Executive Dashboard v1, and Data Spot Check are all live. **Next:** Phase 5 portfolio packaging (root README, architecture diagram, full-stack compose, sample backfill, screenshots). Edit the [Progress tracker](#progress-tracker) when you finish work.
+**Last updated:** 2026-07-29 — **Phase 5 documentation shipped.** The project is public at [github.com/tsiagg/fintech-analytics-ai](https://github.com/tsiagg/fintech-analytics-ai) with a GitHub Pages documentation site served from `docs/`. Remaining Phase 5 items (Streamlit in compose, sample backfill script, screenshots) were reviewed and **deliberately left out of scope**. See [PUBLISHING.md](./PUBLISHING.md).
+
+**Previously (2026-06-20):** **Phases 1–4 effectively complete.** `generate_cfo_report` is now a wired task in the Airflow DAG (`reporting.generate`), and the `new_users` column on `mrt_company_daily_kpi` has been built and tested by dbt (verified in `target/run_results.json`, documented in `serving.yml` with a `not_null` test). AI CFO, BI Assistant, Executive Dashboard v1, and Data Spot Check are all live. **Next:** Phase 5 portfolio packaging (root README, architecture diagram, full-stack compose, sample backfill, screenshots). Edit the [Progress tracker](#progress-tracker) when you finish work.
 
 **You are here:** **Phase 4 ~100%** — Streamlit app at **http://localhost:8501** with **Data Spot Check** + **Executive Dashboard** + **BI Assistant** + **AI CFO** (Airflow-generated structured report). **Phase 3 complete** (Airflow `daily_fintech_analytics`: `run_simulation → dbt_run → dbt_test → generate_cfo_report`). Only **Phase 5** (portfolio) remains.
 
@@ -28,9 +30,9 @@ Phase 2a  [████████████████████] 100%  D
 Phase 2b  [████████████████████] 100%  Done
 Phase 3   [████████████████████] 100%  Done (CFO task wired into DAG)
 Phase 4   [████████████████████] 100%  Done (dashboard + BI Assistant + AI CFO + new_users)
-Phase 5   [░░░░░░░░░░░░░░░░░░░░]   0%  Not started
+Phase 5   [██████████████░░░░░░]  70%  Docs shipped; compose + backfill out of scope
 ─────────────────────────────────────────────
-Portfolio (weighted*)     [██████████████████░░]  ~90%
+Portfolio (weighted*)     [███████████████████░]  ~97%
 ```
 
 \*Weighted estimate: Phase 1 = 12%, Phase 2 (2a+2b) = 38%, Phase 3 = 18%, Phase 4 = 22%, Phase 5 = 10%. Adjust weights in this file if priorities differ.
@@ -90,8 +92,8 @@ gantt
     new_users column built and tested    :done, p4f, 2026-06-20, 2026-06-20
 
     section Phase 5 Portfolio
-    Docker compose full stack            :p5a, 2026-06-20, 2026-07-05
-    Story docs screenshots demo data     :p5b, 2026-06-20, 2026-07-20
+    Docker compose full stack            :crit, p5a, 2026-07-05, 2026-07-05
+    Public repo and GitHub Pages docs    :done, p5b, 2026-07-29, 2026-07-29
 ```
 
 ### Phase 3 detail (shipped v1)
@@ -149,7 +151,7 @@ Update **`%`** and **`Status`** when you complete items.
 | **2b** | KPI marts + serving + semantic layer | **100** | **Done** | 57 metrics; `dbt parse` + `mf query` smoke tests OK — [phase-2/README.md](./phase-2/README.md#mf-query-smoke-tests-validated) |
 | **3** | Airflow (one DAG) | **100** | **Done** | Airflow 3.1.5, `daily_fintech_analytics` (sim → run → test → `generate_cfo_report`), catchup from **2026-05-29** — [phase-3/README.md](./phase-3/README.md) · runbook |
 | **4** | Streamlit + BI + CFO | **100** | **Done** | Dashboard v1 + Data Spot Check + **BI Assistant** + **AI CFO** (Airflow-generated, `reporting/` package) live; `new_users` column built + tested — [phase-4/README.md](./phase-4/README.md) |
-| **5** | Portfolio storytelling | **0** | Not started | Screenshots + README; light scope — [phase-5/README.md](./phase-5/README.md) |
+| **5** | Portfolio storytelling | **70** | **Docs shipped** | Public repo + GitHub Pages site (`docs/`, 9 pages + 2 appendices), root README, curated file guide — [phase-5/README.md](./phase-5/README.md) · [PUBLISHING.md](./PUBLISHING.md). **Out of scope by decision:** Streamlit in compose, 30–60 day backfill script, screenshots |
 
 ### Phase 2a checklist — **done (100%)**
 
