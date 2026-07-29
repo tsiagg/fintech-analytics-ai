@@ -39,9 +39,17 @@ flowchart TD
 
 Each link in that chain removes a way the system could lie.
 
+<!-- Screenshot slot: uncomment once this image exists in assets/screenshots/
+![The Query details panel: the allowlisted metrics, group-bys and time range the plan resolved to, with the MetricFlow result set underneath](assets/screenshots/bi-assistant-query-details.png)
+-->
+
 **The catalog is generated, not written.** [`app/services/semantic.py`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/app/services/semantic.py) parses the same MetricFlow YAML that dbt uses. There is no second list of metrics to drift out of sync — if a metric is not in the semantic layer, the assistant does not know it exists.
 
 **The plan is validated before anything runs.** [`validate_query`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/app/services/metrics.py) checks every metric name against the catalog and every group-by against the *intersection* of what all requested metrics support. That intersection matters: asking for two metrics that do not share a dimension is a question with no valid answer, and it is better to say so than to return a join that looks fine.
+
+<!-- Screenshot slot (optional): uncomment once this image exists in assets/screenshots/
+![The assistant declining a question that needs a metric outside the allowlist, and naming the closest one it can answer](assets/screenshots/bi-assistant-refusal.png)
+-->
 
 **Filters are built by the app, not the model.** The planner supplies a dimension, an operator and a value. The operator has to be one of six allowed ones, and the app assembles the MetricFlow `where` expression itself. The model never emits filter syntax.
 
