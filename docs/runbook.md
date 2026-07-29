@@ -1,3 +1,8 @@
+---
+title: Appendix - Runbook
+nav_order: 11
+---
+
 # Runbook (Windows)
 
 Daily commands for this repo. Run PowerShell from the **project root** (folder that contains `infra/`, `dbt/`, `simulation/`).

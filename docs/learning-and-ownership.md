@@ -1,3 +1,8 @@
+---
+title: Appendix - Learning and ownership plan
+nav_order: 10
+---
+
 # Learning & Ownership Plan
 
 > Companion to `model-implementation-planning/ROADMAP.md`. The roadmap tracks *what* gets built;

@@ -4,7 +4,7 @@ Use this folder as the **single planning hub** for the AI-powered fintech analyt
 
 ## Source brief
 
-- **[Analytics Project Summary - Fintech Simulation.docx](./Analytics%20Project%20Summary%20-%20Fintech%20Simulation.docx)** — full vision, data model, tools, and phased roadmap.
+- **`Analytics Project Summary - Fintech Simulation.docx`** — full vision, data model, tools, and phased roadmap. **Kept locally, not published to the repo** (a binary GitHub cannot render). [ROADMAP.md](./ROADMAP.md) carries everything from it that is still current, so the phase briefs' "parent brief" references are local-only.
 
 ## Visual progress
 
@@ -52,7 +52,7 @@ model-implementation-planning/
   README.md
   ROADMAP.md          ← Gantt + progress tracker (update when you ship)
   IMPROVEMENTS.md     ← future-updates backlog (ideas / refinements / tech debt)
-  Analytics Project Summary - Fintech Simulation.docx
+  Analytics Project Summary ... .docx   ← local only, gitignored
   phase-1/README.md
   phase-2/README.md   ← Phase 2a (core) + Phase 2b (semantic layer)
   phase-3/README.md
