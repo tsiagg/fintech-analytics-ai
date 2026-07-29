@@ -30,8 +30,5 @@ defaults:
     values:
       layout: default
 
-# Internal notes that live in docs/ but should not become pages.
-# cfo_report_latest.html is deliberately NOT excluded: the site links to it as a
-# real generated artifact.
-exclude:
-  - assets/screenshots/CAPTURE-GUIDE.md
+# Note: cfo_report_latest.html is deliberately published, so the site can link to
+# a real generated report.

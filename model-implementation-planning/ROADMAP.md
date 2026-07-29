@@ -1,6 +1,6 @@
 # Implementation roadmap (visual progress)
 
-**Last updated:** 2026-07-29 — **Phase 5 documentation shipped.** The project is public at [github.com/tsiagg/fintech-analytics-ai](https://github.com/tsiagg/fintech-analytics-ai) with a GitHub Pages documentation site served from `docs/`. Remaining Phase 5 items (Streamlit in compose, sample backfill script, screenshots) were reviewed and **deliberately left out of scope**. See [PUBLISHING.md](./PUBLISHING.md).
+**Last updated:** 2026-07-29 — **Phase 5 documentation shipped.** The project is public at [github.com/tsiagg/fintech-analytics-ai](https://github.com/tsiagg/fintech-analytics-ai) with a GitHub Pages documentation site served from `docs/`. Remaining Phase 5 items (Streamlit in compose, sample backfill script, screenshots) were reviewed and **deliberately left out of scope**.
 
 **Previously (2026-06-20):** **Phases 1–4 effectively complete.** `generate_cfo_report` is now a wired task in the Airflow DAG (`reporting.generate`), and the `new_users` column on `mrt_company_daily_kpi` has been built and tested by dbt (verified in `target/run_results.json`, documented in `serving.yml` with a `not_null` test). AI CFO, BI Assistant, Executive Dashboard v1, and Data Spot Check are all live. **Next:** Phase 5 portfolio packaging (root README, architecture diagram, full-stack compose, sample backfill, screenshots). Edit the [Progress tracker](#progress-tracker) when you finish work.
 
@@ -151,7 +151,7 @@ Update **`%`** and **`Status`** when you complete items.
 | **2b** | KPI marts + serving + semantic layer | **100** | **Done** | 57 metrics; `dbt parse` + `mf query` smoke tests OK — [phase-2/README.md](./phase-2/README.md#mf-query-smoke-tests-validated) |
 | **3** | Airflow (one DAG) | **100** | **Done** | Airflow 3.1.5, `daily_fintech_analytics` (sim → run → test → `generate_cfo_report`), catchup from **2026-05-29** — [phase-3/README.md](./phase-3/README.md) · runbook |
 | **4** | Streamlit + BI + CFO | **100** | **Done** | Dashboard v1 + Data Spot Check + **BI Assistant** + **AI CFO** (Airflow-generated, `reporting/` package) live; `new_users` column built + tested — [phase-4/README.md](./phase-4/README.md) |
-| **5** | Portfolio storytelling | **70** | **Docs shipped** | Public repo + GitHub Pages site (`docs/`, 9 pages + 2 appendices), root README, curated file guide — [phase-5/README.md](./phase-5/README.md) · [PUBLISHING.md](./PUBLISHING.md). **Out of scope by decision:** Streamlit in compose, 30–60 day backfill script, screenshots |
+| **5** | Portfolio storytelling | **70** | **Docs shipped** | Public repo + GitHub Pages site (`docs/`, 9 pages + 2 appendices), root README, curated file guide — [phase-5/README.md](./phase-5/README.md). **Out of scope by decision:** Streamlit in compose, 30–60 day backfill script, screenshots |
 
 ### Phase 2a checklist — **done (100%)**
 

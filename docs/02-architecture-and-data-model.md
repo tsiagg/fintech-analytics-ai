@@ -22,7 +22,7 @@ flowchart TD
 
 ## Why the layers are split this way
 
-<!-- Screenshot slot: uncomment once the file exists. See assets/screenshots/CAPTURE-GUIDE.md
+<!-- Screenshot slot: uncomment once this image exists in assets/screenshots/
 ![dbt lineage for mrt_company_daily_kpi, from raw through staging, intermediate and marts to serving](assets/screenshots/dbt-lineage.png)
 -->
 

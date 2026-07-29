@@ -52,7 +52,6 @@ model-implementation-planning/
   README.md
   ROADMAP.md          ← Gantt + progress tracker (update when you ship)
   IMPROVEMENTS.md     ← future-updates backlog (ideas / refinements / tech debt)
-  PUBLISHING.md       ← GitHub + Pages workflow for the docs site
   Analytics Project Summary ... .docx   ← local only, gitignored
   phase-1/README.md
   phase-2/README.md   ← Phase 2a (core) + Phase 2b (semantic layer)

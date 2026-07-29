@@ -13,7 +13,7 @@ One Airflow DAG, [`daily_fintech_analytics`](https://github.com/tsiagg/fintech-a
 
 `run_simulation` generates one day of source data, `dbt_run` rebuilds the models, `dbt_test` gates the result, and `generate_cfo_report` writes an executive report for that date.
 
-<!-- Screenshot slot: uncomment once the file exists. See assets/screenshots/CAPTURE-GUIDE.md
+<!-- Screenshot slot: uncomment once this image exists in assets/screenshots/
 ![The daily_fintech_analytics DAG with all four tasks succeeding](assets/screenshots/airflow-dag.png)
 -->
 
@@ -21,7 +21,7 @@ Two configuration choices matter more than the task list. `depends_on_past=True`
 
 ## Executive dashboard
 
-<!-- Screenshot slot: uncomment once the file exists. See assets/screenshots/CAPTURE-GUIDE.md
+<!-- Screenshot slot: uncomment once this image exists in assets/screenshots/
 ![Executive dashboard: KPI cards with sparklines and weekly revenue by region](assets/screenshots/executive-dashboard.png)
 -->
 
@@ -33,7 +33,7 @@ It reads the serving marts directly rather than going through the semantic layer
 
 ## BI Assistant
 
-<!-- Screenshot slot: uncomment once the file exists. See assets/screenshots/CAPTURE-GUIDE.md
+<!-- Screenshot slot: uncomment once this image exists in assets/screenshots/
 ![BI Assistant answering a question with a chart, a table, an explanation and the model badge](assets/screenshots/bi-assistant.png)
 -->
 
@@ -47,7 +47,7 @@ It routes cheap questions to a fast model and analytical ones ("why", "compare",
 
 ## AI CFO report
 
-<!-- Screenshot slot: uncomment once the file exists. See assets/screenshots/CAPTURE-GUIDE.md
+<!-- Screenshot slot: uncomment once this image exists in assets/screenshots/
 ![AI CFO report: scorecard tiles above the executive summary and trends sections](assets/screenshots/ai-cfo-report.png)
 -->
 
@@ -61,7 +61,7 @@ Every quantitative element is computed in Python before the LLM is involved. Mon
 
 ## Data spot check
 
-<!-- Screenshot slot (optional): uncomment once the file exists. See assets/screenshots/CAPTURE-GUIDE.md
+<!-- Screenshot slot (optional): uncomment once this image exists in assets/screenshots/
 ![Data spot check: mart contents with a date filter and CSV export](assets/screenshots/data-spot-check.png)
 -->
 
