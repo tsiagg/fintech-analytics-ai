@@ -1,0 +1,10 @@
+# Python deps installed into the custom Airflow image (simulation + dbt).
+psycopg2-binary>=2.9.9
+dbt-metricflow[dbt-postgres]==0.13.0
+
+# AI CFO report task (reporting package): warehouse reads, OpenRouter call,
+# numeric work, and HTML templating. pandas/numpy ship with dbt-metricflow but
+# are pinned here so the reporting package is self-contained.
+pandas>=2.2.0
+requests>=2.31.0
+jinja2>=3.1.0

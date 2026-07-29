@@ -1,0 +1,88 @@
+version: 2
+
+seeds:
+  - name: country_codes
+    description: >
+      Reference dimensions for ISO-style country codes used in analytics joins
+      (America, Europe, Asia Pacific macro regions).
+    columns:
+      - name: country_code
+        description: "Two-letter country code (aligned with public-layer data)."
+        tests:
+          - unique
+          - not_null
+      - name: country_name
+        description: "English display name for the country."
+        tests:
+          - not_null
+      - name: region
+        description: "Reporting region (America, Europe, or Asia Pacific)."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["America", "Europe", "Asia Pacific"]
+
+  - name: instrument_mapping
+    description: >
+      Reference dimensions for tradable instruments: display names, grouping,
+      illustrative cost/cashback per lot, and contract size for lot-to-units conversion.
+
+    columns:
+      - name: symbol_name
+        description: "Ticker aligned with public.trades.symbol (e.g. EURUSD)."
+        tests:
+          - unique
+          - not_null
+
+      - name: symbol_nickname
+        description: "Short display label (e.g. Euro, Cable)."
+
+      - name: symbol_group
+        description: "High-level asset class bucket (e.g. FX Majors, Crypto, Metals)."
+
+      - name: symbol_trade_cost_per_lot
+        description: "Illustrative round-turn cost per lot in account currency (USD-style)."
+
+      - name: symbol_cashback_per_lot
+        description: "Illustrative rebate per lot in account currency (USD-style)."
+
+      - name: symbol_size
+        description: >
+          Contract size: native units per 1.0 lot (FX base units, coins, or troy oz for gold)
+          for converting volume_lots to underlying quantity.
+
+  - name: region_monthly_targets
+    description: >
+      Regional monthly KPI targets by calendar-date range (start_date through end_date).
+      Same monthly plan applies to each month in the range; prorate to daily in marts
+      (e.g. divide by days in month). Add new rows when plans change; do not overwrite history.
+    columns:
+      - name: region
+        description: "Reporting region (America, Europe, or Asia Pacific)."
+        tests:
+          - unique
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["America", "Europe", "Asia Pacific"]
+      - name: start_date
+        description: "First calendar day this target row applies (inclusive)."
+        tests:
+          - not_null
+      - name: end_date
+        description: "Last calendar day this target row applies (inclusive)."
+        tests:
+          - not_null
+      - name: target_monthly_active_traders
+        description: "Planned active traders for one calendar month in the region."
+        tests:
+          - not_null
+      - name: target_monthly_net_trade_revenue_usd
+        description: "Planned net trade revenue (USD) for one calendar month in the region."
+        tests:
+          - not_null
+      - name: target_monthly_gross_deposit_usd
+        description: "Planned gross deposits (USD) for one calendar month in the region."
+        tests:
+          - not_null

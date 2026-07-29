@@ -1,0 +1,15 @@
+# Streamlit app (Phase 4). Install from repo root with venv active:
+#   pip install -r app/requirements.txt
+# Run:
+#   streamlit run app/main.py
+streamlit>=1.40.0
+python-dotenv>=1.0.0
+
+# Data stack for upcoming visuals (KPIs read from analytics_dev marts).
+pandas>=2.2.0
+plotly>=5.24.0
+psycopg2-binary>=2.9.9
+
+# BI Assistant (Phase 4): metric catalog parsing + OpenRouter client.
+PyYAML>=6.0
+requests>=2.31.0

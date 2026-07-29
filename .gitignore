@@ -1,0 +1,16 @@
+.env
+.vscode/
+*.pyc
+__pycache__/
+.venv/
+venv/
+
+# dbt
+dbt/profiles.yml
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+
+# local run artifacts
+logs/
+terminal_boot.log

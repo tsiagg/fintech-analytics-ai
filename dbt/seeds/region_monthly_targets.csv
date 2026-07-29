@@ -1,0 +1,4 @@
+region,start_date,end_date,target_monthly_active_traders,target_monthly_net_trade_revenue_usd,target_monthly_gross_deposit_usd
+America,2026-05-01,2026-12-31,800,1000000,50000
+Europe,2026-05-01,2026-12-31,1850,3500000,135000
+Asia Pacific,2026-05-01,2026-12-31,1000,2500000,75000

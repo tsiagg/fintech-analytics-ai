@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI CFO Report</title>
+<style>
+  :root {
+    --navy: #0b1f3a;
+    --navy-2: #1f4e79;
+    --ink: #1a1a1a;
+    --muted: #5b6470;
+    --line: #e3e7ed;
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --green: #1a7f4b;
+    --green-bg: #e7f4ec;
+    --amber: #9a6700;
+    --amber-bg: #fdf3da;
+    --red: #b3261e;
+    --red-bg: #fbe9e7;
+    --blue-bg: #eaf1f8;
+    --accent: #2563a8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Georgia", "Times New Roman", serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 980px;
+    margin: 32px auto;
+    background: var(--card);
+    box-shadow: 0 2px 18px rgba(11, 31, 58, 0.08);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .masthead {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: #fff;
+    padding: 30px 44px 26px;
+  }
+  .masthead .eyebrow {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 11px;
+    opacity: 0.8;
+    margin: 0 0 8px;
+  }
+  .masthead h1 { margin: 0; font-size: 30px; font-weight: 700; letter-spacing: 0.2px; }
+  .masthead .asof { margin: 6px 0 0; font-size: 15px; opacity: 0.92; }
+  .meta-row {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 26px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    opacity: 0.85;
+  }
+  .meta-row span b { font-weight: 600; }
+  .body { padding: 8px 44px 40px; }
+  section { padding: 26px 0; border-bottom: 1px solid var(--line); }
+  section:last-child { border-bottom: none; }
+  .kicker {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 700;
+    margin: 0 0 6px;
+  }
+  h2 { font-size: 21px; margin: 0 0 10px; color: var(--navy); }
+  .overview-narrative { font-size: 16px; color: #222; }
+  .overview-narrative p:first-child { margin-top: 0; }
+  .scorecard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 22px;
+  }
+  .tile {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 14px 14px 16px;
+    background: #fff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  .tile .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .tile .value { font-size: 24px; font-weight: 700; color: var(--navy); letter-spacing: -0.5px; }
+  .tile .delta { font-size: 12.5px; margin-top: 6px; font-weight: 600; }
+  .tile .sub { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .up { color: var(--green); }
+  .down { color: var(--red); }
+  .pill {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+  .pill.achieved { background: var(--green-bg); color: var(--green); }
+  .pill.ontrack  { background: var(--blue-bg);  color: var(--accent); }
+  .pill.atrisk   { background: var(--amber-bg); color: var(--amber); }
+  .pill.offtrack { background: var(--red-bg);   color: var(--red); }
+  ul.key { margin: 0 0 6px; padding-left: 20px; }
+  ul.key li { margin: 7px 0; font-size: 15.5px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+  }
+  th, td { text-align: right; padding: 9px 10px; border-bottom: 1px solid var(--line); }
+  th:first-child, td:first-child { text-align: left; }
+  thead th {
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 11px;
+    border-bottom: 2px solid var(--navy-2);
+  }
+  .status-tag { font-weight: 700; }
+  .status-tag.achieved { color: var(--green); }
+  .status-tag.ontrack  { color: var(--accent); }
+  .status-tag.atrisk   { color: var(--amber); }
+  .status-tag.offtrack { color: var(--red); }
+  .footnote { font-size: 11.5px; color: var(--muted); font-family: "Helvetica Neue", Arial, sans-serif; margin-top: 8px; }
+  details { margin-top: 10px; border-left: 3px solid var(--line); padding-left: 14px; }
+  details summary {
+    cursor: pointer;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--accent);
+    list-style: none;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: "\25b8 "; }
+  details[open] summary::before { content: "\25be "; }
+  details .detail-body { margin-top: 8px; font-size: 14.5px; color: #333; }
+  .method-note {
+    background: var(--blue-bg);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12.5px;
+    color: var(--navy);
+    margin-top: 14px;
+  }
+  .method-note b { color: var(--accent); }
+  footer {
+    padding: 18px 44px 30px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 11.5px;
+    color: var(--muted);
+    background: #fbfcfe;
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 720px) {
+    .scorecard { grid-template-columns: repeat(2, 1fr); }
+    .masthead, .body, footer { padding-left: 22px; padding-right: 22px; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="masthead">
+      <p class="eyebrow">AI CFO Report &middot; Fintech Analytics</p>
+      <h1>Executive Performance Review</h1>
+      <p class="asof">As of <strong>19 June 2026</strong> &middot; Month-to-date (June 2026)</p>
+      <div class="meta-row">
+        <span><b>Generated:</b> 2026-06-19 15:04 UTC</span>
+        <span><b>Model:</b> google/gemini-3.1-pro-preview</span>
+        <span><b>Tokens:</b> 5175</span>
+        <span><b>Source:</b> analytics_dev marts (warehouse-computed)</span>
+      </div>
+    </div>
+
+    <div class="body">
+
+      <section>
+        <p class="kicker">Executive Summary</p>
+<h2>Strong user engagement and deposit growth are overshadowed by a significant shortfall in net trade revenue.</h2>        <div class="overview-narrative"><p>As of June 19, 2026, month-to-date performance demonstrates robust platform engagement and capital inflows, offset by a severe shortfall in monetization. We have successfully achieved our monthly targets for both active traders and gross deposits, reaching 2,682 users and $127k respectively. However, net trade revenue stands at just $3.93M against a $16.50M target, indicating a critical disconnect between user activity and revenue generation. Immediate strategic focus must pivot toward stimulating trading volume and optimizing yield across all regions.</p></div>
+
+        <div class="scorecard">
+          <div class="tile">
+            <div class="label">Net Revenue (MTD)</div>
+            <div class="value">$3.93M</div>
+            <div class="delta down">▼ -123.7% WoW</div>
+            <div class="sub">vs prior month (same days): +5311.6%</div>
+            <span class="pill offtrack">Off track</span>
+          </div>
+          <div class="tile">
+            <div class="label">Active Traders (avg/day)</div>
+            <div class="value">1,887</div>
+            <div class="delta up">▲ 1.5% WoW</div>
+            <div class="sub">vs prior month (same days): +240.9%</div>
+            <span class="pill achieved">Achieved</span>
+          </div>
+          <div class="tile">
+            <div class="label">Gross Deposits (MTD)</div>
+            <div class="value">$127k</div>
+            <div class="delta up">▲ 18.8% WoW</div>
+            <div class="sub">vs prior month (same days): +237.9%</div>
+            <span class="pill achieved">Achieved</span>
+          </div>
+          <div class="tile">
+            <div class="label">Withdrawal Ratio</div>
+            <div class="value">53.8%</div>
+            <div class="delta up">▼ -3.0 pts</div>
+            <div class="sub">No target · watch metric</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <p class="kicker">02 &middot; Monthly Trends vs Targets</p>
+<h2>Two of our three core target metrics have been achieved MTD, while revenue remains critically off track.</h2>
+        <ul class="key">
+<li>Active traders achieved 137.5% of the monthly target.</li><li>Gross deposits achieved 120.5% of the monthly target.</li><li>Net trade revenue is off track, currently at 23.8% of target with a run-rate projection of $6.20M.</li>        </ul>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Metric</th><th>Actual (MTD)</th><th>Expected pace*</th>
+              <th>% of target</th><th>Projected EOM</th><th>Target</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Net trade revenue</td>
+              <td>$3.93M</td>
+              <td>$10.45M</td>
+              <td>23.8%</td>
+              <td>$6.20M</td>
+              <td>$16.50M</td>
+              <td><span class="status-tag offtrack">Off track</span></td>
+            </tr>
+            <tr>
+              <td>Active traders</td>
+              <td>2,682</td>
+              <td>1,235</td>
+              <td>137.5%</td>
+              <td>4,235</td>
+              <td>1,950</td>
+              <td><span class="status-tag achieved">Achieved</span></td>
+            </tr>
+            <tr>
+              <td>Gross deposits</td>
+              <td>$127k</td>
+              <td>$66k</td>
+              <td>120.5%</td>
+              <td>$200k</td>
+              <td>$105k</td>
+              <td><span class="status-tag achieved">Achieved</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="footnote">
+          *Expected pace = (day 19 / 30 days) &times; monthly target.
+          Targets are defined only for these three metrics (region_monthly_targets seed); no other targets are assumed.
+        </p>
+
+
+
+
+        <details>
+          <summary>Read more &mdash; detail &amp; context</summary>
+          <div class="detail-body">The achievement of active trader and gross deposit targets highlights strong top-of-funnel health and user trust. However, the expected pace for net trade revenue is only $10.45M, confirming that current momentum is insufficient to bridge the gap to the $16.50M target.</div>
+        </details>
+      </section>
+      <section>
+        <p class="kicker">03 &middot; Revenue Analysis</p>
+<h2>Net trade revenue is severely underperforming against the $16.50M target across all operating regions.</h2>
+        <ul class="key">
+<li>MTD net revenue is $3.93M, representing a -123.7% decline week-over-week.</li><li>Despite the WoW drop, revenue is up +5311.6% compared to the same days in the prior month.</li><li>The run-rate projection of $6.20M falls drastically short of the $16.50M target.</li>        </ul>
+
+
+
+
+
+        <details>
+          <summary>Read more &mdash; detail &amp; context</summary>
+          <div class="detail-body">The extreme week-over-week volatility, combined with the massive year-over-year baseline increase, indicates highly episodic trading behavior. The current run-rate suggests we will miss the revenue target by over $10M unless immediate volume-driving initiatives are deployed.</div>
+        </details>
+      </section>
+      <section>
+        <p class="kicker">04 &middot; User Activity Analysis</p>
+<h2>User engagement remains robust, with active traders exceeding targets despite a slight dip in new user acquisition.</h2>
+        <ul class="key">
+<li>Actual active traders reached 2,682, surpassing the 1,950 target.</li><li>Daily average active traders stand at 1,887, up +1.5% WoW and +240.9% vs prior month.</li><li>New users MTD are 956, representing a -11.8% decline versus the prior month.</li>        </ul>
+
+
+        <div class="method-note">
+          <b>New users:</b> 956 new signups MTD (-11.8% vs prior month),
+          ~50/day; rolling WoW +19.5%.
+        </div>
+
+
+
+        <details>
+          <summary>Read more &mdash; detail &amp; context</summary>
+          <div class="detail-body">The platform is retaining and engaging existing users effectively, as evidenced by the surge in average daily active traders. While new user growth has slowed slightly to approximately 50 per day, the overall active user base provides a strong foundation for future monetization efforts.</div>
+        </details>
+      </section>
+      <section>
+        <p class="kicker">05 &middot; Cash Flow Analysis</p>
+<h2>Cash flow metrics remain healthy, driven by strong gross deposits and a stabilizing withdrawal ratio.</h2>
+        <ul class="key">
+<li>Gross deposits reached $127k, up +18.8% WoW and +237.9% vs prior month.</li><li>The withdrawal ratio improved by -3.0 points to 53.8%.</li><li>Net flow saw positive anomalies mid-month, including $12k on June 18.</li>        </ul>
+
+
+
+
+
+        <details>
+          <summary>Read more &mdash; detail &amp; context</summary>
+          <div class="detail-body">Capital inflows are strong, with gross deposits already exceeding the $105k target. The reduction in the withdrawal ratio indicates improved capital retention on the platform, ensuring that liquidity is available for trading once market conditions or platform incentives align.</div>
+        </details>
+      </section>
+      <section>
+        <p class="kicker">06 &middot; Regional Performance</p>
+<h2>All regions are currently off track for their net trade revenue targets, with systemic underperformance globally.</h2>
+        <ul class="key">
+<li>Europe generated $2.18M (55% of total), reaching only 26% of its target.</li><li>Asia Pacific generated $1.50M (38% of total), reaching only 30% of its target.</li><li>America generated $253k (6% of total), reaching only 8% of its target.</li>        </ul>
+
+
+
+        <table>
+          <thead>
+            <tr>
+              <th>Region</th><th>Net trade revenue (MTD)</th><th>% of total</th>
+              <th>% of target</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Europe</td>
+              <td>$2.18M</td>
+              <td>55%</td>
+              <td>26%</td>
+              <td><span class="status-tag offtrack">Off track</span></td>
+            </tr>
+            <tr>
+              <td>Asia Pacific</td>
+              <td>$1.50M</td>
+              <td>38%</td>
+              <td>30%</td>
+              <td><span class="status-tag offtrack">Off track</span></td>
+            </tr>
+            <tr>
+              <td>America</td>
+              <td>$253k</td>
+              <td>6%</td>
+              <td>8%</td>
+              <td><span class="status-tag offtrack">Off track</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+
+        <details>
+          <summary>Read more &mdash; detail &amp; context</summary>
+          <div class="detail-body">Europe remains our largest market, but the systemic underperformance across all geographies suggests a global macroeconomic headwind or platform-wide monetization issue rather than localized failures. The Americas region requires particular attention given its severe lag.</div>
+        </details>
+      </section>
+      <section>
+        <p class="kicker">07 &middot; Risks &amp; Anomalies</p>
+<h2>Significant volatility in daily revenue and withdrawal patterns introduces unpredictability into our run-rate.</h2>
+        <ul class="key">
+<li>Unusually high net revenue occurred on June 7 ($6.04M, ~4.1 std devs).</li><li>Unusually high withdrawals occurred on June 7 ($6k, ~3.0 std devs).</li><li>Unusually low net flow occurred on May 28 (-$3k, ~2.1 std devs).</li>        </ul>
+
+
+
+
+
+        <details>
+          <summary>Read more &mdash; detail &amp; context</summary>
+          <div class="detail-body">The clustering of high revenue and high withdrawal anomalies around specific dates, particularly June 7th, suggests event-driven trading behavior. This episodic activity makes baseline run-rate projections less reliable and highlights the risk of relying on isolated market events for revenue.</div>
+        </details>
+      </section>
+      <section>
+        <p class="kicker">08 &middot; Forecast Outlook</p>
+<h2>Month-end projections confirm a significant revenue miss despite continued deposit growth.</h2>
+        <ul class="key">
+<li>Net trade revenue is forecasted at $3.93M against the $16.50M target.</li><li>Gross deposits are forecasted at $226k against the $105k target.</li><li>Net flow is forecasted to reach $149k by month-end.</li>        </ul>
+
+
+
+
+        <div class="method-note">
+          <b>Net trade revenue:</b> month-end estimate $3.93M vs target $16.50M.
+          <b>Method:</b> Linear regression (OLS via numpy.polyfit, degree 1) on the last 30 daily points; remaining 11 day(s) projected.
+        </div>
+        <div class="method-note">
+          <b>Gross deposits:</b> month-end estimate $226k vs target $105k.
+          <b>Method:</b> Linear regression (OLS via numpy.polyfit, degree 1) on the last 30 daily points; remaining 11 day(s) projected.
+        </div>
+        <div class="method-note">
+          <b>Net flow:</b> month-end estimate $149k (no target).
+          <b>Method:</b> Linear regression (OLS via numpy.polyfit, degree 1) on the last 30 daily points; remaining 11 day(s) projected.
+        </div>
+
+        <details>
+          <summary>Read more &mdash; detail &amp; context</summary>
+          <div class="detail-body">Forecasts are calculated using Linear regression (OLS via numpy.polyfit, degree 1) on the last 30 daily points; remaining 11 day(s) projected. This methodology confirms that without immediate intervention to alter the current trajectory, the revenue gap will not close.</div>
+        </details>
+      </section>
+      <section>
+        <p class="kicker">09 &middot; Recommended Actions</p>
+<h2>Immediate focus must shift from user acquisition to trade stimulation and yield optimization.</h2>
+        <ul class="key">
+<li>Launch targeted trading campaigns in Europe and APAC to stimulate volume among existing active traders.</li><li>Investigate the root cause of the June 7th revenue and withdrawal anomalies to replicate positive drivers.</li><li>Review fee structures and product mix to improve yield per active trader in the Americas.</li>        </ul>
+
+
+
+
+
+        <details>
+          <summary>Read more &mdash; detail &amp; context</summary>
+          <div class="detail-body">Given that active traders and deposits have already achieved their targets, management should pivot resources toward converting existing platform liquidity into executed trades. Understanding the drivers behind our anomaly days will be key to engineering consistent revenue generation.</div>
+        </details>
+      </section>
+
+    </div>
+
+    <footer>
+      All figures are computed in the warehouse (dbt marts) and in Python (rolling WoW, MTD,
+      pace-adjusted targets, forecasts); the language model only interprets pre-computed numbers
+      and never invents figures. Data is simulated for portfolio purposes; "active" users are
+      activity-based, not CRM retention.
+    </footer>
+
+  </div>
+</body>
+</html>

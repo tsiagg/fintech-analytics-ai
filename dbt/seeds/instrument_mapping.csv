@@ -1,0 +1,7 @@
+symbol_name,symbol_nickname,symbol_group,symbol_trade_cost_per_lot,symbol_cashback_per_lot,symbol_size
+EURUSD,Euro,FX Majors,6.00,1.35,100000
+GBPUSD,Cable,FX Majors,6.00,1.35,100000
+USDJPY,Yen,FX Majors,6.00,1.35,100000
+BTCUSD,Bitcoin,Crypto,14.00,1.60,1
+ETHUSD,Ethereum,Crypto,9.50,0.90,1
+XAUUSD,Gold,Metals,5.50,2.00,100

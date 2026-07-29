@@ -1,0 +1,465 @@
+metrics:
+  # --- daily_user_activity (mrt_daily_user_activity) ---
+  - name: daily_gross_trade_revenue_total
+    description: The gross trade revenue - PNL plus trading cost - minus cashbacks
+    type: simple
+    label: Total gross trade revenue
+    type_params:
+      measure: daily_gross_trade_revenue
+
+  - name: daily_net_trade_revenue_total
+    description: The net trade revenue - PNL plus trading cost minus affiliate cost
+    type: simple
+    label: Total net trade revenue
+    type_params:
+      measure: daily_net_trade_revenue
+
+  - name: users_with_activity_total
+    description: Distinct count of active clients
+    type: simple
+    label: Active users
+    type_params:
+      measure: users_with_activity
+
+  - name: daily_company_pnl_total
+    description: Company side PNL
+    type: simple
+    label: Total company PNL
+    type_params:
+      measure: daily_company_pnl
+
+  - name: daily_gross_deposit_total
+    description: Client gross deposits
+    type: simple
+    label: Total gross deposits
+    type_params:
+      measure: daily_gross_deposit
+
+  - name: daily_withdrawal_total
+    description: Client withdrawals
+    type: simple
+    label: Total withdrawals
+    type_params:
+      measure: daily_withdrawal
+
+  - name: daily_net_deposit_total
+    description: Deposits minus withdrawals
+    type: simple
+    label: Total net deposits
+    type_params:
+      measure: daily_net_deposit
+
+  # Phase 4 / Phase 2b canonical names (same measures as *_total metrics above)
+  - name: gross_revenue
+    description: Total gross trade revenue (PNL plus trading cost minus cashbacks). Phase 2b canonical name.
+    type: simple
+    label: Gross revenue (canonical)
+    type_params:
+      measure: daily_gross_trade_revenue
+
+  - name: net_revenue
+    description: Total net trade revenue after affiliate cost. Phase 2b canonical name.
+    type: simple
+    label: Net revenue (canonical)
+    type_params:
+      measure: daily_net_trade_revenue
+
+  - name: active_users
+    description: Distinct users with activity in the period (Phase 2b canonical name).
+    type: simple
+    label: Active users (canonical)
+    type_params:
+      measure: users_with_activity
+
+  - name: gross_deposits
+    description: Total client gross deposits. Phase 2b canonical name.
+    type: simple
+    label: Gross deposits (canonical)
+    type_params:
+      measure: daily_gross_deposit
+
+  - name: net_flow
+    description: Net funding flow (deposits minus withdrawals). Phase 2b canonical name.
+    type: simple
+    label: Net flow (canonical)
+    type_params:
+      measure: daily_net_deposit
+
+  - name: avg_daily_gross_trade_revenue
+    description: Mean gross trade revenue per user-day row in the result set.
+    type: simple
+    label: Avg gross trade revenue (per user-day)
+    type_params:
+      measure: avg_daily_gross_trade_revenue
+
+  - name: avg_daily_net_trade_revenue
+    description: Mean net trade revenue per user-day row in the result set.
+    type: simple
+    label: Avg net trade revenue (per user-day)
+    type_params:
+      measure: avg_daily_net_trade_revenue
+
+  - name: avg_daily_net_deposit
+    description: Mean net deposit per user-day row in the result set.
+    type: simple
+    label: Avg net deposit (per user-day)
+    type_params:
+      measure: avg_daily_net_deposit
+
+  - name: withdrawal_ratio
+    description: Withdrawals divided by gross deposits (higher = more outflow vs inflow).
+    type: ratio
+    label: Withdrawal ratio
+    type_params:
+      numerator:
+        name: daily_withdrawal_total
+      denominator:
+        name: daily_gross_deposit_total
+
+  - name: net_revenue_per_active_user
+    description: Net trade revenue divided by distinct active users.
+    type: ratio
+    label: Net revenue per active user
+    type_params:
+      numerator:
+        name: daily_net_trade_revenue_total
+      denominator:
+        name: users_with_activity_total
+
+  - name: gross_revenue_per_active_user
+    description: Gross trade revenue divided by distinct active users.
+    type: ratio
+    label: Gross revenue per active user
+    type_params:
+      numerator:
+        name: daily_gross_trade_revenue_total
+      denominator:
+        name: users_with_activity_total
+
+  - name: net_flow_per_active_user
+    description: Net deposits divided by distinct active users.
+    type: ratio
+    label: Net flow per active user
+    type_params:
+      numerator:
+        name: daily_net_deposit_total
+      denominator:
+        name: users_with_activity_total
+
+  - name: cumulative_gross_trade_revenue
+    description: Running sum of gross trade revenue over time (lifetime-style from daily grain).
+    type: cumulative
+    label: Cumulative gross trade revenue
+    type_params:
+      measure: daily_gross_trade_revenue
+
+  - name: cumulative_net_trade_revenue
+    description: Running sum of net trade revenue over time.
+    type: cumulative
+    label: Cumulative net trade revenue
+    type_params:
+      measure: daily_net_trade_revenue
+
+  - name: cumulative_gross_deposits
+    description: Running sum of gross deposits over time.
+    type: cumulative
+    label: Cumulative gross deposits
+    type_params:
+      measure: daily_gross_deposit
+
+  - name: cumulative_net_flow
+    description: Running sum of net deposits (net flow) over time.
+    type: cumulative
+    label: Cumulative net flow
+    type_params:
+      measure: daily_net_deposit
+
+  - name: gross_trade_revenue_mtd
+    description: Month-to-date gross trade revenue.
+    type: cumulative
+    label: Gross trade revenue MTD
+    type_params:
+      measure: daily_gross_trade_revenue
+      cumulative_type_params:
+        grain_to_date: month
+
+  - name: net_trade_revenue_mtd
+    description: Month-to-date net trade revenue.
+    type: cumulative
+    label: Net trade revenue MTD
+    type_params:
+      measure: daily_net_trade_revenue
+      cumulative_type_params:
+        grain_to_date: month
+
+  - name: trailing_28_day_net_revenue
+    description: Rolling 28-day sum of net trade revenue.
+    type: cumulative
+    label: Trailing 28-day net revenue
+    type_params:
+      measure: daily_net_trade_revenue
+      cumulative_type_params:
+        window: 28 days
+
+  # --- company_performance (mrt_company_monthly_performance) ---
+  - name: actual_active_users_total
+    description: Actual monthly active users
+    type: simple
+    label: Actual active users
+    type_params:
+      measure: actual_active_users
+
+  - name: target_active_users_total
+    description: Company target for monthly active users
+    type: simple
+    label: Target active users
+    type_params:
+      measure: target_active_users
+
+  - name: actual_net_trade_revenue_total
+    description: Actual monthly net trade revenue
+    type: simple
+    label: Actual net trade revenue
+    type_params:
+      measure: actual_net_trade_revenue
+
+  - name: target_net_trade_revenue_total
+    description: Target monthly net trade revenue
+    type: simple
+    label: Target net trade revenue
+    type_params:
+      measure: target_net_trade_revenue
+
+  - name: actual_gross_deposit_total
+    description: Actual monthly gross deposit
+    type: simple
+    label: Actual gross deposits
+    type_params:
+      measure: actual_gross_deposit
+
+  - name: target_gross_deposit_total
+    description: Company target for monthly gross deposit
+    type: simple
+    label: Target gross deposits
+    type_params:
+      measure: target_gross_deposit
+
+  - name: active_users_attainment
+    description: Actual active users as a fraction of target (1.0 = on plan).
+    type: ratio
+    label: Active users attainment
+    type_params:
+      numerator:
+        name: actual_active_users_total
+      denominator:
+        name: target_active_users_total
+
+  - name: net_revenue_attainment
+    description: Actual net trade revenue as a fraction of target.
+    type: ratio
+    label: Net revenue attainment
+    type_params:
+      numerator:
+        name: actual_net_trade_revenue_total
+      denominator:
+        name: target_net_trade_revenue_total
+
+  - name: gross_deposit_attainment
+    description: Actual gross deposits as a fraction of target.
+    type: ratio
+    label: Gross deposit attainment
+    type_params:
+      numerator:
+        name: actual_gross_deposit_total
+      denominator:
+        name: target_gross_deposit_total
+
+  - name: active_users_vs_target
+    description: Actual minus target monthly active users.
+    type: derived
+    label: Active users vs target
+    type_params:
+      expr: actual_active_users_total - target_active_users_total
+      metrics:
+        - name: actual_active_users_total
+        - name: target_active_users_total
+
+  - name: net_revenue_vs_target
+    description: Actual minus target monthly net trade revenue (USD).
+    type: derived
+    label: Net revenue vs target
+    type_params:
+      expr: actual_net_trade_revenue_total - target_net_trade_revenue_total
+      metrics:
+        - name: actual_net_trade_revenue_total
+        - name: target_net_trade_revenue_total
+
+  - name: gross_deposit_vs_target
+    description: Actual minus target monthly gross deposits (USD).
+    type: derived
+    label: Gross deposits vs target
+    type_params:
+      expr: actual_gross_deposit_total - target_gross_deposit_total
+      metrics:
+        - name: actual_gross_deposit_total
+        - name: target_gross_deposit_total
+
+  - name: active_users_vs_target_pct
+    description: Percent variance of actual active users vs target.
+    type: derived
+    label: Active users vs target %
+    type_params:
+      expr: (actual_active_users_total - target_active_users_total) / NULLIF(target_active_users_total, 0)
+      metrics:
+        - name: actual_active_users_total
+        - name: target_active_users_total
+
+  - name: net_revenue_vs_target_pct
+    description: Percent variance of actual net revenue vs target.
+    type: derived
+    label: Net revenue vs target %
+    type_params:
+      expr: (actual_net_trade_revenue_total - target_net_trade_revenue_total) / NULLIF(target_net_trade_revenue_total, 0)
+      metrics:
+        - name: actual_net_trade_revenue_total
+        - name: target_net_trade_revenue_total
+
+  - name: gross_deposit_vs_target_pct
+    description: Percent variance of actual gross deposits vs target.
+    type: derived
+    label: Gross deposits vs target %
+    type_params:
+      expr: (actual_gross_deposit_total - target_gross_deposit_total) / NULLIF(target_gross_deposit_total, 0)
+      metrics:
+        - name: actual_gross_deposit_total
+        - name: target_gross_deposit_total
+
+  # --- daily_symbol_activity (mrt_instrument_daily_kpi) ---
+  - name: symbol_trade_count_total
+    description: Distinct trades for the symbol in the region on the day
+    type: simple
+    label: Total symbol trades
+    type_params:
+      measure: symbol_trade_count
+
+  - name: symbol_active_traders_total
+    description: Distinct users who traded the symbol in the region on the day
+    type: simple
+    label: Total symbol active traders
+    type_params:
+      measure: symbol_active_traders
+
+  - name: symbol_volume_lots_total
+    description: Total traded volume in standard lots for the symbol in the region on the day
+    type: simple
+    label: Total symbol volume (lots)
+    type_params:
+      measure: symbol_volume_lots
+
+  - name: symbol_company_pnl_total
+    description: Sum of company P/L (inverse of client P/L) for the symbol in the region on the day
+    type: simple
+    label: Total symbol company PNL
+    type_params:
+      measure: symbol_company_pnl_usd
+
+  - name: symbol_trade_cost_total
+    description: Sum of trade cost (commission per lot) for the symbol in the region on the day
+    type: simple
+    label: Total symbol trade cost
+    type_params:
+      measure: symbol_trade_cost_usd
+
+  - name: symbol_cashback_total
+    description: Sum of VIP-adjusted cashback for the symbol in the region on the day
+    type: simple
+    label: Total symbol cashback
+    type_params:
+      measure: symbol_cashback_usd
+
+  - name: symbol_trade_revenue_total
+    description: Sum of trade revenue (company P/L plus trade cost minus cashback) for the symbol in the region on the day
+    type: simple
+    label: Total symbol trade revenue
+    type_params:
+      measure: symbol_trade_revenue_usd
+
+  - name: avg_symbol_trade_revenue
+    description: Mean trade revenue per symbol-region-day row in the result set.
+    type: simple
+    label: Avg symbol trade revenue
+    type_params:
+      measure: avg_symbol_trade_revenue
+
+  - name: avg_symbol_volume_lots
+    description: Mean volume in lots per symbol-region-day row.
+    type: simple
+    label: Avg symbol volume (lots)
+    type_params:
+      measure: avg_symbol_volume_lots
+
+  - name: symbol_revenue_per_trade
+    description: Symbol trade revenue divided by trade count.
+    type: ratio
+    label: Symbol revenue per trade
+    type_params:
+      numerator:
+        name: symbol_trade_revenue_total
+      denominator:
+        name: symbol_trade_count_total
+
+  - name: symbol_revenue_per_trader
+    description: Symbol trade revenue divided by active traders.
+    type: ratio
+    label: Symbol revenue per trader
+    type_params:
+      numerator:
+        name: symbol_trade_revenue_total
+      denominator:
+        name: symbol_active_traders_total
+
+  - name: symbol_trades_per_trader
+    description: Symbol trade count divided by active traders.
+    type: ratio
+    label: Symbol trades per trader
+    type_params:
+      numerator:
+        name: symbol_trade_count_total
+      denominator:
+        name: symbol_active_traders_total
+
+  - name: symbol_volume_per_trade
+    description: Total symbol volume divided by trade count.
+    type: ratio
+    label: Symbol volume per trade
+    type_params:
+      numerator:
+        name: symbol_volume_lots_total
+      denominator:
+        name: symbol_trade_count_total
+
+  - name: cumulative_symbol_trade_revenue
+    description: Running sum of symbol trade revenue over time.
+    type: cumulative
+    label: Cumulative symbol trade revenue
+    type_params:
+      measure: symbol_trade_revenue_usd
+
+  - name: symbol_trade_revenue_mtd
+    description: Month-to-date symbol trade revenue.
+    type: cumulative
+    label: Symbol trade revenue MTD
+    type_params:
+      measure: symbol_trade_revenue_usd
+      cumulative_type_params:
+        grain_to_date: month
+
+  - name: symbol_cashback_pct_of_revenue
+    description: Symbol cashback as a share of symbol trade revenue.
+    type: derived
+    label: Symbol cashback % of revenue
+    type_params:
+      expr: symbol_cashback_total / NULLIF(symbol_trade_revenue_total, 0)
+      metrics:
+        - name: symbol_cashback_total
+        - name: symbol_trade_revenue_total

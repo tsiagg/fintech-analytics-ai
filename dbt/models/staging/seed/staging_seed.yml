@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: stg_seed_country_codes
+    description: >
+      Staging view over the country_codes seed: ISO-style country dimensions and
+      macro regions for joins to user and affiliate geography.
+
+    columns:
+      - name: country_code
+        description: "Two-letter country code (aligned with public-layer data)."
+
+      - name: country_name
+        description: "English display name for the country."
+
+      - name: region
+        description: "Reporting region (America, Europe, or Asia Pacific)."
+
+  - name: stg_seed_instrument_mapping
+    description: >
+      Staging view over the instrument_mapping seed: symbol metadata, illustrative
+      economics per lot, and contract size for lot-to-native-units conversion.
+
+    columns:
+      - name: symbol_name
+        description: "Ticker aligned with public.trades.symbol."
+
+      - name: symbol_nickname
+        description: "Short display label for dashboards."
+
+      - name: symbol_group
+        description: "Asset class bucket (e.g. FX Majors, Crypto, Metals)."
+
+      - name: symbol_trade_cost_per_lot
+        description: "Illustrative cost per lot (USD-style demo values)."
+
+      - name: symbol_cashback_per_lot
+        description: "Illustrative rebate per lot (USD-style demo values)."
+
+      - name: symbol_size
+        description: >
+          Native units per 1.0 lot; multiply by volume_lots for underlying quantity
+          (still requires price/FX for USD notional).
+
+  - name: stg_seed_region_monthly_targets
+    description: >
+      Staging view over region_monthly_targets: monthly regional plans (active traders,
+      net trade revenue, gross deposits) keyed by start_date and end_date. Downstream
+      marts prorate to daily or compare MTD actuals to the monthly plan.
+    columns:
+      - name: region
+        description: "Reporting region (America, Europe, or Asia Pacific)."
+      - name: start_date
+        description: "First calendar day this target row applies (inclusive)."
+      - name: end_date
+        description: "Last calendar day this target row applies (inclusive)."
+      - name: target_monthly_active_traders
+        description: "Planned active traders for one calendar month in the region."
+      - name: target_monthly_net_trade_revenue_usd
+        description: "Planned net trade revenue (USD) for one calendar month in the region."
+      - name: target_monthly_gross_deposit_usd
+        description: "Planned gross deposits (USD) for one calendar month in the region."

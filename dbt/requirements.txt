@@ -1,0 +1,6 @@
+# dbt + Postgres adapter + MetricFlow (bundle pins compatible dbt-core versions).
+# Install from repo root with venv active: pip install -r dbt/requirements.txt
+dbt-metricflow[dbt-postgres]==0.13.0
+
+# Note: dbt-metricflow currently requires dbt-core >=1.10.4,<1.12.0 (installs 1.11.x).
+# MetricFlow CLI: mf list metrics --project-dir dbt --profiles-dir dbt (after dbt parse/run).

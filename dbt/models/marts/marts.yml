@@ -1,0 +1,283 @@
+version: 2
+
+models:
+  - name: mrt_daily_user_activity
+    description: "Daily user metrics combining trading, funding, and affiliate cost."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - user_id
+              - effective_date
+    columns:
+      - name: user_id
+        description: "Customer identifier."
+        tests:
+          - not_null
+      - name: signup_date
+        description: "Date the user signed up."
+      - name: user_group
+        description: "VIP status (vip or normal)."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["vip", "normal"]
+      - name: acquisition_channel
+        description: "Affiliate or Direct signup."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Affiliate", "Direct"]
+      - name: country_name
+        description: "User country name."
+      - name: region
+        description: "User reporting region."
+      - name: effective_date
+        description: "Activity date."
+      - name: affiliate_cost_usd
+        description: "Affiliate acquisition cost on first trade day."
+      - name: daily_client_pnl_usd
+        description: "Total client P/L for the day."
+      - name: daily_company_pnl_usd
+        description: "Total company P/L for the day."
+      - name: daily_trade_cost_usd
+        description: "Total trade cost for the day."
+      - name: daily_cashback_usd
+        description: "Total cashback for the day."
+      - name: daily_trade_revenue_usd
+        description: "Total trade revenue for the day."
+      - name: daily_net_trade_revenue_usd
+        description: "Trade revenue minus affiliate cost."
+      - name: daily_gross_deposit_usd
+        description: "Total deposits for the day."
+      - name: daily_withdrawal_usd
+        description: "Total withdrawals for the day."
+      - name: daily_net_deposit_usd
+        description: "Net funding for the day (deposits minus withdrawals)."
+
+  - name: mrt_user_lifetime
+    description: "One row per customer with cumulative LTV and activity through loaded history."
+    columns:
+      - name: user_id
+        description: "Customer identifier."
+        tests:
+          - unique
+          - not_null
+      - name: signup_date
+        description: "Date the user signed up."
+      - name: user_group
+        description: "VIP status (vip or normal)."
+      - name: acquisition_channel
+        description: "Affiliate or Direct signup."
+      - name: country_name
+        description: "User country name."
+      - name: region
+        description: "User reporting region."
+      - name: first_trade_date
+        description: "First calendar day with at least one trade."
+      - name: last_trade_date
+        description: "Most recent calendar day with at least one trade."
+      - name: first_activity_date
+        description: "First day with trading or funding in the daily mart."
+      - name: last_activity_date
+        description: "Most recent day with trading or funding in the daily mart."
+      - name: days_with_trades
+        description: "Distinct days with at least one trade."
+      - name: days_with_any_activity
+        description: "Distinct days with trading or funding activity."
+      - name: lifetime_trade_count
+        description: "Total number of trades."
+      - name: lifetime_trade_revenue_usd
+        description: "Sum of daily trade revenue (company economics)."
+      - name: lifetime_net_trade_revenue_usd
+        description: "Sum of daily net trade revenue after affiliate cost."
+      - name: lifetime_gross_deposit_usd
+        description: "Sum of completed deposits."
+      - name: lifetime_withdrawal_usd
+        description: "Sum of completed withdrawals."
+      - name: lifetime_net_deposit_usd
+        description: "Sum of daily net deposits (funding LTV)."
+      - name: lifetime_affiliate_cost_usd
+        description: "Total affiliate acquisition cost (first trade day)."
+
+  - name: mrt_company_monthly_performance
+    description: >
+      Regional monthly company performance vs plan. Actuals roll up daily user
+      activity to region and calendar month; targets come from region_monthly_targets
+      for the month where effective_month falls between start_date and end_date.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - region
+              - effective_month
+    columns:
+      - name: region
+        description: "Reporting region (America, Europe, or Asia Pacific)."
+        tests:
+          - not_null
+      - name: effective_month
+        description: "First day of the calendar month (activity month)."
+        tests:
+          - not_null
+      - name: actual_active_users
+        description: "Distinct users with activity in the region during the month."
+        tests:
+          - not_null
+      - name: target_active_users
+        description: "Planned monthly active traders from region_monthly_targets."
+        tests:
+          - not_null
+      - name: actual_net_trade_revenue_usd
+        description: >
+          Sum of daily net trade revenue (trade revenue minus affiliate cost) for
+          the region in the month.
+        tests:
+          - not_null
+      - name: target_net_trade_revenue_usd
+        description: "Planned monthly net trade revenue from region_monthly_targets."
+        tests:
+          - not_null
+      - name: actual_gross_deposit_usd
+        description: "Sum of daily gross deposits for the region in the month."
+        tests:
+          - not_null
+      - name: target_gross_deposit_usd
+        description: "Planned monthly gross deposits from region_monthly_targets."
+        tests:
+          - not_null
+
+  - name: mrt_user_retention
+    description: >
+      One row per customer with signup-cohort and return-to-activity retention flags
+      at standard day offsets (0, 1, 7, 30). Built from intermediate activity only;
+      not CRM churn (simulator has no inactivity removal). Trader retention = traded
+      on signup_date + offset; activity retention = trading or funding on that day.
+      Aggregate by cohort_period, region, and acquisition_channel for retention curves.
+    columns:
+      - name: user_id
+        description: "Customer identifier."
+        tests:
+          - unique
+          - not_null
+      - name: signup_date
+        description: "Date the user signed up."
+        tests:
+          - not_null
+      - name: user_group
+        description: "VIP status (vip or normal)."
+      - name: acquisition_channel
+        description: "Affiliate or Direct signup."
+      - name: country_name
+        description: "User country name."
+      - name: region
+        description: "User reporting region."
+      - name: cohort_period
+        description: "Start of signup week (Monday-based) used for cohort reporting."
+        tests:
+          - not_null
+      - name: days_from_signup_to_first_trade
+        description: "Calendar days from signup to first trade; null if never traded."
+      - name: is_trader_retained_day_0
+        description: "Traded on signup_date."
+      - name: is_trader_retained_day_1
+        description: "Traded on signup_date + 1 day."
+      - name: is_trader_retained_day_7
+        description: "Traded on signup_date + 7 days."
+      - name: is_trader_retained_day_30
+        description: "Traded on signup_date + 30 days."
+      - name: is_active_retained_day_0
+        description: "Trading or funding activity on signup_date."
+      - name: is_active_retained_day_1
+        description: "Trading or funding activity on signup_date + 1 day."
+      - name: is_active_retained_day_7
+        description: "Trading or funding activity on signup_date + 7 days."
+      - name: is_active_retained_day_30
+        description: "Trading or funding activity on signup_date + 30 days."
+      - name: is_active_last_7d
+        description: >
+          True when the user had trading or funding in the last 7 calendar days
+          of loaded history (relative to max effective_date in int_fct_daily_user_activity).
+          Cohort retention curves (by cohort_period, region, channel, day offset) are
+          built by aggregating this mart in BI or downstream SQL.
+
+  - name: mrt_instrument_daily_kpi
+    description: >
+      Daily trading KPIs by reporting region and instrument (symbol). Rolled up from
+      int_fct_daily_trading joined to int_dim_users for region, with instrument seed
+      attributes for dashboards and regional product mix analysis. Trading economics
+      only (no funding — deposits are not instrument-attributed). USD notional volume
+      is out of scope until trade prices exist.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - effective_date
+              - region
+              - symbol_name
+    columns:
+      - name: effective_date
+        description: "Calendar day of trading activity."
+        tests:
+          - not_null
+      - name: region
+        description: "User reporting region (from int_dim_users / country seed)."
+      - name: symbol_name
+        description: "Instrument ticker aligned with public.trades.symbol."
+        tests:
+          - not_null
+      - name: symbol_nickname
+        description: "Short display label from instrument_mapping (e.g. Euro, Gold)."
+      - name: symbol_group
+        description: "Asset class bucket (FX Majors, Crypto, Metals)."
+      - name: trade_count
+        description: "Number of distinct trades for the symbol on the day."
+        tests:
+          - not_null
+      - name: active_traders
+        description: "Distinct users who traded the symbol on the day."
+        tests:
+          - not_null
+      - name: volume_lots
+        description: "Total traded volume in standard lots."
+        tests:
+          - not_null
+      - name: client_pnl_usd
+        description: "Sum of client realized P/L for the symbol on the day."
+        tests:
+          - not_null
+      - name: company_pnl_usd
+        description: "Sum of company P/L (inverse of client P/L) for the day."
+        tests:
+          - not_null
+      - name: trade_cost_usd
+        description: "Sum of commission (cost per lot) for the day."
+        tests:
+          - not_null
+      - name: cashback_usd
+        description: "Sum of VIP-adjusted cashback for the day."
+        tests:
+          - not_null
+      - name: trade_revenue_usd
+        description: "Sum of trade revenue (company P/L + trade cost - cashback)."
+        tests:
+          - not_null
+
+exposures:
+
+  - name: airflow_generate_cfo_report
+    label: Airflow Generate CFO Report
+    type: application
+    maturity: high
+    description: "Airflow task that generates the CFO daily report and provides key metrics for report design"
+
+    depends_on:
+      - ref('mrt_company_daily_kpi')
+      - ref('mrt_geo_daily_revenue')
+      - ref('mrt_instrument_daily_kpi')
+      - ref('mrt_company_monthly_performance')
+
+    owner:
+      name: Angelos Tsiannis

@@ -1,0 +1,39 @@
+name: fintech_analytics
+version: 1.0.0
+config-version: 2
+
+profile: fintech_analytics
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - target
+  - dbt_packages
+
+# MetricFlow time spine range (inclusive start, exclusive end).
+vars:
+  metricflow_time_spine_start: "2025-01-01"
+  metricflow_time_spine_end: "2028-01-01"
+
+models:
+  fintech_analytics:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table
+    serving:
+      +materialized: table
+      streamlit_dashboard:
+        +materialized: table
+        +tags: ['serving', 'streamlit_dashboard']
+    semantic_models:
+      +materialized: table
+      utils:
+        +materialized: table

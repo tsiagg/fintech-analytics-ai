@@ -1,0 +1,19 @@
+version: 2
+
+sources:
+  - name: src_public       # Name used to reference the source in your SQL
+    description: "Raw data loaded from fintech.public schema."
+    database: fintech    # Your database name
+    schema: public # Your schema name
+
+    tables: # The name of the table in your warehouse
+      - name: users           
+        description: "Raw user table"
+      - name: affiliates
+        description: "Raw affiliates table"
+      - name: trades           
+        description: "Raw trades table"
+      - name: deposits           
+        description: "Raw deposits table"
+      - name: withdrawals           
+        description: "Raw withdrawals table"

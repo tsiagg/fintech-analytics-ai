@@ -1,0 +1,100 @@
+version: 2
+
+models:
+  - name: mrt_company_daily_kpi
+    description: >
+      Company-wide daily executive KPIs for the Streamlit dashboard (KPI cards,
+      trends, CFO snapshots). App-facing rollup in the serving layer; rolled up
+      from mrt_daily_user_activity. Gross revenue is trade revenue before affiliate
+      cost; net revenue subtracts affiliate acquisition cost on first-trade days.
+      Net flow is deposits minus withdrawals. Withdrawal ratio is withdrawals
+      divided by gross deposits (null when deposits are zero).
+    config:
+      tags: ['serving', 'streamlit_dashboard']
+    columns:
+      - name: effective_date
+        description: "Calendar day of company activity."
+        tests:
+          - not_null
+          - unique
+      - name: active_users
+        description: "Distinct users with trading or funding activity on the day."
+        tests:
+          - not_null
+      - name: new_users
+        description: "Distinct users whose signup_date equals the day (new signups), from int_dim_users; 0 when none."
+        tests:
+          - not_null
+      - name: gross_revenue_usd
+        description: "Sum of daily trade revenue (company P/L + trade cost - cashback)."
+        tests:
+          - not_null
+      - name: net_revenue_usd
+        description: "Sum of daily net trade revenue (trade revenue minus affiliate cost)."
+        tests:
+          - not_null
+      - name: gross_deposits_usd
+        description: "Sum of completed deposits for the day."
+        tests:
+          - not_null
+      - name: withdrawals_usd
+        description: "Sum of completed withdrawals for the day."
+        tests:
+          - not_null
+      - name: net_flow_usd
+        description: "Net funding for the day (gross deposits minus withdrawals)."
+        tests:
+          - not_null
+      - name: withdrawal_ratio
+        description: "Withdrawals divided by gross deposits; null when deposits are zero."
+      - name: net_revenue_per_user_usd
+        description: "Net trade revenue divided by active users for the day."
+      - name: gross_deposit_per_user_usd
+        description: "Gross deposits divided by active users for the day."
+
+  - name: mrt_geo_daily_revenue
+    description: >
+      Daily gross trade revenue at country grain with region for the Streamlit
+      executive dashboard. Streamlit aggregates to region or country for the
+      stacked-bar view. Rolled up from mrt_daily_user_activity.
+    config:
+      tags: ['serving', 'streamlit_dashboard']
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - effective_date
+              - country_name
+    columns:
+      - name: effective_date
+        description: "Calendar day of activity."
+        tests:
+          - not_null
+      - name: country_name
+        description: "User country display name."
+        tests:
+          - not_null
+      - name: region
+        description: "Reporting region (America, Europe, or Asia Pacific)."
+        tests:
+          - not_null
+      - name: gross_revenue_usd
+        description: "Sum of daily trade revenue for the country on the day."
+        tests:
+          - not_null
+
+exposures:
+
+  - name: streamlit_executive_dashboard
+    label: Streamlit Executive Dashboard
+    type: dashboard
+    maturity: high
+    url: http://localhost:8501/
+    description: "Executive dashboard for the fintech analytics project."
+
+    depends_on:
+      - ref('mrt_company_daily_kpi')
+      - ref('mrt_geo_daily_revenue')
+
+    owner:
+      name: Angelos Tsiannis

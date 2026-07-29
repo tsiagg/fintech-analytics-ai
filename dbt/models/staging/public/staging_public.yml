@@ -1,0 +1,89 @@
+version: 2
+
+models:
+  - name: stg_public_users
+    description: "Cleaned customer data from the Fintech public schema"
+    columns:
+      - name: user_id
+        description: "The unique identifier for the customer"
+        tests:
+          - unique
+          - not_null
+      - name: signup_date
+        description: "Timestamp of the user's signup"
+        tests:
+          - not_null
+      - name: country_code
+        description: "2 letter country code"
+        tests:
+          - not_null
+      - name: vip_status
+        description: "Defines if the user is a VIP. Means high wealth clients."
+      - name: affiliate_id
+        description: "Foreign key to the affiliates table, if null means client signed up directly."
+
+  - name: stg_public_affiliates
+    description: "Channel partners and acquisition costs from the Fintech public schema."
+    columns:
+      - name: affiliate_id
+        description: "The unique identifier for the affiliate."
+      - name: country_code
+        description: "Country associated with this affiliate."
+      - name: tier
+        description: "Partner tier (e.g. tier_a, tier_b) used for commercial terms."
+      - name: acquisition_cost
+        description: "Modelled cost in cents to acquire traffic or leads for this affiliate."
+
+  - name: stg_public_trades
+    description: "Executed trades from the Fintech public schema — volume in lots and realized P/L."
+    columns:
+      - name: trade_id
+        description: "The unique identifier for the trade."
+      - name: user_id
+        description: "Customer who opened the trade; links to users."
+      - name: symbol
+        description: "Instrument ticker (e.g. EURUSD, BTCUSD)."
+      - name: volume_lots
+        description: "Position size in standard lots (see instrument mapping for contract size)."
+      - name: pnl
+        description: "Realized profit or loss for the trade in account currency (negative = loss)."
+      - name: trade_ts
+        description: "When the trade was executed (UTC)."
+      - name: batch_date
+        description: "Business date this trade belongs to (simulation batch)."
+
+  - name: stg_public_deposits
+    description: "Funding events from the Fintech public schema."
+    columns:
+      - name: deposit_id
+        description: "The unique identifier for the deposit."
+      - name: user_id
+        description: "Customer receiving the deposit; links to users."
+      - name: amount
+        description: "Deposit amount in account currency."
+      - name: status
+        description: "Lifecycle status of the deposit (e.g. completed, pending, failed)."
+      - name: payment_provider
+        description: "Rails used for the payment (e.g. stripe, adyen)."
+      - name: deposit_ts
+        description: "When the deposit was recorded (UTC)."
+      - name: batch_date
+        description: "Business date this deposit belongs to (simulation batch)."
+
+  - name: stg_public_withdrawals
+    description: "Payout events from the Fintech public schema."
+    columns:
+      - name: withdrawal_id
+        description: "The unique identifier for the withdrawal."
+      - name: user_id
+        description: "Customer initiating the withdrawal; links to users."
+      - name: amount
+        description: "Withdrawal amount in account currency."
+      - name: status
+        description: "Lifecycle status of the withdrawal (e.g. completed, pending, failed)."
+      - name: payment_provider
+        description: "Rails used for the payout (e.g. stripe, adyen)."
+      - name: withdrawal_ts
+        description: "When the withdrawal was recorded (UTC)."
+      - name: batch_date
+        description: "Business date this withdrawal belongs to (simulation batch)."

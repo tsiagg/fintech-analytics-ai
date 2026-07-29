@@ -1,0 +1,97 @@
+semantic_models:
+  - name: daily_user_activity
+    defaults:
+      agg_time_dimension: effective_date
+    description: Semantic model for daily user activity. Includes daily trading, funding, and affiliate cost data.
+    model: ref('mrt_daily_user_activity')
+    
+    entities:
+      # One row per user per day; composite key matches marts.yml unique test on (user_id, effective_date).
+      - name: user_day
+        type: primary
+        expr: user_id::text || '|' || effective_date::text
+
+      - name: user
+        type: foreign
+        expr: user_id
+        description: Customer identifier for joins to a user dimension semantic model
+
+    dimensions:
+      - name: user_id
+        type: categorical
+        description: Individual customer identifier (high cardinality; use with an order + small limit).
+      - name: effective_date
+        type: time
+        description: Represents activity date
+        type_params:
+          time_granularity: day
+      - name: signup_date
+        type: time
+        description: Date that customer registered
+        type_params:
+          time_granularity: day
+      - name: user_group
+        type: categorical
+        description: Defines if customer is VIP or Normal
+      - name: acquisition_channel
+        type: categorical
+        description: Defines if customer is source via Affiliates or Direct
+      - name: country_name
+        type: categorical
+        description: User country name
+      - name: reporting_region
+        type: categorical
+        expr: region
+        description: User commercial region for slicing metrics (same column as join key on regional models).
+     
+    measures:   
+      - name: daily_gross_trade_revenue
+        description: The gross trade revenue - PNL plus trading cost - minus cashbacks
+        agg: sum
+        create_metric: false
+        expr: daily_trade_revenue_usd
+      - name: daily_net_trade_revenue
+        description: The net trade revenue - PNL plus trading cost minus affiliate cost
+        agg: sum
+        create_metric: false
+        expr: daily_net_trade_revenue_usd
+      - name: users_with_activity
+        description: Distinct count of active clients
+        agg: count_distinct
+        create_metric: false
+        expr: user_id
+      - name: daily_company_pnl
+        description: Company side PNL
+        agg: sum
+        create_metric: false
+        expr: daily_company_pnl_usd
+      - name: daily_gross_deposit
+        description: Client gross deposits
+        agg: sum
+        create_metric: false
+        expr: daily_gross_deposit_usd
+      - name: daily_withdrawal
+        description: Client withdrawals
+        agg: sum
+        create_metric: false
+        expr: daily_withdrawal_usd
+      - name: daily_net_deposit
+        description: Deposits minus withdrawals 
+        agg: sum
+        create_metric: false
+        expr: daily_net_deposit_usd
+      - name: avg_daily_gross_trade_revenue
+        description: Mean gross trade revenue per user-day row (use ratio metrics for per-active-user averages).
+        agg: average
+        create_metric: false
+        expr: daily_trade_revenue_usd
+      - name: avg_daily_net_trade_revenue
+        description: Mean net trade revenue per user-day row.
+        agg: average
+        create_metric: false
+        expr: daily_net_trade_revenue_usd
+      - name: avg_daily_net_deposit
+        description: Mean net deposit per user-day row.
+        agg: average
+        create_metric: false
+        expr: daily_net_deposit_usd

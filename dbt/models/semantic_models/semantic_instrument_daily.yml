@@ -1,0 +1,86 @@
+semantic_models:
+  - name: daily_symbol_activity
+    defaults:
+      agg_time_dimension: effective_date
+    description: Semantic model for daily instrument (symbol) trading KPIs by region, rolled up from mrt_instrument_daily_kpi.
+    model: ref('mrt_instrument_daily_kpi')
+
+    entities:
+      # One row per symbol per region per day; composite key matches marts.yml unique test on (effective_date, region, symbol_name).
+      - name: symbol_region_day
+        type: primary
+        expr: effective_date::text || '|' || region::text || '|' || symbol_name::text
+
+      - name: symbol
+        type: foreign
+        expr: symbol_name
+        description: Instrument ticker for joins to an instrument dimension semantic model.
+
+      - name: region
+        type: foreign
+        expr: region
+        description: Reporting region for joins to regional or company semantic models.
+
+    dimensions:
+      - name: effective_date
+        type: time
+        description: Calendar day of trading activity.
+        type_params:
+          time_granularity: day
+      - name: symbol_group
+        type: categorical
+        description: Asset class bucket from instrument mapping (e.g. FX Majors, Crypto, Metals).
+      - name: symbol_nickname
+        type: categorical
+        description: Short display label from instrument mapping (e.g. Euro, Gold).
+      - name: reporting_region
+        type: categorical
+        expr: region
+        description: User reporting region for slicing metrics (same as join key).
+
+    measures:
+      - name: symbol_trade_count
+        description: Distinct trades for the symbol in the region on the day.
+        agg: sum
+        create_metric: false
+        expr: trade_count
+      - name: symbol_active_traders
+        description: Distinct users who traded the symbol in the region on the day.
+        agg: sum
+        create_metric: false
+        expr: active_traders
+      - name: symbol_volume_lots
+        description: Total traded volume in standard lots for the symbol in the region on the day.
+        agg: sum
+        create_metric: false
+        expr: volume_lots
+      - name: symbol_company_pnl_usd
+        description: Sum of company P/L (inverse of client P/L) for the symbol in the region on the day.
+        agg: sum
+        create_metric: false
+        expr: company_pnl_usd
+      - name: symbol_trade_cost_usd
+        description: Sum of trade cost (commission per lot) for the symbol in the region on the day.
+        agg: sum
+        create_metric: false
+        expr: trade_cost_usd
+      - name: symbol_cashback_usd
+        description: Sum of VIP-adjusted cashback for the symbol in the region on the day.
+        agg: sum
+        create_metric: false
+        expr: cashback_usd
+      - name: symbol_trade_revenue_usd
+        description: Sum of trade revenue (company P/L plus trade cost minus cashback) for the symbol in the region on the day.
+        agg: sum
+        create_metric: false
+        expr: trade_revenue_usd
+      - name: avg_symbol_trade_revenue
+        description: Mean trade revenue per symbol-region-day row.
+        agg: average
+        create_metric: false
+        expr: trade_revenue_usd
+      - name: avg_symbol_volume_lots
+        description: Mean volume in lots per symbol-region-day row.
+        agg: average
+        create_metric: false
+        expr: volume_lots

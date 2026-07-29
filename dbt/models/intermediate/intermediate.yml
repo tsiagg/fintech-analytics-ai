@@ -1,0 +1,149 @@
+version: 2
+
+models:
+  - name: int_fct_daily_trading
+    description: "Trade-level facts with cost, cashback, and revenue per trade."
+    columns:
+      - name: effective_date
+        description: "Calendar date of the trade."
+        tests:
+          - not_null
+      - name: trade_id
+        description: "Unique trade identifier."
+        tests:
+          - unique
+          - not_null
+      - name: user_id
+        description: "Customer who placed the trade."
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('int_dim_users')
+                field: user_id
+      - name: symbol
+        description: "Instrument ticker."
+      - name: symbol_group
+        description: "Asset class from instrument mapping."
+      - name: volume_lots
+        description: "Trade size in lots."
+      - name: client_pnl_usd
+        description: "Client realized P/L in USD."
+      - name: company_pnl_usd
+        description: "Company P/L in USD (inverse of client P/L)."
+      - name: trade_cost_usd
+        description: "Commission that client pays to the company for the trade."
+      - name: adjusted_cashback_per_trade_usd
+        description: "Cashback in USD. VIP clients get an upgraded cashback rate per symbol group."
+      - name: trade_revenue_usd
+        description: "Trade revenue is sum of Company P/L and Trade Cost minus Cashback."
+
+  - name: int_fct_daily_funding
+    description: "Daily deposit and withdrawal totals per user."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - user_id
+              - effective_date
+    columns:
+      - name: user_id
+        description: "Customer identifier."
+        tests:
+          - not_null
+      - name: effective_date
+        description: "Calendar date of funding activity."
+        tests:
+          - not_null
+      - name: gross_deposit_usd
+        description: "Completed deposits in USD for the day."
+      - name: withdrawal_usd
+        description: "Completed withdrawals in USD for the day."
+      - name: net_deposit_usd
+        description: "Deposits minus withdrawals in USD."
+
+  - name: int_fct_affiliates_cost
+    description: "Affiliate acquisition cost on each user's first trade date."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - user_id_acquired
+    columns:
+      - name: effective_date
+        description: "User's first trade date."
+      - name: affiliate_id
+        description: "Affiliate linked to the user."
+        tests:
+          - not_null
+      - name: affiliate_country_code
+        description: "Affiliate country."
+      - name: user_id_acquired
+        description: "Acquired user identifier."
+        tests:
+          - not_null
+      - name: user_country_code
+        description: "Acquired user country."
+      - name: affiliate_tier
+        description: "Affiliate tier."
+      - name: acquisition_cost_usd
+        description: "One-off acquisition cost in USD."
+
+  - name: int_dim_users
+    description: "User dimension with geography and acquisition attributes."
+    columns:
+      - name: user_id
+        description: "Customer identifier."
+        tests:
+          - unique
+          - not_null
+      - name: signup_date
+        description: "Date the user signed up."
+      - name: country_code
+        description: "Two-letter country code."
+      - name: user_group
+        description: "VIP status (vip or normal)."
+      - name: acquisition_channel
+        description: "Affiliate or Direct signup."
+      - name: affiliate_id
+        description: "Affiliate linked at signup, if any."
+      - name: country_name
+        description: "User country display name."
+      - name: region
+        description: "User reporting region."
+
+  - name: int_fct_daily_user_activity
+    description: "Daily trading and funding metrics per user before dimension enrichment."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - user_id
+              - effective_date
+    columns:
+      - name: user_id
+        description: "Customer identifier."
+        tests:
+          - not_null
+      - name: effective_date
+        description: "Activity date."
+        tests:
+          - not_null
+      - name: daily_client_pnl_usd
+        description: "Total client P/L for the day."
+      - name: daily_company_pnl_usd
+        description: "Total company P/L for the day."
+      - name: daily_trade_cost_usd
+        description: "Total trade cost for the day."
+      - name: daily_cashback_usd
+        description: "Total cashback for the day."
+      - name: daily_trade_revenue_usd
+        description: "Total trade revenue for the day."
+      - name: daily_gross_deposit_usd
+        description: "Total deposits for the day."
+      - name: daily_withdrawal_usd
+        description: "Total withdrawals for the day."
+      - name: daily_net_deposit_usd
+        description: "Net funding for the day."
+      - name: affiliate_cost_usd
+        description: "Affiliate acquisition cost on first trade day."

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI CFO Report</title>
+<style>
+  :root {
+    --navy: #0b1f3a;
+    --navy-2: #1f4e79;
+    --ink: #1a1a1a;
+    --muted: #5b6470;
+    --line: #e3e7ed;
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --green: #1a7f4b;
+    --green-bg: #e7f4ec;
+    --amber: #9a6700;
+    --amber-bg: #fdf3da;
+    --red: #b3261e;
+    --red-bg: #fbe9e7;
+    --blue-bg: #eaf1f8;
+    --accent: #2563a8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Georgia", "Times New Roman", serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 980px;
+    margin: 32px auto;
+    background: var(--card);
+    box-shadow: 0 2px 18px rgba(11, 31, 58, 0.08);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .masthead {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: #fff;
+    padding: 30px 44px 26px;
+  }
+  .masthead .eyebrow {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 11px;
+    opacity: 0.8;
+    margin: 0 0 8px;
+  }
+  .masthead h1 { margin: 0; font-size: 30px; font-weight: 700; letter-spacing: 0.2px; }
+  .masthead .asof { margin: 6px 0 0; font-size: 15px; opacity: 0.92; }
+  .meta-row {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 26px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    opacity: 0.85;
+  }
+  .meta-row span b { font-weight: 600; }
+  .body { padding: 8px 44px 40px; }
+  section { padding: 26px 0; border-bottom: 1px solid var(--line); }
+  section:last-child { border-bottom: none; }
+  .kicker {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 700;
+    margin: 0 0 6px;
+  }
+  h2 { font-size: 21px; margin: 0 0 10px; color: var(--navy); }
+  .overview-narrative { font-size: 16px; color: #222; }
+  .overview-narrative p:first-child { margin-top: 0; }
+  .scorecard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 22px;
+  }
+  .tile {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 14px 14px 16px;
+    background: #fff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  .tile .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .tile .value { font-size: 24px; font-weight: 700; color: var(--navy); letter-spacing: -0.5px; }
+  .tile .delta { font-size: 12.5px; margin-top: 6px; font-weight: 600; }
+  .tile .sub { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .up { color: var(--green); }
+  .down { color: var(--red); }
+  .pill {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+  .pill.achieved { background: var(--green-bg); color: var(--green); }
+  .pill.ontrack  { background: var(--blue-bg);  color: var(--accent); }
+  .pill.atrisk   { background: var(--amber-bg); color: var(--amber); }
+  .pill.offtrack { background: var(--red-bg);   color: var(--red); }
+  ul.key { margin: 0 0 6px; padding-left: 20px; }
+  ul.key li { margin: 7px 0; font-size: 15.5px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+  }
+  th, td { text-align: right; padding: 9px 10px; border-bottom: 1px solid var(--line); }
+  th:first-child, td:first-child { text-align: left; }
+  thead th {
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 11px;
+    border-bottom: 2px solid var(--navy-2);
+  }
+  .status-tag { font-weight: 700; }
+  .status-tag.achieved { color: var(--green); }
+  .status-tag.ontrack  { color: var(--accent); }
+  .status-tag.atrisk   { color: var(--amber); }
+  .status-tag.offtrack { color: var(--red); }
+  .footnote { font-size: 11.5px; color: var(--muted); font-family: "Helvetica Neue", Arial, sans-serif; margin-top: 8px; }
+  details { margin-top: 10px; border-left: 3px solid var(--line); padding-left: 14px; }
+  details summary {
+    cursor: pointer;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--accent);
+    list-style: none;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: "\25b8 "; }
+  details[open] summary::before { content: "\25be "; }
+  details .detail-body { margin-top: 8px; font-size: 14.5px; color: #333; }
+  .method-note {
+    background: var(--blue-bg);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12.5px;
+    color: var(--navy);
+    margin-top: 14px;
+  }
+  .method-note b { color: var(--accent); }
+  footer {
+    padding: 18px 44px 30px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 11.5px;
+    color: var(--muted);
+    background: #fbfcfe;
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 720px) {
+    .scorecard { grid-template-columns: repeat(2, 1fr); }
+    .masthead, .body, footer { padding-left: 22px; padding-right: 22px; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="masthead">
+      <p class="eyebrow">AI CFO Report &middot; Fintech Analytics</p>
+      <h1>Executive Performance Review</h1>
+      <p class="asof">As of <strong>{{ meta.as_of_display }}</strong> &middot; {{ meta.period_label }}</p>
+      <div class="meta-row">
+        <span><b>Generated:</b> {{ meta.generated_at }}</span>
+        <span><b>Model:</b> {{ meta.model }}</span>
+        <span><b>Tokens:</b> {{ meta.tokens }}</span>
+        <span><b>Source:</b> analytics_dev marts (warehouse-computed)</span>
+      </div>
+    </div>
+
+    <div class="body">
+
+      {% set exec = sections[0] %}
+      <section>
+        <p class="kicker">Executive Summary</p>
+        {% if exec.headline %}<h2>{{ exec.headline }}</h2>{% endif %}
+        <div class="overview-narrative"><p>{{ overview }}</p></div>
+
+        <div class="scorecard">
+          {% for t in scorecard %}
+          <div class="tile">
+            <div class="label">{{ t.label }}</div>
+            <div class="value">{{ t.value_fmt }}</div>
+            {% if t.delta_fmt and t.delta_fmt != 'n/a' %}
+            <div class="delta {{ t.delta_css }}">{{ t.delta_fmt }}</div>
+            {% endif %}
+            <div class="sub">{{ t.sub }}</div>
+            {% if t.secondary_fmt %}
+            <div class="sub" style="margin-top:7px;">
+              {{ t.secondary_label }}: <b>{{ t.secondary_fmt }}</b>
+              {% if t.secondary_delta_fmt and t.secondary_delta_fmt != 'n/a' %}
+              <span class="{{ t.secondary_delta_css }}">{{ t.secondary_delta_fmt }}</span>
+              {% endif %}
+            </div>
+            {% endif %}
+            {% if t.note %}
+            <div class="sub" style="font-style:italic;">{{ t.note }}</div>
+            {% endif %}
+            {% if t.has_target and t.status %}
+            <span class="pill {{ t.status }}">{{ t.status_label }}</span>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        <p class="footnote">
+          WoW compares a rolling 7-day window (not calendar weeks): last 7 days
+          ({{ meta.wow_current_range }}) vs the prior 7 days ({{ meta.wow_prior_range }}).
+          MTD figures compare {{ meta.period_label | lower }} against the prior month over the same number of days.
+        </p>
+      </section>
+
+      {% for s in sections %}
+      {% if s.id != 'exec_summary' %}
+      <section>
+        <p class="kicker">{{ s.num }} &middot; {{ s.title }}</p>
+        {% if s.headline %}<h2>{{ s.headline }}</h2>{% endif %}
+
+        {% if s.bullets %}
+        <ul class="key">
+          {% for b in s.bullets %}<li>{{ b }}</li>{% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if s.id == 'trends_targets' and targets %}
+        <table>
+          <thead>
+            <tr>
+              <th>Metric</th><th>Actual (MTD)</th><th>Expected pace*</th>
+              <th>% of target</th><th>Projected EOM</th><th>Target</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in targets %}
+            <tr>
+              <td>{{ t.label }}</td>
+              <td>{{ t.actual_fmt }}</td>
+              <td>{{ t.expected_pace_fmt }}</td>
+              <td>{{ t.pct_of_target_fmt }}</td>
+              <td>{{ t.projected_fmt }}</td>
+              <td>{{ t.target_fmt }}</td>
+              <td><span class="status-tag {{ t.status }}">{{ t.status_label }}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <p class="footnote">
+          *Expected pace = (day {{ meta.month_day }} / {{ meta.month_days }} days) &times; monthly target.
+          Targets are defined only for these three metrics (region_monthly_targets seed); no other targets are assumed.
+        </p>
+        {% endif %}
+
+        {% if s.id == 'revenue' and cost %}
+        <div class="method-note">
+          <b>Gross trade revenue (MTD):</b> {{ cost.total_rev_fmt }} =
+          company P&amp;L <b>{{ cost.total_pnl_fmt }}</b> ({{ cost.pnl_pct_of_rev_fmt }})
+          + gross fees {{ cost.total_fees_fmt }} ({{ cost.fees_pct_of_rev_fmt }}, commission/spread earned independent of client P&amp;L)
+          &minus; cashback returned {{ cost.total_cashback_fmt }}.
+          {% if cost.top_pnl_instrument %}
+          Top P&amp;L driver: <b>{{ cost.top_pnl_instrument }}</b> ({{ cost.top_pnl_group }}) at {{ cost.top_pnl_fmt }}.
+          {% endif %}
+          {% if cost.top_fee_instrument %}
+          Top fee contributor: <b>{{ cost.top_fee_instrument }}</b> ({{ cost.top_fee_group }}) at {{ cost.top_fee_fmt }}.
+          {% endif %}
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Instrument group</th><th>Company P&amp;L</th><th>Gross fees</th>
+              <th>Cashback</th><th>Trade revenue (MTD)</th><th>% of revenue</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for g in cost.groups %}
+            <tr>
+              <td>{{ g.group }}</td>
+              <td>{{ g.pnl_fmt }}</td>
+              <td>{{ g.fees_fmt }}</td>
+              <td>{{ g.cashback_fmt }}</td>
+              <td>{{ g.revenue_fmt }}</td>
+              <td>{{ g.pct_of_rev_fmt }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+
+        {% if s.id == 'user_activity' and new_users %}
+        <div class="method-note">
+          <b>New users:</b> {{ new_users.mtd_fmt }} new signups MTD ({{ new_users.mtd_pct }} vs prior month),
+          ~{{ new_users.per_day_fmt }}/day; rolling WoW {{ new_users.wow_pct }}.
+        </div>
+        {% elif s.id == 'user_activity' and not new_users %}
+        <div class="method-note">
+          <b>New users:</b> not yet surfaced in the warehouse - pending the daily <code>new_users</code> field
+          (dbt Option A). This line will populate automatically once that column ships.
+        </div>
+        {% endif %}
+
+        {% if s.id == 'regional' and regional %}
+        <table>
+          <thead>
+            <tr>
+              <th>Region</th><th>Net trade revenue (MTD)</th><th>% of total</th>
+              <th>% of target</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in regional %}
+            <tr>
+              <td>{{ r.region }}</td>
+              <td>{{ r.revenue_fmt }}</td>
+              <td>{{ r.pct_of_total_fmt }}</td>
+              <td>{{ r.pct_of_target_fmt }}</td>
+              <td><span class="status-tag {{ r.status }}">{{ r.status_label }}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+
+        {% if s.id == 'forecast' and forecast %}
+        {% for f in forecast %}
+        <div class="method-note">
+          <b>{{ f.label }}:</b> month-end estimate {{ f.projected_fmt }}{% if f.has_target %} vs target {{ f.target_fmt }}{% else %} (no target){% endif %}.
+          <b>Method:</b> {{ f.method }}.
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% if s.detail %}
+        <details>
+          <summary>Read more &mdash; detail &amp; context</summary>
+          <div class="detail-body">{{ s.detail }}</div>
+        </details>
+        {% endif %}
+      </section>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+
+    <footer>
+      All figures are computed in the warehouse (dbt marts) and in Python (rolling WoW, MTD,
+      pace-adjusted targets, forecasts); the language model only interprets pre-computed numbers
+      and never invents figures. Data is simulated for portfolio purposes; "active" users are
+      activity-based, not CRM retention.
+    </footer>
+
+  </div>
+</body>
+</html>

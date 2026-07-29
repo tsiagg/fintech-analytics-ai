@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: metricflow_time_spine
+    description: >
+      Day-level time spine for MetricFlow. Required once semantic_models are defined.
+      Covers simulation backfills and portfolio demo dates (see vars in dbt_project.yml).
+    time_spine:
+      standard_granularity_column: date_day
+    columns:
+      - name: date_day
+        description: Calendar date at day grain.
+        granularity: day
+        tests:
+          - not_null
+          - unique

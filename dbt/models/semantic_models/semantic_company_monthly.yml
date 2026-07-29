@@ -1,0 +1,60 @@
+semantic_models:
+  - name: company_performance
+    defaults:
+      agg_time_dimension: effective_month
+    description: Semantic model for company monthly performance monitoring.
+    model: ref('mrt_company_monthly_performance')
+    
+    entities:
+      # One row per region per month; composite key matches marts.yml unique test on (region, effective_month).
+      - name: region_month
+        type: primary
+        expr: region::text || '|' || effective_month::text
+
+      - name: region
+        type: foreign
+        expr: region
+        description: Reporting commercial region (America, Europe, Asia Pacific).
+
+    dimensions:
+      - name: effective_month
+        type: time
+        description: First day of the calendar month (activity month).
+        type_params:
+          time_granularity: month
+      - name: reporting_region
+        type: categorical
+        expr: region
+        description: Reporting region for slicing metrics (same as join key).
+
+    measures:
+      - name: actual_active_users
+        description: Actual monthly active users
+        agg: sum
+        create_metric: false
+        expr: actual_active_users
+      - name: target_active_users
+        description: Company target for monthly active users
+        agg: sum
+        create_metric: false
+        expr: target_active_users
+      - name: actual_net_trade_revenue
+        description: Actual monthly net trade revenue
+        agg: sum
+        create_metric: false
+        expr: actual_net_trade_revenue_usd
+      - name: target_net_trade_revenue
+        description: Target monthly net trade revenue
+        agg: sum
+        create_metric: false
+        expr: target_net_trade_revenue_usd
+      - name: actual_gross_deposit
+        description: Actual monthly gross deposit
+        agg: sum
+        create_metric: false
+        expr: actual_gross_deposit_usd
+      - name: target_gross_deposit
+        description: Company target for monthly gross deposit
+        agg: sum
+        create_metric: false
+        expr: target_gross_deposit_usd
