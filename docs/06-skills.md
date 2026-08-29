@@ -1,26 +1,43 @@
 ---
-title: Profile
+title: Skills
 parent: About
 nav_order: 1
 permalink: /06-skills.html
-redirect_from:
-  - /cv/
 ---
 
 # Skills
 
-This project demonstrates how I approach an **analytics engineering** role: understand the business model, turn it into reliable data products, and communicate the result in a form that supports decisions. Every capability below is tied to evidence in this repository.
+Capabilities demonstrated in this project, grouped as technical, business, and soft skills. This page is about the work in the repository. The [CV]({{ '/cv/' | relative_url }}) is the career record.
 
-## Recruiter summary
+## Technical skills
 
-- **Analytics engineering:** SQL, dbt Core, dimensional modelling, data quality, MetricFlow and semantic-layer design
-- **Business analytics:** brokerage unit economics, customer acquisition, retention, cash flow, target setting and performance management
-- **Data products:** executive dashboards, governed self-service BI and scheduled management reporting
-- **Delivery:** Airflow orchestration, Postgres, Docker, requirements scoping and iterative delivery
-- **AI-enabled analytics:** constrained LLM workflows in which governed data is computed first and AI is used only for interpretation
-- **Ways of working:** stakeholder communication, transparent ownership, quality assurance and practical prioritisation
+### Analytics engineering
 
-## Business and domain knowledge
+**Dimensional modelling and grain discipline.** Twenty-one dbt models are organised into staging, intermediate, mart and serving layers. Facts are split by business process, and every mart has a stated and tested grain. This prevents duplicate-producing joins from silently overstating commercial results.
+
+**SQL.** The intermediate layer is where the real work is: CTE-structured trading economics with per-instrument cost and cashback rates, a VIP uplift that varies by instrument group, and acquisition cost netted off at the mart layer. See [`int_fct_daily_trading.sql`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/dbt/models/intermediate/int_fct_daily_trading.sql).
+
+**dbt Core.** Sources, seeds, staging through serving, `dbt_utils`, 83 tests, model documentation, exposures declaring downstream consumers, and a deliberate materialization strategy — views where transformation is thin, tables where things get read repeatedly.
+
+**Semantic layer with MetricFlow.** 57 metrics across simple, ratio, cumulative and derived types, on three semantic models, with a time spine supporting month-to-date and rolling-window metrics. The [semantic layer page](03-semantic-layer-and-metric-trust.md) explains the judgement calls rather than just the count.
+
+### Data platform and delivery
+
+**Orchestration with Airflow 3.** A daily DAG with sequential backfill semantics chosen because the source data has a stateful user lifecycle, and testing as a gate task upstream of anything that publishes numbers.
+
+**Postgres and Docker.** The whole stack runs from one compose file: warehouse, Airflow metadata database, scheduler, API server and DAG processor, on a custom image carrying dbt and MetricFlow.
+
+**Python.** pandas for deterministic analysis, Jinja for report generation, subprocess integration with MetricFlow, and modular reporting components for forecasting and anomaly detection. I am comfortable reading, testing and adapting Python analytics code; larger application modules were built collaboratively with an AI coding agent.
+
+### Trusted AI and business intelligence
+
+**AI application guardrails.** Allowlist generated from the semantic layer, plan validation before execution, app-constructed filters with an operator whitelist, deterministic computation in pandas, and an explainer that only sees returned numbers. Detailed in [BI implementation strategy](04-bi-implementation-strategy.md).
+
+**Executive information design.** KPI scorecards, period comparisons, regional and instrument breakdowns, anomaly flags and a structured nine-section CFO report. I selected outputs based on the decision they support, not on how many visualisations could fit on a page.
+
+**Reconciliation and observability.** A dedicated Data Spot Check surface separates warehouse issues from presentation issues, while dbt tests gate publication. This creates a clear investigation path from app to serving mart, core mart, intermediate model and source.
+
+## Business skills
 
 ### Retail brokerage economics
 
@@ -59,35 +76,7 @@ Instrument-level models track trade count, active traders, volume, company P&L, 
 
 I treat a metric as a business contract, not just a calculation. Each important KPI has a definition, grain, valid dimensions and known limitations. The dashboard, BI Assistant and CFO report resolve back to the same modelled logic, reducing the risk that teams make decisions from conflicting versions of "net revenue" or "active user".
 
-## Technical capabilities
-
-### Analytics engineering
-
-**Dimensional modelling and grain discipline.** Twenty-one dbt models are organised into staging, intermediate, mart and serving layers. Facts are split by business process, and every mart has a stated and tested grain. This prevents duplicate-producing joins from silently overstating commercial results.
-
-**SQL.** The intermediate layer is where the real work is: CTE-structured trading economics with per-instrument cost and cashback rates, a VIP uplift that varies by instrument group, and acquisition cost netted off at the mart layer. See [`int_fct_daily_trading.sql`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/dbt/models/intermediate/int_fct_daily_trading.sql).
-
-**dbt Core.** Sources, seeds, staging through serving, `dbt_utils`, 83 tests, model documentation, exposures declaring downstream consumers, and a deliberate materialization strategy — views where transformation is thin, tables where things get read repeatedly.
-
-**Semantic layer with MetricFlow.** 57 metrics across simple, ratio, cumulative and derived types, on three semantic models, with a time spine supporting month-to-date and rolling-window metrics. The [semantic layer page](03-semantic-layer-and-metric-trust.md) explains the judgement calls rather than just the count.
-
-### Data platform and delivery
-
-**Orchestration with Airflow 3.** A daily DAG with sequential backfill semantics chosen because the source data has a stateful user lifecycle, and testing as a gate task upstream of anything that publishes numbers.
-
-**Postgres and Docker.** The whole stack runs from one compose file: warehouse, Airflow metadata database, scheduler, API server and DAG processor, on a custom image carrying dbt and MetricFlow.
-
-**Python.** pandas for deterministic analysis, Jinja for report generation, subprocess integration with MetricFlow, and modular reporting components for forecasting and anomaly detection. I am comfortable reading, testing and adapting Python analytics code; larger application modules were built collaboratively with an AI coding agent.
-
-### Trusted AI and business intelligence
-
-**AI application guardrails.** Allowlist generated from the semantic layer, plan validation before execution, app-constructed filters with an operator whitelist, deterministic computation in pandas, and an explainer that only sees returned numbers. Detailed in [BI implementation strategy](04-bi-implementation-strategy.md).
-
-**Executive information design.** KPI scorecards, period comparisons, regional and instrument breakdowns, anomaly flags and a structured nine-section CFO report. I selected outputs based on the decision they support, not on how many visualisations could fit on a page.
-
-**Reconciliation and observability.** A dedicated Data Spot Check surface separates warehouse issues from presentation issues, while dbt tests gate publication. This creates a clear investigation path from app to serving mart, core mart, intermediate model and source.
-
-## Professional and collaboration skills
+## Soft skills
 
 **Requirements translation.** I converted business concepts such as revenue, client activity, target attainment and funding pressure into explicit definitions, grains, dimensions and tests. This is the bridge between stakeholder language and maintainable data products.
 

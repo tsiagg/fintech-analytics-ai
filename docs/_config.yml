@@ -1,7 +1,7 @@
 # GitHub Pages config. The site is served from this /docs folder on the main branch.
 # Settings -> Pages -> Source: Deploy from a branch -> Branch: main, Folder: /docs
 
-title: Tsiagg
+title: Angelos Tsiannis
 lang: en-US
 tagline: Analytics · AI · Financial Services
 description: >-
@@ -9,11 +9,11 @@ description: >-
   interpret numbers computed in the warehouse. A portfolio for financial
   services decision support.
 
-# Displayed in the header wordmark. Change name/initials if you want a full name.
+# Displayed in the header wordmark. Initials stay as T; name is the full name.
 author:
-  name: Tsiagg
+  name: Angelos Tsiannis
   initials: T
-author_name: Tsiagg
+author_name: Angelos Tsiannis
 author_initials: T
 
 url: https://tsiagg.github.io
@@ -22,9 +22,9 @@ baseurl: /fintech-analytics-ai
 # Public profiles. Leave blank rather than inventing a URL.
 github_url: https://github.com/tsiagg/fintech-analytics-ai
 github_profile: https://github.com/tsiagg
-linkedin_url: ""
-email: ""
-cv_path: /06-skills.html
+linkedin_url: https://www.linkedin.com/in/angelos-tsiannis
+email: atsiannis@gmail.com
+cv_path: /cv/
 
 remote_theme: just-the-docs/just-the-docs@v0.10.1
 plugins:

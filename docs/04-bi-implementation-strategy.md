@@ -54,6 +54,14 @@ Each link in that chain removes a way the system could lie.
 
 Questions default to a fast, cheap model. Analytical phrasing — "why", "compare", "anomaly", "deep dive" — escalates to a stronger one. If the planner returns unparseable JSON, it retries on the other tier rather than failing. Every answer displays the model used and the token count, which keeps the running cost visible instead of arriving as a monthly surprise. The whole thing was built to a roughly 20 euro per month budget.
 
+![Descriptive question answered on the cheap flash model, with the model badge under the chart](assets/screenshots/bi-assistant-1.png)
+
+"What was the revenue over the last 2 weeks by region?" is a lookup. It stays on `deepseek-v4-flash`.
+
+![Anomaly and root-cause question escalated to the stronger Pro model](assets/screenshots/bi-assistant-2.png)
+
+"Were there any anomalies in any region?" is an analytical question. It escalates to `deepseek-v4-pro`. The numbers still come from MetricFlow and pandas; the more expensive model only writes the explanation.
+
 Two known inefficiencies are logged rather than hidden: the retry is more eager than it needs to be (I-7), and the catalog sent to the planner is not trimmed by relevance, so very broad questions can crowd the context window (I-5).
 
 ## What I would do differently on a real team

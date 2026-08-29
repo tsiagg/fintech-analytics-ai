@@ -4,9 +4,7 @@ An end-to-end analytics engineering portfolio for a simulated retail trading bro
 
 **[Read the full documentation site](https://tsiagg.github.io/fintech-analytics-ai/)**
 
-<!-- Hero screenshot slot: uncomment once this image exists
 ![Executive dashboard](docs/assets/screenshots/executive-dashboard.png)
--->
 
 ---
 
