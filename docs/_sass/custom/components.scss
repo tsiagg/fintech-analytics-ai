@@ -44,6 +44,12 @@
   text-transform: uppercase;
 }
 
+.eyebrow + h2,
+.main-content .eyebrow + h2,
+.page-header__eyebrow + .page-header__title {
+  margin-top: 0;
+}
+
 // ---------------------------------------------------------------------------
 // Page header
 // ---------------------------------------------------------------------------
@@ -53,18 +59,21 @@
 }
 
 .page-header__title {
-  max-width: 28ch;
+  max-width: 38rem;
   margin: 0 0 $space-5;
   color: $color-text;
+  font-family: $font-serif;
   font-size: $text-title;
   font-weight: $font-weight-medium;
-  letter-spacing: -0.028em;
+  letter-spacing: -0.018em;
   line-height: $leading-title;
 }
 
 .page-header--display .page-header__title {
-  max-width: 22ch;
+  max-width: $width-wide;
   font-size: $text-display;
+  font-weight: $font-weight-semibold;
+  letter-spacing: -0.022em;
   line-height: $leading-display;
 }
 
@@ -83,7 +92,8 @@
 }
 
 .page-header--display .page-header__lede {
-  margin-top: $space-4;
+  margin-top: $space-5;
+  font-size: $text-subhead;
 }
 
 .lede {
@@ -231,9 +241,9 @@
 .metrics {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0;
+  gap: $space-6 $space-5;
   margin: 0;
-  padding: 0;
+  padding: $space-6 0 0;
   list-style: none;
   border-top: 1px solid $color-border;
 }
@@ -242,44 +252,24 @@
   display: flex;
   flex-direction: column;
   gap: $space-2;
-  padding: $space-5 0;
-  border-bottom: 1px solid $color-border;
-}
-
-.metric:nth-child(odd) {
-  padding-right: $space-5;
-  border-right: 1px solid $color-border;
-}
-
-.metric:nth-child(even) {
-  padding-left: $space-5;
+  padding: 0;
+  border: 0;
 }
 
 .metric__value {
   color: $color-text;
-  font-family: $font-mono;
+  font-family: $font-serif;
   font-size: $text-title;
   font-weight: $font-weight-medium;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   line-height: 1;
 }
 
 @media (min-width: 50rem) {
   .metrics {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .metric,
-  .metric:nth-child(odd),
-  .metric:nth-child(even) {
-    padding: $space-5 $space-5 $space-5 0;
-    border-right: 1px solid $color-border;
-    border-bottom: 0;
-  }
-
-  .metric:last-child {
-    border-right: 0;
-    padding-right: 0;
+    gap: $space-4 $space-6;
+    padding-top: $space-7;
   }
 }
 
@@ -303,11 +293,6 @@
   background: $color-surface-muted;
   border: 1px solid $color-border;
   border-radius: $radius;
-  transition: opacity $ease;
-}
-
-.figure:hover img {
-  opacity: 0.94;
 }
 
 .figure figcaption {
@@ -330,7 +315,7 @@
 
 .card-grid {
   display: grid;
-  gap: $space-4;
+  gap: $space-6;
   margin: $space-5 0 0;
 }
 
@@ -343,19 +328,20 @@ h2 + .card-grid {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: $space-5;
-  background: $color-surface;
-  border: 1px solid $color-border;
-  border-radius: $radius;
-  box-shadow: $shadow;
+  padding: $space-5 0 0;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid $color-border;
+  border-radius: 0;
+  box-shadow: none;
   color: $color-text;
   text-decoration: none;
   background-image: none !important;
-  transition: border-color $ease;
+  transition: color $ease;
 }
 
 .card:hover {
-  border-color: $color-text;
+  border-color: $color-border;
   color: $color-text;
   background-image: none !important;
 }
@@ -366,9 +352,10 @@ h2 + .card-grid {
   margin: 0 0 $space-3;
   padding-top: 0;
   color: $color-text;
+  font-family: $font-serif;
   font-size: $text-subhead;
   font-weight: $font-weight-medium;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
   line-height: $leading-section;
 }
 
@@ -419,7 +406,7 @@ a.card:hover .card__cta {
 @media (min-width: 50rem) {
   .card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: $space-5;
+    gap: $space-7;
   }
 
   .card-grid--3 {
@@ -459,7 +446,10 @@ a.card:hover .card__cta {
 }
 
 .case-block .figure,
-.case-block .metrics,
+.case-block .metrics {
+  max-width: 100%;
+}
+
 .case-block pre,
 .case-block .highlight {
   max-width: $width-wide;
@@ -469,6 +459,7 @@ a.card:hover .card__cta {
 .case-block h2 {
   margin-top: 0;
   padding-top: 0;
+  font-family: $font-serif;
 }
 
 .case-block .eyebrow {
@@ -504,57 +495,44 @@ a.card:hover .card__cta {
 
 .trust-flow {
   display: grid;
-  gap: 0;
+  grid-template-columns: 1fr;
+  gap: $space-5;
   margin: 0;
-  padding: 0;
+  padding: $space-6 0 0;
   list-style: none;
-  border: 1px solid $color-border;
-  background: $color-surface;
-  border-radius: $radius;
+  border: 0;
+  border-top: 1px solid $color-border;
+  background: transparent;
 }
 
 .trust-flow li {
   display: grid;
-  grid-template-columns: $space-7 minmax(0, 1fr);
-  gap: $space-3;
-  align-items: baseline;
-  padding: $space-3 $space-4;
-  border-top: 1px solid $color-border;
+  grid-template-columns: 1fr;
+  gap: $space-2;
+  align-items: start;
+  padding: 0;
+  border: 0;
   color: $color-text;
-  font-size: $text-small;
+  font-family: $font-serif;
+  font-size: $text-subhead;
   font-weight: $font-weight-medium;
-}
-
-.trust-flow li:first-child {
-  border-top: 0;
+  letter-spacing: -0.01em;
+  line-height: $leading-section;
 }
 
 .trust-flow__last {
-  background: $color-surface-muted;
+  color: $color-text-secondary;
 }
 
 @media (min-width: 50rem) {
   .trust-flow {
     grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: $space-5 $space-4;
+    padding-top: $space-7;
   }
 
   .trust-flow li {
-    grid-template-columns: 1fr;
-    gap: $space-2;
-    min-height: 7rem;
-    padding: $space-4;
-    border-top: 0;
-    border-left: 1px solid $color-border;
-  }
-
-  .trust-flow li:first-child {
-    border-left: 0;
-  }
-}
-
-@media (max-width: 49.99rem) {
-  .trust-flow {
-    grid-template-columns: 1fr;
+    min-height: 0;
   }
 }
 
@@ -572,10 +550,19 @@ a.card:hover .card__cta {
   margin-top: $space-8;
 }
 
+h2 + .case-list {
+  border-top: 1px solid $color-border;
+}
+
+h2 + .case-list .case:first-child {
+  padding-top: $space-7;
+}
+
 .case {
   display: grid;
+  grid-template-columns: 1fr;
   gap: $space-5;
-  padding: $space-7 0;
+  padding: $space-8 0;
   border-top: 1px solid $color-border;
 }
 
@@ -591,11 +578,16 @@ a.card:hover .card__cta {
 
 .case__head {
   display: grid;
-  gap: $space-2;
-  margin-bottom: $space-4;
+  gap: $space-3;
+  max-width: $width-prose;
+  margin: 0;
 }
 
 .case__head .eyebrow {
+  margin: 0;
+}
+
+.case__head .lede {
   margin: 0;
 }
 
@@ -604,10 +596,11 @@ a.card:hover .card__cta {
 .main-content .case h3 {
   margin: 0;
   color: $color-text;
-  font-size: $text-section;
+  font-family: $font-serif;
+  font-size: $text-title;
   font-weight: $font-weight-medium;
   letter-spacing: -0.02em;
-  line-height: $leading-section;
+  line-height: $leading-title;
 }
 
 .case__dl {
@@ -629,8 +622,14 @@ a.card:hover .card__cta {
   line-height: $leading-body;
 }
 
+.case .figure,
+.main-content .case .figure {
+  margin: 0;
+  max-width: none;
+}
+
 .case .tech-meta {
-  margin: 0 0 $space-4;
+  margin: 0;
 }
 
 .case__actions {
@@ -639,19 +638,15 @@ a.card:hover .card__cta {
   gap: $space-3 $space-5;
 }
 
-@media (min-width: 50rem) {
-  .case {
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    gap: $space-6 $space-8;
-    align-items: start;
-    padding: $space-8 0;
-  }
-}
-
 @media (max-width: 49.99rem) {
   .case {
-    grid-template-columns: 1fr;
     padding: $space-6 0;
+  }
+
+  .case h3,
+  .home-section .case h3,
+  .main-content .case h3 {
+    font-size: $text-section;
   }
 }
 

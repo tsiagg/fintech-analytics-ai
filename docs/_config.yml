@@ -34,7 +34,7 @@ plugins:
   - jekyll-seo-tag
   - jekyll-redirect-from
 
-search_enabled: true
+search_enabled: false
 heading_anchors: true
 color_scheme: portfolio
 

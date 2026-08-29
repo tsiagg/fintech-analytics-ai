@@ -22,11 +22,5 @@
       <a class="site-topnav__link{% if nav_active == 'about' %} is-active{% endif %}" href="{{ '/about/' | relative_url }}">About</a>
       <a class="site-topnav__link{% if nav_active == 'cv' %} is-active{% endif %}" href="{{ site.cv_path | default: '/cv/' | relative_url }}">CV</a>
     </nav>
-
-    <div class="site-topbar__tools">
-      {% if site.search_enabled != false %}
-        {% include components/search_header.html %}
-      {% endif %}
-    </div>
   </div>
 </header>

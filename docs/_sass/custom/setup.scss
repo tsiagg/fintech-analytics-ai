@@ -18,24 +18,25 @@ $color-on-accent: #fffcf7;
 
 // Typography
 $font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+$font-serif: "Source Serif 4", "Iowan Old Style", Palatino, "Palatino Linotype", serif;
 $font-mono: "IBM Plex Mono", "SFMono-Regular", ui-monospace, consolas, monospace;
 
 $font-weight-regular: 400;
 $font-weight-medium: 500;
 $font-weight-semibold: 600;
 
-$text-display: clamp(2.05rem, calc(1.55rem + 2vw), 2.65rem);
-$text-title: clamp(1.7rem, calc(1.4rem + 1.2vw), 2.2rem);
-$text-section: clamp(1.2rem, calc(1.1rem + 0.45vw), 1.45rem);
+$text-display: clamp(2.35rem, calc(1.8rem + 2.2vw), 3rem);
+$text-title: clamp(1.9rem, calc(1.55rem + 1.3vw), 2.45rem);
+$text-section: clamp(1.3rem, calc(1.15rem + 0.55vw), 1.6rem);
 $text-subhead: 1.125rem;
 $text-body: 1.0625rem;
 $text-small: 0.9375rem;
 $text-meta: 0.8125rem;
 $text-label: 0.6875rem;
 
-$leading-display: 1.18;
-$leading-title: 1.2;
-$leading-section: 1.28;
+$leading-display: 1.14;
+$leading-title: 1.18;
+$leading-section: 1.26;
 $leading-body: 1.7;
 $leading-meta: 1.5;
 $tracking-label: 0.12em;

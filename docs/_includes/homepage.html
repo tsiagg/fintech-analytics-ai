@@ -71,13 +71,15 @@
     <div class="home-wrap">
       <p class="eyebrow">Selected work</p>
       <h2 id="work-title">Four surfaces on one tested warehouse</h2>
-      {% include work_cases.html variant="full" %}
+      {% include work_cases.html %}
     </div>
   </section>
 
   <section class="home-section" id="contact" aria-labelledby="contact-title">
     <div class="home-wrap">
-      <h2 id="contact-title">Contact</h2>
+      <p class="eyebrow">Contact</p>
+      <h2 id="contact-title">Get in touch</h2>
+      <p class="lede">Happy to talk about analytics engineering, metric governance, or this project.</p>
       <div class="btn-row">
         {% if site.linkedin_url and site.linkedin_url != "" %}
           <a class="btn-site btn-site--ghost" href="{{ site.linkedin_url }}">LinkedIn</a>
