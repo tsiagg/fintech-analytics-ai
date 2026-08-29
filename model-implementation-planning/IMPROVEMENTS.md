@@ -5,7 +5,7 @@ A small, living list of **future updates we could make** — separate from the p
 capture ideas, refinements, and tech-debt items as they come up, so nothing gets
 lost between phases.
 
-**Last updated:** 2026-06-22
+**Last updated:** 2026-07-31
 
 ## How to use this file
 
@@ -20,7 +20,7 @@ lost between phases.
 |----|------|-------------|----------------|--------|----------|--------|
 | I-1 | BI Assistant | Harden the Pro planning path: larger planner token budget, never use `reasoning` text as JSON, retry on the other tier when the plan won't parse | "Why/root-cause/spike" questions kept failing on Pro | S | P1 | **Done (2026-06-19)** |
 | I-2 | BI Assistant | Relax refusal guidance for "why / driver" questions → plan a breakdown instead of refusing | Pro was refusing instead of analysing | S | P1 | **Done (2026-06-19)** |
-| I-3 | AI CFO | Multi-section **report orchestrator** (runs a fixed set of pre-defined queries per section, then stitches into a template) | One-shot planner can't produce a full executive report; needed for AI CFO | L | P1 | Not started |
+| I-3 | AI CFO | Multi-section **report orchestrator** (runs a fixed set of pre-defined inputs per section, then stitches them into a template) | A one-shot planner cannot produce a reliable executive report | L | P1 | **Done (2026-06-20)** |
 | I-4 | dbt / semantic | Per-client **trading volume & trade count** (join trades → users) so client-level performance is answerable | Volume/trades live only in the symbol model (no `user_id`); blocks "top clients by volume" | M | P2 | Not started |
 | I-5 | BI Assistant | Input/context guards: trim the catalog + size the data table dynamically; friendly message when a question is too broad | Avoid hitting model context limits; better UX than a generic refusal | M | P2 | Not started |
 | I-6 | BI Assistant | Multi-metric period-over-period (current `_period_over_period` only handles the first metric) | WoW/MoM across several KPIs in one answer | M | P2 | Not started |
@@ -35,9 +35,9 @@ lost between phases.
 Only items that need more than the one-liner above.
 
 ### I-3 — AI CFO report orchestrator
-- The BI Assistant is a **single-question** engine: one plan → one query set → one explainer (capped output, 40-row tables). A 7-section executive report exceeds that by design.
-- Proposed approach: a `cfo_engine` that owns a **template of sections**, each backed by one or more governed MetricFlow queries, runs them, then composes the narrative (reusing the existing analysis-context + explainer helpers in `app/services/bi_engine.py`).
-- Aligns with the Phase 4 **AI CFO** work already on the roadmap.
+- The BI Assistant is a **single-question** engine: one plan → one query set → one explainer (capped output, 40-row tables). A nine-section executive report exceeds that by design.
+- Shipped approach: `reporting/inputs.py` computes the quantitative context, `reporting/engine.py` orchestrates the fixed sections, and `reporting/generate.py` renders and stores the final report.
+- The LLM writes narrative around precomputed facts; it does not plan queries or calculate report values.
 
 ### I-4 — Per-client volume mart
 - `daily_symbol_activity` has `volume_lots` / `trade_count` but its grain is symbol × region × day with **no `user_id`** — so per-client volume can't be joined today.

@@ -8,7 +8,7 @@ Use this folder as the **single planning hub** for the AI-powered fintech analyt
 
 ## Visual progress
 
-**[ROADMAP.md](./ROADMAP.md)** — Gantt charts (Mermaid), ASCII progress bars, and checklist tables. **Phases 1–4 done.** Dashboard v1 + Data Spot Check + **BI Assistant** + **AI CFO** shipped; CFO task wired into the DAG; `new_users` column built. **Next:** Phase 5 portfolio packaging.
+**[ROADMAP.md](./ROADMAP.md)** — Gantt charts (Mermaid), progress bars and checklist tables. **Phases 1–4 are complete and the Phase 5 documentation has shipped.** The remaining Phase 5 ideas — screenshots, a sample backfill script and Streamlit in Docker Compose — were reviewed and deliberately left out of scope.
 
 ## Future improvements
 
@@ -23,7 +23,7 @@ Use this folder as the **single planning hub** for the AI-powered fintech analyt
 | 2b | [phase-2](./phase-2/#phase-2b--ai-ready-metrics--semantic-layer) | KPI + serving + **57** MetricFlow metrics + `mf query` validated | **Done** |
 | 3 | [phase-3](./phase-3/) | **One Airflow DAG:** sim → dbt run → dbt test → `generate_cfo_report` | **Done** |
 | 4 | [phase-4](./phase-4/) | **Streamlit:** dashboard + **BI Assistant** + **AI CFO** (OpenRouter) | **Done** |
-| 5 | [phase-5](./phase-5/) | Portfolio story, README, compose, **screenshots** (DAG, lineage, UI), sample backfill | Not started |
+| 5 | [phase-5](./phase-5/) | Portfolio story and documentation; compose, screenshots and sample backfill reviewed but left out of scope | **Documentation shipped** |
 
 ### Architecture flow (target end state)
 
