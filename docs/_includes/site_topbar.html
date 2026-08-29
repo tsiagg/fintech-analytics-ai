@@ -13,7 +13,7 @@
     <nav class="site-topnav" aria-label="Primary">
       <a class="site-topnav__link{% if current_section == 'Work' %} is-active{% endif %}" href="{% if page.layout == 'home' %}#work{% else %}{{ '/work/' | relative_url }}{% endif %}">Work</a>
       <a class="site-topnav__link{% if current_section == 'Thinking' %} is-active{% endif %}" href="{{ '/thinking/' | relative_url }}">Thinking</a>
-      <a class="site-topnav__link{% if current_section == 'About this project' %} is-active{% endif %}" href="{{ '/about/' | relative_url }}">About</a>
+      <a class="site-topnav__link{% if current_section == 'About this project' %} is-active{% endif %}" href="{{ '/about/' | relative_url }}">This project</a>
       <a class="site-topnav__link{% if current_section == 'CV' %} is-active{% endif %}" href="{{ site.cv_path | default: '/cv/' | relative_url }}">CV</a>
       <a class="site-topnav__link site-topnav__ext" href="{{ site.github_url }}">GitHub</a>
       {% if site.linkedin_url and site.linkedin_url != "" %}
