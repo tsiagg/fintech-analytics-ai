@@ -12,8 +12,9 @@ description: Selected analytics, AI and financial-services work from the Fintech
 
 {% include metrics.html %}
 
-{% include work_cases.html variant="index" %}
+{% include work_cases.html %}
 
+<p class="eyebrow">Notes</p>
 <h2>Also in this project</h2>
 
 {% include related_notes.html %}

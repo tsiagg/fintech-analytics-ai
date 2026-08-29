@@ -15,6 +15,7 @@
   --color-on-accent: #{$color-on-accent};
 
   --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Source Serif 4", "Iowan Old Style", Palatino, "Palatino Linotype", serif;
   --font-mono: "IBM Plex Mono", "SFMono-Regular", ui-monospace, consolas, monospace;
 
   --text-display: #{$text-display};
@@ -127,9 +128,10 @@ a:focus:not(:focus-visible) {
 }
 
 .site-wordmark__name {
+  font-family: $font-serif;
   font-size: $text-small;
   font-weight: $font-weight-semibold;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   white-space: nowrap;
 }
 
@@ -165,22 +167,11 @@ a:focus:not(:focus-visible) {
   gap: $space-3;
 }
 
-.site-topbar .search-results {
-  z-index: 500;
-}
-
-.site-topbar .search-input {
-  height: 2rem;
-  padding: 0 $space-3 0 $space-6;
-  background: $color-surface;
-  border: 1px solid $color-border;
-  border-radius: $radius;
-  font-size: $text-meta;
-}
-
-.site-topbar .search-input:focus {
-  border-color: $color-accent;
-  box-shadow: none;
+.site-topbar .search,
+.search,
+.search-input-wrap,
+.search-results {
+  display: none !important;
 }
 
 .site-menu-btn {
@@ -191,19 +182,11 @@ a:focus:not(:focus-visible) {
   .site-topbar__inner {
     padding: 0 $page-gutter-md;
   }
-
-  .site-topbar .search {
-    width: 12rem;
-  }
 }
 
 @media (min-width: 50rem) and (max-width: 67.99rem) {
   .site-topnav {
     gap: $space-5;
-  }
-
-  .site-topbar .search {
-    width: 10rem;
   }
 }
 
@@ -224,13 +207,6 @@ a:focus:not(:focus-visible) {
     width: 100%;
     margin: $space-2 0 0;
     gap: $space-5;
-  }
-
-  .site-topbar .search {
-    width: auto;
-    min-width: 0;
-    flex: 1 1 6rem;
-    margin-left: auto;
   }
 }
 
@@ -290,12 +266,13 @@ a:focus:not(:focus-visible) {
 .main-content h3,
 .main-content h4 {
   color: $color-text;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.018em;
 }
 
 .main-content h1 {
   margin-top: 0;
   margin-bottom: $space-5;
+  font-family: $font-serif;
   font-size: $text-title;
   font-weight: $font-weight-medium;
   line-height: $leading-title;
@@ -305,6 +282,7 @@ a:focus:not(:focus-visible) {
   margin-top: $space-8;
   margin-bottom: $space-5;
   padding-top: 0;
+  font-family: $font-serif;
   font-size: $text-section;
   font-weight: $font-weight-medium;
   line-height: $leading-section;
@@ -319,6 +297,7 @@ a:focus:not(:focus-visible) {
 .main-content h3 {
   margin-top: $space-6;
   margin-bottom: $space-3;
+  font-family: $font-serif;
   font-size: $text-subhead;
   font-weight: $font-weight-medium;
 }
@@ -436,7 +415,7 @@ a:focus:not(:focus-visible) {
 
 .main-content img {
   display: block;
-  max-width: $width-wide;
+  max-width: 100%;
   width: 100%;
   height: auto;
   margin: $space-6 0;
@@ -446,8 +425,9 @@ a:focus:not(:focus-visible) {
 }
 
 .figure,
-.main-content .figure {
-  max-width: $width-wide;
+.main-content .figure,
+.case-block .figure {
+  max-width: 100%;
 }
 
 .mermaid {
@@ -466,6 +446,7 @@ a:focus:not(:focus-visible) {
 }
 
 .page-header .anchor-heading,
+.home-section .anchor-heading,
 .case-block .eyebrow + h2 .anchor-heading,
 .card .anchor-heading {
   display: none;
@@ -493,7 +474,9 @@ a:focus:not(:focus-visible) {
 }
 
 .site-end__brand strong {
+  font-family: $font-serif;
   font-size: $text-small;
+  font-weight: $font-weight-semibold;
 }
 
 .site-end__links {

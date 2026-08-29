@@ -50,7 +50,7 @@
 }
 
 .home-hero {
-  padding: $space-8 0 $space-7;
+  padding: $space-8 0 $space-8;
 }
 
 .home-hero .page-header {
@@ -58,15 +58,16 @@
 }
 
 .home-section {
-  padding: $space-7 0;
+  padding: $space-8 0;
 }
 
 .home-section h2 {
   margin: 0 0 $space-5;
   color: $color-text;
+  font-family: $font-serif;
   font-size: $text-section;
   font-weight: $font-weight-medium;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.018em;
   line-height: $leading-section;
 }
 
