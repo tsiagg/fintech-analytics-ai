@@ -494,7 +494,7 @@ a.card:hover .card__cta {
   margin: 0;
   max-width: none;
   color: $color-text-secondary;
-  font-size: $text-small;
+  font-size: $text-body;
   line-height: $leading-body;
 }
 
@@ -530,6 +530,11 @@ a.card:hover .card__cta {
 
 .trust-diagram__group {
   min-width: 0;
+}
+
+.trust-diagram__group--ai {
+  padding-top: $space-5;
+  border-top: 1px solid $color-border;
 }
 
 .trust-diagram__kicker {
@@ -573,6 +578,7 @@ a.card:hover .card__cta {
   grid-column: 1;
   grid-row: 1 / span 2;
   z-index: 1;
+  flex-shrink: 0;
   width: 0.5rem;
   height: 0.5rem;
   margin-top: 0.35rem;
@@ -610,7 +616,7 @@ a.card:hover .card__cta {
   left: 0.2rem;
   width: 1px;
   height: calc(100% - 0.35rem);
-  background: $color-border;
+  background: rgba($color-accent, 0.28);
 }
 
 @media (min-width: 50rem) {
@@ -626,7 +632,9 @@ a.card:hover .card__cta {
   }
 
   .trust-diagram__group--ai {
+    padding-top: 0;
     padding-left: $space-6;
+    border-top: 0;
     border-left: 1px solid $color-border;
   }
 
@@ -660,10 +668,15 @@ a.card:hover .card__cta {
     grid-column: auto;
   }
 
+  .trust-diagram__name {
+    min-height: calc(#{$text-subhead} * #{$leading-section} * 2);
+  }
+
   .trust-diagram__steps > li:not(:last-child)::after {
     top: 0.22rem;
     left: 0.5rem;
-    width: 100%;
+    right: 0;
+    width: auto;
     height: 1px;
   }
 }
