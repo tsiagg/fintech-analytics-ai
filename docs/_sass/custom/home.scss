@@ -71,13 +71,14 @@
   line-height: $leading-section;
 }
 
-.home-section p:not(.eyebrow):not(.note-muted):not(.tech-meta) {
+.home-section p:not(.eyebrow):not(.note-muted):not(.tech-meta):not(.label):not(.trust-diagram__kicker) {
   font-size: $text-body;
   line-height: $leading-body;
 }
 
 .home-section .lede,
-.home-section dd {
+.home-section dd,
+.home-section .own-grid__body {
   color: $color-text-secondary;
 }
 
@@ -115,6 +116,18 @@
 
 .layout-home .main-content a.text-link:hover {
   color: $color-accent;
+}
+
+.layout-home .main-content .trust-diagram ol,
+.layout-home .main-content .trust-diagram ol > li {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.layout-home .main-content .trust-diagram ol > li::before {
+  content: none;
+  display: none;
 }
 
 @media (min-width: 50rem) {

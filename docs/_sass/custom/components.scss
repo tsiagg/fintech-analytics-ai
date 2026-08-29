@@ -21,10 +21,11 @@
 }
 
 .label,
-.own-grid dt,
+.own-grid .label,
 .case__dl dt,
 .metric__label,
-.trust-flow__n {
+.trust-diagram__n,
+.trust-diagram__kicker {
   margin: 0;
   color: $color-text-secondary;
   font-family: $font-mono;
@@ -35,9 +36,13 @@
   text-transform: uppercase;
 }
 
-.own-grid dt,
+.own-grid .label,
 .case__dl dt {
   margin: 0 0 $space-2;
+}
+
+.trust-diagram__kicker {
+  color: $color-accent;
 }
 
 .metric__label {
@@ -472,46 +477,126 @@ a.card:hover .card__cta {
 
 .own-grid {
   display: grid;
-  gap: $space-5;
+  grid-template-columns: 1fr;
+  gap: $space-6;
   margin: 0;
 }
 
-.own-grid dd {
+.own-grid__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.own-grid__body,
+.main-content .own-grid__body {
   margin: 0;
-  max-width: $width-prose;
+  max-width: none;
   color: $color-text-secondary;
+  font-size: $text-body;
+  line-height: $leading-body;
 }
 
 @media (min-width: 50rem) {
   .own-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: $space-7;
+    gap: 0;
+  }
+
+  .own-grid__col {
+    padding-right: $space-7;
+  }
+
+  .own-grid__col + .own-grid__col {
+    padding-right: 0;
+    padding-left: $space-7;
+    border-left: 1px solid $color-border;
   }
 }
 
 // ---------------------------------------------------------------------------
-// Process / trust flow
+// Trust diagram — audited numbers on the left, AI on the right
 // ---------------------------------------------------------------------------
 
-.trust-flow {
+.trust-diagram {
   display: grid;
   grid-template-columns: 1fr;
-  gap: $space-5;
+  gap: $space-6;
   margin: 0;
   padding: $space-6 0 0;
-  list-style: none;
-  border: 0;
   border-top: 1px solid $color-border;
-  background: transparent;
 }
 
-.trust-flow li {
+.trust-diagram__group {
+  min-width: 0;
+}
+
+.trust-diagram__group--ai {
+  padding-top: $space-5;
+  border-top: 1px solid $color-border;
+}
+
+.trust-diagram__kicker {
+  margin: 0 0 $space-4;
+}
+
+.trust-diagram__steps,
+.main-content .trust-diagram ol.trust-diagram__steps {
   display: grid;
   grid-template-columns: 1fr;
-  gap: $space-2;
-  align-items: start;
+  gap: 0;
+  margin: 0;
   padding: 0;
-  border: 0;
+  list-style: none;
+  counter-reset: none;
+}
+
+.trust-diagram__steps > li,
+.main-content .trust-diagram ol.trust-diagram__steps > li {
+  display: grid;
+  grid-template-columns: 0.5rem minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: $space-3;
+  row-gap: $space-1;
+  position: relative;
+  margin: 0;
+  padding: 0 0 $space-5;
+  color: $color-text;
+}
+
+.trust-diagram__steps > li:last-child {
+  padding-bottom: 0;
+}
+
+.main-content .trust-diagram ol.trust-diagram__steps > li::before {
+  content: none;
+  display: none;
+}
+
+.trust-diagram__node {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: 0.35rem;
+  background: $color-accent;
+  border: 1px solid $color-accent;
+  border-radius: 50%;
+}
+
+.trust-diagram__group--ai .trust-diagram__node {
+  background: $color-bg;
+}
+
+.trust-diagram__n {
+  grid-column: 2;
+}
+
+.trust-diagram__name {
+  grid-column: 2;
   color: $color-text;
   font-family: $font-serif;
   font-size: $text-subhead;
@@ -520,19 +605,79 @@ a.card:hover .card__cta {
   line-height: $leading-section;
 }
 
-.trust-flow__last {
+.trust-diagram__group--ai .trust-diagram__name {
   color: $color-text-secondary;
 }
 
+.trust-diagram__steps > li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 0.6rem;
+  left: 0.2rem;
+  width: 1px;
+  height: calc(100% - 0.35rem);
+  background: rgba($color-accent, 0.28);
+}
+
 @media (min-width: 50rem) {
-  .trust-flow {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: $space-5 $space-4;
+  .trust-diagram {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 1.15fr);
+    column-gap: 0;
+    align-items: start;
     padding-top: $space-7;
   }
 
-  .trust-flow li {
-    min-height: 0;
+  .trust-diagram__group--data {
+    padding-right: $space-6;
+  }
+
+  .trust-diagram__group--ai {
+    padding-top: 0;
+    padding-left: $space-6;
+    border-top: 0;
+    border-left: 1px solid $color-border;
+  }
+
+  .trust-diagram__group--data .trust-diagram__steps,
+  .main-content .trust-diagram .trust-diagram__group--data ol.trust-diagram__steps {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .trust-diagram__group--ai .trust-diagram__steps,
+  .main-content .trust-diagram .trust-diagram__group--ai ol.trust-diagram__steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .trust-diagram__steps > li,
+  .main-content .trust-diagram ol.trust-diagram__steps > li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-2;
+    padding: 0 $space-4 0 0;
+  }
+
+  .trust-diagram__node {
+    grid-column: auto;
+    grid-row: auto;
+    margin-top: 0;
+  }
+
+  .trust-diagram__n,
+  .trust-diagram__name {
+    grid-column: auto;
+  }
+
+  .trust-diagram__name {
+    min-height: calc(#{$text-subhead} * #{$leading-section} * 2);
+  }
+
+  .trust-diagram__steps > li:not(:last-child)::after {
+    top: 0.22rem;
+    left: 0.5rem;
+    right: 0;
+    width: auto;
+    height: 1px;
   }
 }
 
