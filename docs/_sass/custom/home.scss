@@ -71,13 +71,14 @@
   line-height: $leading-section;
 }
 
-.home-section p:not(.eyebrow):not(.note-muted):not(.tech-meta) {
+.home-section p:not(.eyebrow):not(.note-muted):not(.tech-meta):not(.label):not(.trust-diagram__kicker):not(.own-grid__body) {
   font-size: $text-body;
   line-height: $leading-body;
 }
 
 .home-section .lede,
-.home-section dd {
+.home-section dd,
+.home-section .own-grid__body {
   color: $color-text-secondary;
 }
 

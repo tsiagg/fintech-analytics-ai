@@ -27,14 +27,48 @@
         The left of this chain produces numbers that can be audited.
         The right only writes sentences about those numbers.
       </p>
-      <ol class="trust-flow">
-        <li><span class="trust-flow__n">01</span><span>Source data</span></li>
-        <li><span class="trust-flow__n">02</span><span>Models</span></li>
-        <li><span class="trust-flow__n">03</span><span>Tests</span></li>
-        <li><span class="trust-flow__n">04</span><span>Governed metrics</span></li>
-        <li><span class="trust-flow__n">05</span><span>Decisions</span></li>
-        <li class="trust-flow__last"><span class="trust-flow__n">06</span><span>AI explanation</span></li>
-      </ol>
+      <div class="trust-diagram">
+        <div class="trust-diagram__group trust-diagram__group--data">
+          <p class="trust-diagram__kicker">Trusted data</p>
+          <ol class="trust-diagram__steps">
+            <li>
+              <span class="trust-diagram__node" aria-hidden="true"></span>
+              <span class="trust-diagram__n">01</span>
+              <span class="trust-diagram__name">Source data</span>
+            </li>
+            <li>
+              <span class="trust-diagram__node" aria-hidden="true"></span>
+              <span class="trust-diagram__n">02</span>
+              <span class="trust-diagram__name">Models</span>
+            </li>
+            <li>
+              <span class="trust-diagram__node" aria-hidden="true"></span>
+              <span class="trust-diagram__n">03</span>
+              <span class="trust-diagram__name">Tests</span>
+            </li>
+            <li>
+              <span class="trust-diagram__node" aria-hidden="true"></span>
+              <span class="trust-diagram__n">04</span>
+              <span class="trust-diagram__name">Governed metrics</span>
+            </li>
+            <li>
+              <span class="trust-diagram__node" aria-hidden="true"></span>
+              <span class="trust-diagram__n">05</span>
+              <span class="trust-diagram__name">Decisions</span>
+            </li>
+          </ol>
+        </div>
+        <div class="trust-diagram__group trust-diagram__group--ai">
+          <p class="trust-diagram__kicker">AI</p>
+          <ol class="trust-diagram__steps" start="6">
+            <li>
+              <span class="trust-diagram__node" aria-hidden="true"></span>
+              <span class="trust-diagram__n">06</span>
+              <span class="trust-diagram__name">AI explanation</span>
+            </li>
+          </ol>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -50,16 +84,16 @@
     <div class="home-wrap">
       <p class="eyebrow">Ownership</p>
       <h2 id="ownership-title">What I owned, and what was built with AI</h2>
-      <dl class="own-grid">
-        <div>
-          <dt>Designed and implemented</dt>
-          <dd>dbt staging, intermediate and marts; grain decisions; trading economics; MetricFlow metrics. This is the layer I would defend line by line.</dd>
+      <div class="own-grid">
+        <div class="own-grid__col">
+          <p class="label">Designed and implemented</p>
+          <p class="own-grid__body">dbt staging, intermediate and marts; grain decisions; trading economics; MetricFlow metrics. This is the layer I would defend line by line.</p>
         </div>
-        <div>
-          <dt>Directed and reviewed</dt>
-          <dd>Streamlit pages, the source-data simulator, Airflow boilerplate, and the larger Python modules behind the BI Assistant and CFO report. An AI coding agent wrote that code to a design I set.</dd>
+        <div class="own-grid__col">
+          <p class="label">Directed and reviewed</p>
+          <p class="own-grid__body">Streamlit pages, the source-data simulator, Airflow boilerplate, and the larger Python modules behind the BI Assistant and CFO report. An AI coding agent wrote that code to a design I set.</p>
         </div>
-      </dl>
+      </div>
       <p class="note-muted">
         Stated because the repository is public, not because the modelling work is less mine.
         <a class="text-link" href="{{ '/05-ownership-and-cursor-workflow.html' | relative_url }}">How this project was built →</a>
