@@ -1,11 +1,12 @@
 ---
 title: File guide
-nav_order: 8
+parent: Thinking
+nav_order: 3
 ---
 
 # File guide
 
-The repository has 105 files. Around fifteen of them are worth your time. This page says which, and why.
+The repository contains more than 100 tracked files. Around fifteen carry most of the signal for a reviewer. This page explains which ones to open and why.
 
 ## If you have five minutes
 
@@ -35,7 +36,7 @@ Worth reading for the design; the implementation is not mine to claim.
 - **[`infra/airflow/dags/daily_fintech_analytics.py`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/infra/airflow/dags/daily_fintech_analytics.py)** — the whole pipeline in about 70 lines. Note `depends_on_past` and the position of `dbt_test`.
 - **[`infra/docker-compose.yml`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/infra/docker-compose.yml)** — the full local stack.
 
-Skim only, unless you specifically want to see the AI plumbing: **[`app/services/bi_engine.py`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/app/services/bi_engine.py)** (around 550 lines, the plan-validate-query-explain pipeline) and **[`reporting/inputs.py`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/reporting/inputs.py)** (around 675 lines, every quantitative input to the CFO report).
+Skim only, unless you specifically want to see the AI plumbing: **[`app/services/bi_engine.py`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/app/services/bi_engine.py)** (around 480 lines, the plan-validate-query-explain pipeline) and **[`reporting/inputs.py`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/reporting/inputs.py)** (around 580 lines, every quantitative input to the CFO report).
 
 ## Context, not my work
 
@@ -50,7 +51,7 @@ Skim only, unless you specifically want to see the AI plumbing: **[`app/services
 
 ## Skip these
 
-- **`app/pages/1_Executive_Dashboard.py`** — around 590 lines of Plotly and mock-data helpers. Low signal unless charting is what you came for.
+- **`app/pages/1_Executive_Dashboard.py`** — around 500 lines of Plotly and mock-data helpers. Low signal unless charting is what you came for.
 - **`model-implementation-planning/phase-*/README.md`** — agent briefs. Useful as evidence of how the work was scoped, not as reading.
 - **`reporting/templates/cfo_report.html.j2`** — around 380 lines of styled HTML. Read [the rendered output](cfo_report_latest.html) instead.
 

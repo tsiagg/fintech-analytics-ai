@@ -1,6 +1,7 @@
 ---
 title: BI implementation strategy
-nav_order: 5
+parent: Thinking
+nav_order: 2
 ---
 
 # BI implementation strategy

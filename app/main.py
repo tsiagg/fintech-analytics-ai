@@ -31,7 +31,7 @@ st.set_page_config(
 )
 
 st.title("Fintech Analytics")
-st.caption("Executive analytics on the fintech warehouse — Phase 4 in progress")
+st.caption("Governed executive analytics for a simulated retail trading broker")
 
 st.markdown(
     """

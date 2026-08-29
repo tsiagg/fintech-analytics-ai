@@ -1,6 +1,7 @@
 ---
 title: Architecture and data model
-nav_order: 3
+parent: Thinking
+nav_order: 1
 ---
 
 # Architecture and data model

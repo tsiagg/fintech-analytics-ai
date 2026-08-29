@@ -1,6 +1,7 @@
 ---
 title: Semantic layer and metric trust
-nav_order: 4
+parent: Work
+nav_order: 2
 ---
 
 # Semantic layer and metric trust

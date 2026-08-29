@@ -25,7 +25,7 @@ Deliver a **local AI-powered fintech analytics app** with three Streamlit pages:
 
 Optional footer on dashboard: **last data date** from `max(effective_date)` on `mrt_company_daily_kpi` — not a full pipeline page.
 
-### Suggested project structure
+### Implemented project structure
 
 ```text
 app/
@@ -35,19 +35,20 @@ app/
 │   ├── 1_Executive_Dashboard.py     # Done (v1)
 │   ├── 2_BI_Assistant.py            # Done (2026-06-19)
 │   └── 3_AI_CFO.py                  # Done (2026-06-19)
-├── components/
-│   ├── charts.py                    # Legacy preview helpers
-│   ├── kpi_cards.py
-│   └── tables.py
 └── services/
     ├── db.py                        # Done — mrt_company_daily_kpi, mrt_geo_daily_revenue
     ├── metrics.py                   # KPI snapshots from marts / mf query
     ├── semantic.py                  # metric catalog from dbt YAML
-    ├── rag.py                       # metric definitions for prompts
     ├── ai_client.py                 # OpenAI-compatible client
-    ├── forecasting.py               # MA / trend on daily KPI mart
-    ├── anomalies.py                 # rules vs baselines (Python, not LLM)
-    └── cfo_engine.py                # structured CFO workflow
+    └── bi_engine.py                 # plan, validate, query and explain
+
+reporting/
+├── generate.py                      # command-line and Airflow entry point
+├── inputs.py                        # deterministic report inputs
+├── forecasting.py                   # month-end forecast
+├── anomalies.py                     # rules and statistical outliers
+├── engine.py                        # fixed-section narrative workflow
+└── store.py                         # report persistence
 ```
 
 ### Two separate AI modes (do not merge)

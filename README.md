@@ -1,6 +1,6 @@
 # Fintech Analytics AI
 
-Analytics engineering portfolio: dbt marts, a MetricFlow semantic layer, Airflow orchestration, and a guardrailed AI BI layer on a simulated fintech warehouse.
+An end-to-end analytics engineering portfolio for a simulated retail trading broker: dbt marts, a MetricFlow semantic layer, Airflow orchestration and a guardrailed AI BI layer.
 
 **[Read the full documentation site](https://tsiagg.github.io/fintech-analytics-ai/)**
 
@@ -12,9 +12,19 @@ Analytics engineering portfolio: dbt marts, a MetricFlow semantic layer, Airflow
 
 ## What this is
 
-A complete analytics stack for a fictional retail trading broker, built end to end so that the analytics engineering work has somewhere real to live. A simulator generates daily trades, deposits, withdrawals and signups into Postgres. dbt turns that into tested marts and a semantic layer of 57 governed metrics. Airflow runs the whole thing daily. Streamlit exposes it through a dashboard, a chat-based BI assistant, and an automatically generated CFO report.
+A complete analytics stack that turns trades, client funding, signups, affiliate acquisition costs and regional targets into decision-ready data. A simulator writes daily activity into Postgres. dbt transforms it into tested marts and a semantic layer of 57 governed metrics. Airflow runs the pipeline, and Streamlit presents the results through an executive dashboard, a chat-based BI assistant and an automatically generated CFO report.
 
-The point of the project is not the app. It is the layer underneath: **defining metrics once, testing them, and making them the only thing an LLM is allowed to talk about.**
+The core of the project is the trust layer underneath the app: **define metrics once, test them, and make them the only numbers an LLM is allowed to discuss.**
+
+## Business questions covered
+
+- How do company P&L, per-lot trading costs, cashback and affiliate costs combine into net revenue?
+- Are active users, deposits and net revenue on target by region?
+- Which acquisition channels, customer groups and instruments drive commercial performance?
+- Are withdrawal behaviour, funding flows or daily results showing unusual movement?
+- Are clients activating and returning after signup?
+
+The [Skills page](https://tsiagg.github.io/fintech-analytics-ai/06-skills.html) connects these questions to the technical, business and collaboration skills demonstrated in the repository.
 
 ## Architecture
 
@@ -43,9 +53,9 @@ Postgres 16, dbt Core with `dbt_utils`, MetricFlow, Airflow 3.1.5 on LocalExecut
 
 ## Ownership, honestly
 
-I own the analytics engineering: the dimensional models, the grain decisions, the metric definitions, the tests, and the guardrail design that constrains the AI. The data simulator stands in for a data engineering team, and the Streamlit and Python application code was largely AI-generated to my direction and review.
+I own the analytics engineering: the dimensional models, grain decisions, business definitions, tests and guardrail design that constrains the AI. The simulator stands in for an upstream data engineering team. The Streamlit and larger Python application modules were built with an AI coding agent under my direction and review.
 
-That split is documented in detail, including where my technical depth runs out and what I do to compensate, in [Ownership and Cursor workflow](https://tsiagg.github.io/fintech-analytics-ai/05-ownership-and-cursor-workflow.html) and [Skills](https://tsiagg.github.io/fintech-analytics-ai/06-skills.html).
+That split, the review process and the project's current boundaries are documented in [Ownership and Cursor workflow](https://tsiagg.github.io/fintech-analytics-ai/05-ownership-and-cursor-workflow.html) and [Skills](https://tsiagg.github.io/fintech-analytics-ai/06-skills.html).
 
 ## A 60-second tour
 

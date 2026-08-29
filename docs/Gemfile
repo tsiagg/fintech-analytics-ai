@@ -1,0 +1,5 @@
+source "https://rubygems.org"
+
+# Mirrors GitHub Pages so the /docs site can be built locally.
+gem "github-pages", group: :jekyll_plugins
+gem "webrick", "~> 1.8"

@@ -1,6 +1,7 @@
 ---
-title: Appendix - Learning and ownership plan
-nav_order: 10
+title: Learning and ownership plan
+parent: Reference
+nav_order: 3
 ---
 
 # Learning & Ownership Plan
@@ -100,9 +101,10 @@ Agent pauses at each step for my decisions; I should be able to explain why each
 
 ## Area 4 — AI CFO (agent guides, I decide structure)
 
-Agent gets my input on the 9-section report template and what each section needs, then scaffolds
-`cfo_engine.py`. Inputs are precomputed in Python (snapshots, deltas, targets, anomalies, forecasts);
-LLM only writes prose. I decide: which sections matter, what counts as an anomaly, forecast method.
+Agent gets my input on the nine-section report template and what each section needs, then scaffolds
+the reporting modules in `reporting/`. Inputs are precomputed in Python (snapshots, deltas, targets,
+anomalies and forecasts); the LLM only writes prose. I decide which sections matter, what counts as
+an anomaly and which forecast method to use.
 
 ---
 

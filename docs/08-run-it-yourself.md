@@ -1,6 +1,7 @@
 ---
 title: Run it yourself
-nav_order: 9
+parent: Reference
+nav_order: 1
 ---
 
 # Run it yourself

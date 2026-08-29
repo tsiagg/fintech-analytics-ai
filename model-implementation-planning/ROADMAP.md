@@ -4,7 +4,7 @@
 
 **Previously (2026-06-20):** **Phases 1–4 effectively complete.** `generate_cfo_report` is now a wired task in the Airflow DAG (`reporting.generate`), and the `new_users` column on `mrt_company_daily_kpi` has been built and tested by dbt (verified in `target/run_results.json`, documented in `serving.yml` with a `not_null` test). AI CFO, BI Assistant, Executive Dashboard v1, and Data Spot Check are all live. **Next:** Phase 5 portfolio packaging (root README, architecture diagram, full-stack compose, sample backfill, screenshots). Edit the [Progress tracker](#progress-tracker) when you finish work.
 
-**You are here:** **Phase 4 ~100%** — Streamlit app at **http://localhost:8501** with **Data Spot Check** + **Executive Dashboard** + **BI Assistant** + **AI CFO** (Airflow-generated structured report). **Phase 3 complete** (Airflow `daily_fintech_analytics`: `run_simulation → dbt_run → dbt_test → generate_cfo_report`). Only **Phase 5** (portfolio) remains.
+**Current state:** **Phases 1–4 are complete.** The Streamlit app includes Data Spot Check, Executive Dashboard, BI Assistant and an Airflow-generated AI CFO report. **Phase 5 documentation has shipped;** the remaining packaging ideas were assessed and left out of scope.
 
 ---
 
@@ -14,9 +14,9 @@
 |-------|--------|
 | **2a** | dbt staging → intermediate → core marts *(done)* |
 | **2b** | KPI marts + **serving** rollups + **MetricFlow** on core marts; affiliate mart deferred |
-| **3** | **One simple DAG:** sim → `dbt run` → `dbt test` → `generate_cfo_report` *(CFO task now wired)* | *(done)* |
-| **4** | Streamlit: **Dashboard** + **BI Assistant** + **AI CFO**; OpenRouter (~€20/mo); metrics from marts/semantic layer only |
-| **5** | Portfolio storytelling, README, compose, screenshots (incl. Airflow DAG), sample backfill — no new product features |
+| **3** | **One simple DAG:** sim → `dbt run` → `dbt test` → `generate_cfo_report` *(done)* |
+| **4** | Streamlit: **Dashboard** + **BI Assistant** + **AI CFO**; OpenRouter (~€20/mo); metrics from marts/semantic layer only *(done)* |
+| **5** | Portfolio storytelling and documentation *(shipped)*; compose, screenshots and sample backfill left out of scope |
 
 **Design principles:** Compute metrics in the warehouse; AI interprets only. Separate BI Assistant (reactive) from AI CFO (proactive, structured). Scale by adding marts + semantic metric YAML later.
 
@@ -41,7 +41,7 @@ Portfolio (weighted*)     [█████████████████�
 
 ## Gantt chart (Mermaid)
 
-Renders in GitHub, many IDEs, and Cursor markdown preview. **Green/done** = complete; **blue/active** = current focus; **grey** = not started.
+Renders in GitHub, many IDEs and Cursor Markdown preview. **Green/done** = complete; **grey** = deferred or not started.
 
 ```mermaid
 gantt

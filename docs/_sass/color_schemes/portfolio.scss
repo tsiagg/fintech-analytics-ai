@@ -1,0 +1,28 @@
+// Overrides the default light scheme. Light is imported first by Just the Docs,
+// so these assignments replace its colors, fonts and layout tokens.
+
+$body-background-color: #fafaf8;
+$body-heading-color: #171717;
+$body-text-color: #171717;
+$link-color: #1a5f7a;
+$nav-child-link-color: #52525b;
+$sidebar-color: #fafaf8;
+$base-button-color: #f4f4f1;
+$btn-primary-color: #1a5f7a;
+$code-background-color: #f4f4f1;
+$feedback-color: #efece6;
+$table-background-color: #fafaf8;
+$search-background-color: #ffffff;
+$search-result-preview-color: #6b7280;
+$border-color: #e5e7eb;
+
+$body-font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+$mono-font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, consolas, monospace;
+$body-line-height: 1.7;
+$content-line-height: 1.7;
+$body-heading-line-height: 1.25;
+
+$nav-width: 17.5rem;
+$nav-width-md: 16.5rem;
+$header-height: 3.5rem;
+$border-radius: 4px;
