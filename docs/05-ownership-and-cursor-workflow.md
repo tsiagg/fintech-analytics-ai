@@ -2,11 +2,11 @@
 title: How this project was built
 parent: About this project
 nav_order: 2
+eyebrow: Ownership
+lede: Who wrote which layer in this repository, and how I reviewed the AI-generated parts. Roles and employers are on the CV.
+description: Ownership split for this repository — what I built, what an agent built, and how I QA it.
+has_toc: false
 ---
-
-# How this project was built
-
-This page is about **this repository**, not employment history. Roles and employers are on the [CV]({{ '/cv/' | relative_url }}). What follows is who wrote which layer here, and how I reviewed the AI-generated parts.
 
 This project was built with an AI coding agent. Pretending otherwise would be both dishonest and a wasted opportunity, because how you direct and verify an agent is now part of the job.
 

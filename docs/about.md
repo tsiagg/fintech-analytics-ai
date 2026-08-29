@@ -4,12 +4,11 @@ nav_order: 4
 has_children: true
 has_toc: false
 permalink: /about/
+eyebrow: About
+header_title: About this project
+lede: I work where analytics engineering meets financial analysis — take a commercial question, turn it into a tested data product, and put the result in a form someone can decide from.
 description: What this project is, how to read it, and which skills it demonstrates.
 ---
-
-# About this project
-
-I work where analytics engineering meets financial analysis: take a commercial question, turn it into a tested data product, and put the result in a form someone can decide from.
 
 This site is a portfolio project at that intersection — warehouse modelling, metric governance, BI, and AI that is only allowed to explain numbers the warehouse already computed. It is not a client engagement and not a production deployment.
 
@@ -19,9 +18,9 @@ The modelling layer is mine. The Streamlit surfaces and larger Python modules we
 
 ## How to read this
 
-<div class="path-grid">
-  <article class="path-card">
-    <p class="work-entry__cat">Recruiters and hiring managers</p>
+<div class="card-grid">
+  <article class="card">
+    <p class="eyebrow">Recruiters and hiring managers</p>
     <h3>Five-minute guide</h3>
     <p>Enough to place the profile, see what shipped, and know which skills are claimed.</p>
     <ol>
@@ -30,8 +29,8 @@ The modelling layer is mine. The Streamlit surfaces and larger Python modules we
       <li><a href="{{ '/06-skills.html' | relative_url }}">Skills demonstrated on this project</a> — technical, business and soft skills, with evidence</li>
     </ol>
   </article>
-  <article class="path-card">
-    <p class="work-entry__cat">Heads of analytics, BI and data</p>
+  <article class="card">
+    <p class="eyebrow">Heads of analytics, BI and data</p>
     <h3>Fifteen-minute guide</h3>
     <p>Enough to judge the warehouse, the metric contract, and how AI is constrained.</p>
     <ol>
@@ -43,4 +42,4 @@ The modelling layer is mine. The Streamlit surfaces and larger Python modules we
   </article>
 </div>
 
-<p class="about-also">The <a href="{{ '/07-file-guide.html' | relative_url }}">file guide</a> lists which repository files are worth opening.</p>
+<p class="note-muted">The <a href="{{ '/07-file-guide.html' | relative_url }}">file guide</a> lists which repository files are worth opening. <a href="{{ '/08-run-it-yourself.html' | relative_url }}">Run it yourself</a> covers the local stack.</p>

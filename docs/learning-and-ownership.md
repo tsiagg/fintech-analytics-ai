@@ -2,11 +2,13 @@
 title: Learning and ownership plan
 parent: Reference
 nav_order: 3
+eyebrow: Ownership
+lede: This file was written before the code, not afterwards as a rationalisation. The roadmap tracks what gets built; this page tracks who owns it.
+description: Ownership plan written before the code — what is mine, what an agent built, and how QA works.
+has_toc: false
 ---
 
-# Learning and ownership
-
-This file was written **before** the code, not afterwards as a rationalisation. It sits next to [`model-implementation-planning/ROADMAP.md`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/model-implementation-planning/ROADMAP.md): the roadmap tracks *what* gets built; this page tracks *who* owns it.
+It sits next to [`model-implementation-planning/ROADMAP.md`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/model-implementation-planning/ROADMAP.md): the roadmap tracks *what* gets built; this page tracks *who* owns it.
 
 The point of using an agent was speed with a QA trail, not a black box that happens to run. I am training as an **analytics engineer**. The value I own is modelling, metric definitions and the trust layer. The UI is a demonstration surface for that work.
 

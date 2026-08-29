@@ -2,11 +2,12 @@
 title: Architecture and data model
 parent: Thinking
 nav_order: 1
+eyebrow: Analytics approach
+lede: Twenty-one dbt models across four layers, each layer with one job. Grain is a test, not a comment.
+tech: dbt Core · SQL · Postgres
+description: Warehouse layers, grain, materialization and where the simulated source data comes from.
+has_toc: false
 ---
-
-# Architecture and data model
-
-Twenty-one dbt models across four layers, each layer with one job.
 
 ```mermaid
 flowchart TD

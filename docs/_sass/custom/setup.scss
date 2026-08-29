@@ -1,13 +1,85 @@
-// Custom properties used by homepage and documentation overrides.
-$site-bg: #fafaf8;
-$site-bg-muted: #f4f4f1;
-$site-ink: #171717;
-$site-ink-muted: #6b7280;
-$site-line: #e5e7eb;
-$site-accent: #1a5f7a;
-$site-accent-hover: #144c62;
-$site-max: 72rem;
-$site-prose: 46rem;
-$site-topbar-height: 3.5rem;
-$site-radius: 4px;
-$site-ease: 180ms ease;
+// =============================================================================
+// Design tokens — source of truth for the whole portfolio
+// =============================================================================
+// Warm paper, near-black ink, one restrained accent.
+// Closer to financial / editorial design than product marketing.
+// Every custom rule should reference these tokens (Sass or CSS variables).
+
+// Colour
+$color-bg: #f8f6f1;
+$color-surface: #fffcf7;
+$color-surface-muted: #efece4;
+$color-text: #1a1917;
+$color-text-secondary: #5c5a55;
+$color-border: #e2ded6;
+$color-accent: #1b4f5c;
+$color-accent-hover: #143c46;
+$color-on-accent: #fffcf7;
+
+// Typography
+$font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+$font-mono: "IBM Plex Mono", "SFMono-Regular", ui-monospace, consolas, monospace;
+
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+
+$text-display: clamp(2.05rem, 1.55rem + 2vw, 2.65rem);
+$text-title: clamp(1.7rem, 1.4rem + 1.2vw, 2.2rem);
+$text-section: clamp(1.2rem, 1.1rem + 0.45vw, 1.45rem);
+$text-subhead: 1.125rem;
+$text-body: 1.0625rem;
+$text-small: 0.9375rem;
+$text-meta: 0.8125rem;
+$text-label: 0.6875rem;
+
+$leading-display: 1.18;
+$leading-title: 1.2;
+$leading-section: 1.28;
+$leading-body: 1.7;
+$leading-meta: 1.5;
+$tracking-label: 0.12em;
+
+// Spacing scale (4 / 8 / 12 / 16 / 24 / 32 / 40 / 56 / 80)
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 0.75rem;
+$space-4: 1rem;
+$space-5: 1.5rem;
+$space-6: 2rem;
+$space-7: 2.5rem;
+$space-8: 3.5rem;
+$space-9: 5rem;
+
+// Layout
+$width-container: 68rem;
+$width-wide: 56rem;
+$width-prose: 40.5rem;
+$page-gutter: 1.25rem;
+$page-gutter-md: 2rem;
+$header-height: 3.5rem;
+
+// Shape and motion
+$radius: 2px;
+$shadow: 0 1px 1px rgba(26, 25, 23, 0.04);
+$ease: 180ms ease;
+$ease-move: 180ms ease;
+
+// Breakpoints (documentation; media queries inlined for Sass compatibility)
+$bp-md: 50rem;
+$bp-lg: 80rem;
+
+// Aliases used by older custom rules and Just the Docs overrides
+$site-bg: $color-bg;
+$site-bg-muted: $color-surface-muted;
+$site-ink: $color-text;
+$site-ink-muted: $color-text-secondary;
+$site-line: $color-border;
+$site-accent: $color-accent;
+$site-accent-hover: $color-accent-hover;
+$site-max: $width-container;
+$site-prose: $width-prose;
+$site-topbar-height: $header-height;
+$site-radius: $radius;
+$site-ease: $ease;
+$mono-font-family: $font-mono;

@@ -1,6 +1,13 @@
-{%- assign current_section = page.parent | default: page.title -%}
-{%- if page.url == '/' or page.layout == 'home' -%}
-  {%- assign current_section = 'Home' -%}
+{%- assign u = page.url -%}
+{%- assign nav_active = '' -%}
+{%- if page.layout == 'home' or u == '/' -%}
+  {%- assign nav_active = '' -%}
+{%- elsif u contains '/cv' -%}
+  {%- assign nav_active = 'cv' -%}
+{%- elsif u contains '/work' or u contains '01-what' or u contains '02-architecture' or u contains '03-semantic' or u contains '04-bi' or u contains '/thinking' or u contains '07-file' -%}
+  {%- assign nav_active = 'work' -%}
+{%- else -%}
+  {%- assign nav_active = 'about' -%}
 {%- endif -%}
 
 <header class="site-topbar" role="banner">
@@ -11,25 +18,15 @@
     </a>
 
     <nav class="site-topnav" aria-label="Primary">
-      <a class="site-topnav__link{% if current_section == 'Work' %} is-active{% endif %}" href="{% if page.layout == 'home' %}#work{% else %}{{ '/work/' | relative_url }}{% endif %}">Work</a>
-      <a class="site-topnav__link{% if current_section == 'Thinking' %} is-active{% endif %}" href="{{ '/thinking/' | relative_url }}">Thinking</a>
-      <a class="site-topnav__link{% if current_section == 'About this project' %} is-active{% endif %}" href="{{ '/about/' | relative_url }}">This project</a>
-      <a class="site-topnav__link{% if current_section == 'CV' %} is-active{% endif %}" href="{{ site.cv_path | default: '/cv/' | relative_url }}">CV</a>
-      <a class="site-topnav__link site-topnav__ext" href="{{ site.github_url }}">GitHub</a>
-      {% if site.linkedin_url and site.linkedin_url != "" %}
-        <a class="site-topnav__link site-topnav__ext" href="{{ site.linkedin_url }}">LinkedIn</a>
-      {% endif %}
+      <a class="site-topnav__link{% if nav_active == 'work' %} is-active{% endif %}" href="{{ '/work/' | relative_url }}">Work</a>
+      <a class="site-topnav__link{% if nav_active == 'about' %} is-active{% endif %}" href="{{ '/about/' | relative_url }}">About</a>
+      <a class="site-topnav__link{% if nav_active == 'cv' %} is-active{% endif %}" href="{{ site.cv_path | default: '/cv/' | relative_url }}">CV</a>
     </nav>
 
     <div class="site-topbar__tools">
       {% if site.search_enabled != false %}
         {% include components/search_header.html %}
       {% endif %}
-      <a class="site-cv-btn{% if current_section == 'CV' %} is-active{% endif %}" href="{{ site.cv_path | default: '/cv/' | relative_url }}">CV</a>
-      <button id="menu-button" class="site-menu-btn btn-reset" type="button" aria-label="Toggle menu" aria-controls="site-nav" aria-pressed="false">
-        <span class="site-menu-btn__label">Menu</span>
-        <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
-      </button>
     </div>
   </div>
 </header>

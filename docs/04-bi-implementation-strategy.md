@@ -2,23 +2,20 @@
 title: BI implementation strategy
 parent: Thinking
 nav_order: 2
+eyebrow: Decision support
+lede: The warehouse computes. The model narrates. An LLM never touches SQL, never sees the database, and only ever receives a result set that a governed query produced.
+tech: MetricFlow · Python · pandas
+description: How AI is put in front of a warehouse — guardrails, cost control, and what would change on a real team.
+has_toc: false
 ---
-
-# BI implementation strategy
-
-How I think AI should be put in front of a warehouse, and what I actually implemented to test the opinion.
-
-## The principle
-
-**The warehouse computes. The model narrates.** An LLM is good at turning a table into a sentence a stakeholder will read, and bad at being a calculator you can audit. So it never touches SQL, never sees the database, and only ever receives a result set that a governed query produced.
 
 This is a constraint, not a limitation to be engineered around later. The moment a model can write its own SQL, the definition of net revenue becomes whatever the model decided this time, and no test in your dbt project protects you.
 
-## Two AI surfaces, deliberately separate
+## Two surfaces, deliberately separate
 
 **Reactive — the BI Assistant.** Someone has a question now. Unpredictable input, one question at a time, needs to be fast and cheap.
 
-**Proactive — the AI CFO report.** Nobody asked. It runs on a schedule and tells you what happened. Fixed structure, known queries, quality matters more than latency.
+**Proactive — the CFO report.** Nobody asked. It runs on a schedule and tells you what happened. Fixed structure, known queries, quality matters more than latency.
 
 These are different products and I built them separately. A single "AI analyst" trying to be both ends up as a one-shot planner attempting a nine-section report, which is exactly the failure I ran into and wrote up as item I-3 in the backlog. The report is not a big question; it is a template of sections, each backed by pre-defined queries, stitched together.
 
@@ -54,13 +51,27 @@ Each link in that chain removes a way the system could lie.
 
 Questions default to a fast, cheap model. Analytical phrasing — "why", "compare", "anomaly", "deep dive" — escalates to a stronger one. If the planner returns unparseable JSON, it retries on the other tier rather than failing. Every answer displays the model used and the token count, which keeps the running cost visible instead of arriving as a monthly surprise. The whole thing was built to a roughly 20 euro per month budget.
 
-![Descriptive question answered on the cheap flash model, with the model badge under the chart](assets/screenshots/bi-assistant-1.png)
+<figure class="figure">
+  <img
+    src="{{ '/assets/screenshots/bi-assistant-1.png' | relative_url }}"
+    alt="Descriptive question answered on the cheap flash model, with the model badge under the chart."
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async">
+  <figcaption>“What was the revenue over the last 2 weeks by region?” is a lookup. It stays on deepseek-v4-flash.</figcaption>
+</figure>
 
-"What was the revenue over the last 2 weeks by region?" is a lookup. It stays on `deepseek-v4-flash`.
-
-![Anomaly and root-cause question escalated to the stronger Pro model](assets/screenshots/bi-assistant-2.png)
-
-"Were there any anomalies in any region?" is an analytical question. It escalates to `deepseek-v4-pro`. The numbers still come from MetricFlow and pandas; the more expensive model only writes the explanation.
+<figure class="figure">
+  <img
+    src="{{ '/assets/screenshots/bi-assistant-2.png' | relative_url }}"
+    alt="Anomaly and root-cause question escalated to the stronger Pro model."
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async">
+  <figcaption>“Were there any anomalies in any region?” escalates to deepseek-v4-pro. The numbers still come from MetricFlow and pandas.</figcaption>
+</figure>
 
 Two known inefficiencies are logged rather than hidden: the retry is more eager than it needs to be (I-7), and the catalog sent to the planner is not trimmed by relevance, so very broad questions can crowd the context window (I-5).
 

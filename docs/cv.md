@@ -4,14 +4,11 @@ nav_order: 5
 permalink: /cv/
 has_toc: false
 has_children: false
+eyebrow: Curriculum vitae
+header_title: Angelos Tsiannis
+lede: Data Analyst · Analytics Engineer
 description: Curriculum vitae for Angelos Tsiannis, Data Analyst and Analytics Engineer.
 ---
-
-<p class="cv-kicker">Curriculum vitae</p>
-
-# Angelos Tsiannis
-
-<p class="cv-role">Data Analyst · Analytics Engineer</p>
 
 <p class="cv-contact">
   <a href="mailto:atsiannis@gmail.com">atsiannis@gmail.com</a>

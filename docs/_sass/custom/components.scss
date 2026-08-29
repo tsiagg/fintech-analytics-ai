@@ -1,0 +1,734 @@
+// =============================================================================
+// Reusable components — used on every page
+// =============================================================================
+
+// ---------------------------------------------------------------------------
+// Labels — one accent eyebrow, one muted meta label
+// ---------------------------------------------------------------------------
+
+.page-header__eyebrow,
+.eyebrow,
+.case-block__label,
+.case__cat {
+  margin: 0 0 $space-3;
+  color: $color-accent;
+  font-family: $font-mono;
+  font-size: $text-label;
+  font-weight: $font-weight-medium;
+  letter-spacing: $tracking-label;
+  line-height: $leading-meta;
+  text-transform: uppercase;
+}
+
+.label,
+.own-grid dt,
+.case__dl dt,
+.metric__label,
+.trust-flow__n {
+  margin: 0;
+  color: $color-text-secondary;
+  font-family: $font-mono;
+  font-size: $text-label;
+  font-weight: $font-weight-medium;
+  letter-spacing: $tracking-label;
+  line-height: $leading-meta;
+  text-transform: uppercase;
+}
+
+.own-grid dt,
+.case__dl dt {
+  margin: 0 0 $space-2;
+}
+
+.metric__label {
+  text-transform: uppercase;
+}
+
+// ---------------------------------------------------------------------------
+// Page header
+// ---------------------------------------------------------------------------
+
+.page-header {
+  margin: 0 0 $space-8;
+}
+
+.page-header__title {
+  max-width: 28ch;
+  margin: 0 0 $space-5;
+  color: $color-text;
+  font-size: $text-title;
+  font-weight: $font-weight-medium;
+  letter-spacing: -0.028em;
+  line-height: $leading-title;
+}
+
+.page-header--display .page-header__title {
+  max-width: 22ch;
+  font-size: $text-display;
+  line-height: $leading-display;
+}
+
+.page-header__lede,
+.lede {
+  max-width: $width-prose;
+  margin: 0;
+  color: $color-text-secondary;
+  font-size: $text-body;
+  font-weight: $font-weight-regular;
+  line-height: $leading-body;
+}
+
+.page-header .tech-meta {
+  margin-top: $space-5;
+}
+
+.page-header--display .page-header__lede {
+  margin-top: $space-4;
+}
+
+.lede {
+  margin: 0 0 $space-6;
+}
+
+// ---------------------------------------------------------------------------
+// Technical metadata
+// ---------------------------------------------------------------------------
+
+.tech-meta,
+.main-content p.tech-meta,
+.cv-contact,
+.main-content p.cv-contact {
+  margin: 0;
+  color: $color-text-secondary;
+  font-family: $font-mono;
+  font-size: $text-meta;
+  font-weight: $font-weight-regular;
+  letter-spacing: 0.02em;
+  line-height: $leading-meta;
+}
+
+.cv-contact,
+.main-content p.cv-contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-1;
+  margin: 0 0 $space-7;
+}
+
+.cv-contact a {
+  color: $color-accent;
+}
+
+.cv-contact__sep {
+  color: $color-border;
+  padding: 0 $space-2;
+}
+
+// ---------------------------------------------------------------------------
+// Buttons and text links
+// ---------------------------------------------------------------------------
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-3 $space-5;
+  margin: 0;
+}
+
+.page-header + .btn-row {
+  margin-top: $space-6;
+}
+
+.btn-site {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: $space-2 $space-4;
+  border-radius: $radius;
+  font-size: $text-meta;
+  font-weight: $font-weight-medium;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  background-image: none;
+  transition: background-color $ease, color $ease, border-color $ease;
+}
+
+.btn-site--primary {
+  background: $color-text;
+  border: 1px solid $color-text;
+  color: $color-on-accent;
+}
+
+.btn-site--primary:hover {
+  background: $color-accent;
+  border-color: $color-accent;
+  color: $color-on-accent;
+  background-image: none;
+}
+
+.btn-site--ghost {
+  background: transparent;
+  border: 1px solid $color-text;
+  color: $color-text;
+}
+
+.btn-site--ghost:hover {
+  border-color: $color-accent;
+  color: $color-accent;
+  background-image: none;
+}
+
+.text-link,
+.case__link {
+  display: inline-flex;
+  align-items: center;
+  color: $color-text;
+  font-size: $text-small;
+  font-weight: $font-weight-medium;
+  text-decoration: none;
+  background-image: none;
+  box-shadow: inset 0 -1px 0 $color-text;
+  transition: color $ease, box-shadow $ease, transform $ease;
+}
+
+.text-link:hover,
+.case__link:hover {
+  color: $color-accent;
+  background-image: none;
+  box-shadow: inset 0 -1px 0 $color-accent;
+  transform: translateX(0.15rem);
+}
+
+// ---------------------------------------------------------------------------
+// Notes
+// ---------------------------------------------------------------------------
+
+.note-muted,
+.main-content p.note-muted {
+  max-width: $width-prose;
+  margin: $space-5 0 0;
+  color: $color-text-secondary;
+  font-size: $text-meta;
+  line-height: $leading-meta;
+}
+
+.note-muted .text-link {
+  display: inline;
+  margin-left: $space-1;
+}
+
+.note-muted .text-link:hover {
+  transform: none;
+}
+
+// ---------------------------------------------------------------------------
+// Metrics
+// ---------------------------------------------------------------------------
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid $color-border;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  padding: $space-5 0;
+  border-bottom: 1px solid $color-border;
+}
+
+.metric:nth-child(odd) {
+  padding-right: $space-5;
+  border-right: 1px solid $color-border;
+}
+
+.metric:nth-child(even) {
+  padding-left: $space-5;
+}
+
+.metric__value {
+  color: $color-text;
+  font-family: $font-mono;
+  font-size: $text-title;
+  font-weight: $font-weight-medium;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+@media (min-width: 50rem) {
+  .metrics {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .metric,
+  .metric:nth-child(odd),
+  .metric:nth-child(even) {
+    padding: $space-5 $space-5 $space-5 0;
+    border-right: 1px solid $color-border;
+    border-bottom: 0;
+  }
+
+  .metric:last-child {
+    border-right: 0;
+    padding-right: 0;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Figures / screenshots — one treatment
+// ---------------------------------------------------------------------------
+
+.figure {
+  margin: $space-6 0 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.figure img,
+.main-content .figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  background: $color-surface-muted;
+  border: 1px solid $color-border;
+  border-radius: $radius;
+  transition: opacity $ease;
+}
+
+.figure:hover img {
+  opacity: 0.94;
+}
+
+.figure figcaption {
+  margin: $space-3 0 0;
+  color: $color-text-secondary;
+  font-family: $font-mono;
+  font-size: $text-label;
+  font-weight: $font-weight-medium;
+  letter-spacing: $tracking-label;
+  line-height: $leading-meta;
+}
+
+.case .figure {
+  margin: 0;
+}
+
+// ---------------------------------------------------------------------------
+// Cards
+// ---------------------------------------------------------------------------
+
+.card-grid {
+  display: grid;
+  gap: $space-4;
+  margin: $space-5 0 0;
+}
+
+.page-header + .card-grid,
+h2 + .card-grid {
+  margin-top: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: $space-5;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  color: $color-text;
+  text-decoration: none;
+  background-image: none !important;
+  transition: border-color $ease;
+}
+
+.card:hover {
+  border-color: $color-text;
+  color: $color-text;
+  background-image: none !important;
+}
+
+.card h3,
+.card__title,
+.main-content .card h3 {
+  margin: 0 0 $space-3;
+  padding-top: 0;
+  color: $color-text;
+  font-size: $text-subhead;
+  font-weight: $font-weight-medium;
+  letter-spacing: -0.02em;
+  line-height: $leading-section;
+}
+
+.card p,
+.card > span:not(.eyebrow):not(.card__cta) {
+  margin: 0;
+  color: $color-text-secondary;
+  font-size: $text-small;
+  line-height: $leading-body;
+}
+
+.card ol {
+  margin: $space-4 0 0;
+  padding-left: $space-4;
+  color: $color-text-secondary;
+  font-size: $text-small;
+}
+
+.card ol a {
+  color: $color-accent;
+  background-image: none;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.card__cta {
+  display: inline-flex;
+  align-items: center;
+  margin-top: auto;
+  padding-top: $space-4;
+  color: $color-text;
+  font-size: $text-small;
+  font-weight: $font-weight-medium;
+  text-decoration: none;
+  background-image: none;
+  box-shadow: none;
+}
+
+a.card .card__cta {
+  box-shadow: inset 0 -1px 0 $color-text;
+}
+
+a.card:hover .card__cta {
+  color: $color-accent;
+  box-shadow: inset 0 -1px 0 $color-accent;
+}
+
+@media (min-width: 50rem) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $space-5;
+  }
+
+  .card-grid--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 80rem) {
+  .card-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 49.99rem) {
+  .card-grid,
+  .card-grid--3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Case-study narrative
+// ---------------------------------------------------------------------------
+
+.case-block {
+  margin-top: $space-8;
+}
+
+.case-block:first-child,
+.page-header + .case-block {
+  margin-top: 0;
+}
+
+.case-block p,
+.case-block li {
+  max-width: $width-prose;
+}
+
+.case-block .figure,
+.case-block .metrics,
+.case-block pre,
+.case-block .highlight {
+  max-width: $width-wide;
+}
+
+.main-content .case-block h2,
+.case-block h2 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.case-block .eyebrow {
+  margin-bottom: $space-2;
+}
+
+// ---------------------------------------------------------------------------
+// Ownership grid
+// ---------------------------------------------------------------------------
+
+.own-grid {
+  display: grid;
+  gap: $space-5;
+  margin: 0;
+}
+
+.own-grid dd {
+  margin: 0;
+  max-width: $width-prose;
+  color: $color-text-secondary;
+}
+
+@media (min-width: 50rem) {
+  .own-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $space-7;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Process / trust flow
+// ---------------------------------------------------------------------------
+
+.trust-flow {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid $color-border;
+  background: $color-surface;
+  border-radius: $radius;
+}
+
+.trust-flow li {
+  display: grid;
+  grid-template-columns: $space-7 minmax(0, 1fr);
+  gap: $space-3;
+  align-items: baseline;
+  padding: $space-3 $space-4;
+  border-top: 1px solid $color-border;
+  color: $color-text;
+  font-size: $text-small;
+  font-weight: $font-weight-medium;
+}
+
+.trust-flow li:first-child {
+  border-top: 0;
+}
+
+.trust-flow__last {
+  background: $color-surface-muted;
+}
+
+@media (min-width: 50rem) {
+  .trust-flow {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .trust-flow li {
+    grid-template-columns: 1fr;
+    gap: $space-2;
+    min-height: $space-9 + $space-6;
+    padding: $space-4;
+    border-top: 0;
+    border-left: 1px solid $color-border;
+  }
+
+  .trust-flow li:first-child {
+    border-left: 0;
+  }
+}
+
+@media (max-width: 49.99rem) {
+  .trust-flow {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Selected-work cases
+// ---------------------------------------------------------------------------
+
+.case-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+}
+
+.metrics + .case-list {
+  margin-top: $space-8;
+}
+
+.case {
+  display: grid;
+  gap: $space-5;
+  padding: $space-7 0;
+  border-top: 1px solid $color-border;
+}
+
+.case:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.case__intro,
+.case__body {
+  min-width: 0;
+}
+
+.case__head {
+  display: grid;
+  gap: $space-2;
+  margin-bottom: $space-4;
+}
+
+.case__head .eyebrow {
+  margin: 0;
+}
+
+.case h3,
+.home-section .case h3,
+.main-content .case h3 {
+  margin: 0;
+  color: $color-text;
+  font-size: $text-section;
+  font-weight: $font-weight-medium;
+  letter-spacing: -0.02em;
+  line-height: $leading-section;
+}
+
+.case__dl {
+  display: grid;
+  gap: $space-4;
+  margin: 0 0 $space-5;
+}
+
+.case__dl div {
+  display: grid;
+  gap: $space-1;
+}
+
+.case__dl dd {
+  margin: 0;
+  max-width: $width-prose;
+  color: $color-text-secondary;
+  font-size: $text-small;
+  line-height: $leading-body;
+}
+
+.case .tech-meta {
+  margin: 0 0 $space-4;
+}
+
+.case__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3 $space-5;
+}
+
+@media (min-width: 50rem) {
+  .case {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: $space-6 $space-8;
+    align-items: start;
+    padding: $space-8 0;
+  }
+}
+
+@media (max-width: 49.99rem) {
+  .case {
+    grid-template-columns: 1fr;
+    padding: $space-6 0;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// CV entries
+// ---------------------------------------------------------------------------
+
+.cv-job {
+  margin: 0 0 $space-6;
+  padding: 0 0 $space-6;
+  border-bottom: 1px solid $color-border;
+}
+
+.cv-job:last-of-type {
+  border-bottom: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.cv-job__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: $space-2 $space-5;
+  margin-bottom: $space-3;
+}
+
+.cv-job__title,
+.main-content p.cv-job__title {
+  margin: 0;
+  color: $color-text;
+  font-size: $text-body;
+  font-weight: $font-weight-medium;
+  letter-spacing: -0.01em;
+}
+
+.cv-job__org,
+.main-content p.cv-job__org {
+  margin: $space-1 0 0;
+  color: $color-text-secondary;
+  font-size: $text-small;
+}
+
+.cv-job__when,
+.main-content p.cv-job__when {
+  margin: 0;
+  color: $color-text-secondary;
+  font-family: $font-mono;
+  font-size: $text-meta;
+  white-space: nowrap;
+}
+
+.cv-job ul {
+  margin: $space-2 0 0;
+}
+
+.cv-skill-list,
+.main-content ul.cv-skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2 $space-4;
+  padding: 0;
+  margin: $space-3 0 0;
+  list-style: none;
+}
+
+.cv-skill-list li {
+  color: $color-text-secondary;
+  font-family: $font-mono;
+  font-size: $text-meta;
+  font-weight: $font-weight-medium;
+  line-height: $leading-meta;
+}
+
+@media (max-width: 49.99rem) {
+  .cv-job__when {
+    white-space: normal;
+  }
+}
