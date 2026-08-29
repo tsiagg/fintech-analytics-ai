@@ -53,7 +53,7 @@ Postgres 16, dbt Core with `dbt_utils`, MetricFlow, Airflow 3.1.5 on LocalExecut
 
 I own the analytics engineering: the dimensional models, grain decisions, business definitions, tests and guardrail design that constrains the AI. The simulator stands in for an upstream data engineering team. The Streamlit and larger Python application modules were built with an AI coding agent under my direction and review.
 
-That split, the review process and the project's current boundaries are documented in [Ownership and Cursor workflow](https://tsiagg.github.io/fintech-analytics-ai/05-ownership-and-cursor-workflow.html) and [Skills](https://tsiagg.github.io/fintech-analytics-ai/06-skills.html).
+That split, the review process and the project's current boundaries are documented in [How this project was built](https://tsiagg.github.io/fintech-analytics-ai/05-ownership-and-cursor-workflow.html) and [Skills demonstrated on this project](https://tsiagg.github.io/fintech-analytics-ai/06-skills.html).
 
 ## A 60-second tour
 

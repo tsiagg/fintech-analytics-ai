@@ -1,10 +1,12 @@
 ---
-title: Experience
-parent: About
-nav_order: 3
+title: How this project was built
+parent: About this project
+nav_order: 2
 ---
 
-# Ownership and Cursor workflow
+# How this project was built
+
+This page is about **this repository**, not employment history. Roles and employers are on the [CV]({{ '/cv/' | relative_url }}). What follows is who wrote which layer here, and how I reviewed the AI-generated parts.
 
 This project was built with an AI coding agent. Pretending otherwise would be both dishonest and a wasted opportunity, because how you direct and verify an agent is now part of the job.
 

@@ -1,13 +1,13 @@
 ---
-title: Skills
-parent: About
+title: Skills demonstrated on this project
+parent: About this project
 nav_order: 1
 permalink: /06-skills.html
 ---
 
-# Skills
+# Skills demonstrated on this project
 
-Capabilities demonstrated in this project, grouped as technical, business, and soft skills. This page is about the work in the repository. The [CV]({{ '/cv/' | relative_url }}) is the career record.
+Capabilities shown in this repository, grouped as technical, business, and soft skills. This is not a general skills list. The [CV]({{ '/cv/' | relative_url }}) is the career record.
 
 ## Technical skills
 

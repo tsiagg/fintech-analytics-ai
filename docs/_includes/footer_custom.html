@@ -7,9 +7,7 @@
     {% if site.linkedin_url and site.linkedin_url != "" %}
       <a href="{{ site.linkedin_url }}">LinkedIn</a>
     {% endif %}
-    {% if site.github_profile %}
-      <a href="{{ site.github_profile }}">GitHub</a>
-    {% endif %}
+    <a href="{{ site.github_url }}">GitHub</a>
     <a href="{{ site.cv_path | default: '/cv/' | relative_url }}">CV</a>
     {% if site.email and site.email != "" %}
       <a href="mailto:{{ site.email }}">Email</a>
