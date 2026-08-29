@@ -1,0 +1,18 @@
+{%- comment -%}
+  Sidebar without a second site title or menu button. Those live in site_header.html.
+{%- endcomment -%}
+
+<div class="side-bar">
+  <div class="site-header" role="banner">
+    <a href="{{ '/' | relative_url }}" class="site-title lh-tight">{% include title.html %}</a>
+  </div>
+
+  {% include_cached components/site_nav.html %}
+
+  {% capture nav_footer_custom %}
+    {%- include nav_footer_custom.html -%}
+  {% endcapture %}
+  {% if nav_footer_custom != "" %}
+    {{ nav_footer_custom }}
+  {% endif %}
+</div>

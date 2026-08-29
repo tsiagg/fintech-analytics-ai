@@ -1,6 +1,7 @@
 ---
 title: What I built
-nav_order: 2
+parent: Work
+nav_order: 1
 ---
 
 # What I built
@@ -21,9 +22,7 @@ Two configuration choices matter more than the task list. `depends_on_past=True`
 
 ## Executive dashboard
 
-<!-- Screenshot slot: uncomment once this image exists in assets/screenshots/
 ![Executive dashboard: KPI cards with sparklines and weekly revenue by region](assets/screenshots/executive-dashboard.png)
--->
 
 A conventional BI surface: four KPI cards with sparklines, month-to-date and week-over-week comparison badges, a weekly revenue breakdown that toggles between region and country, and per-user trend lines.
 

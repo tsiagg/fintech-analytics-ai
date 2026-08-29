@@ -1,0 +1,30 @@
+{%- assign current_section = page.parent | default: page.title -%}
+{%- if page.url == '/' or page.layout == 'home' -%}
+  {%- assign current_section = 'Home' -%}
+{%- endif -%}
+
+<header class="site-topbar" role="banner">
+  <div class="site-topbar__inner">
+    <a class="site-wordmark" href="{{ '/' | relative_url }}">
+      <span class="site-wordmark__initials">{{ site.author.initials | default: site.author_initials | default: 'T' }}</span>
+      <span class="site-wordmark__name">{{ site.author.name | default: site.author_name | default: site.title }}</span>
+    </a>
+
+    <nav class="site-topnav" aria-label="Primary">
+      <a class="site-topnav__link{% if current_section == 'Work' %} is-active{% endif %}" href="{{ '/work/' | relative_url }}">Work</a>
+      <a class="site-topnav__link{% if current_section == 'Thinking' %} is-active{% endif %}" href="{{ '/thinking/' | relative_url }}">Thinking</a>
+      <a class="site-topnav__link{% if current_section == 'About' %} is-active{% endif %}" href="{{ '/about/' | relative_url }}">About</a>
+    </nav>
+
+    <div class="site-topbar__tools">
+      {% if site.search_enabled != false %}
+        {% include components/search_header.html %}
+      {% endif %}
+      <a class="site-cv-btn" href="{{ site.cv_path | default: '/06-skills.html' | relative_url }}">CV</a>
+      <button id="menu-button" class="site-menu-btn btn-reset" type="button" aria-label="Toggle menu" aria-controls="site-nav" aria-pressed="false">
+        <span class="site-menu-btn__label">Menu</span>
+        <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+      </button>
+    </div>
+  </div>
+</header>

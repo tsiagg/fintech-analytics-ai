@@ -1,6 +1,7 @@
 ---
-title: Ownership and Cursor workflow
-nav_order: 6
+title: Experience
+parent: About
+nav_order: 2
 ---
 
 # Ownership and Cursor workflow
@@ -18,7 +19,7 @@ The reasoning behind the split is that I am training as an analytics engineer, s
 - **MetricFlow semantic layer** — mine, deeply. Every metric definition, and the argument for why each one is defined the way it is.
 - **Airflow DAG** — mostly agent. I own the design decisions: sequential backfill, `dbt_test` as a separate gate before the report.
 - **Streamlit app** — agent built. I chose which visuals answer which question and wrote the SQL behind them; the agent turned that into working pages.
-- **BI Assistant and CFO engine** — collaborative. I set the guardrail design and the report structure; the agent wrote the plumbing after explaining the pattern to me.
+- **BI Assistant and CFO reporting engine** — collaborative. I set the guardrail design and report structure; the agent implemented the application plumbing after explaining the pattern to me.
 
 ## How the repo is scaffolded for agents
 
@@ -40,7 +41,7 @@ Stated plainly, because the code is public and anyone can tell:
 
 - **`simulation/`** — effectively all agent. By design.
 - **Streamlit pages and components** — agent, to my direction on layout and chart choice.
-- **The large Python modules** — agent-written to an architecture I specified. `bi_engine.py` is around 550 lines and `reporting/inputs.py` around 675. I could not have written those quickly from scratch. I could specify what had to be true about them, and I could tell when they were wrong.
+- **The large Python modules** — agent-written to an architecture I specified. `bi_engine.py` is around 480 lines and `reporting/inputs.py` around 580. I could not have written those quickly from scratch. I could specify what had to be true about them, trace their output and identify when they were wrong.
 - **The CFO HTML template** — agent.
 - **Airflow boilerplate** — agent; the scheduling semantics were my call.
 - **dbt models, tests and metric YAML** — mine. This is the part I would sit and defend.

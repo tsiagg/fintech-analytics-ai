@@ -1,32 +1,65 @@
 # GitHub Pages config. The site is served from this /docs folder on the main branch.
 # Settings -> Pages -> Source: Deploy from a branch -> Branch: main, Folder: /docs
 
-title: Fintech Analytics AI
+title: Tsiagg
+lang: en-US
+tagline: Analytics · AI · Financial Services
 description: >-
-  An analytics engineering portfolio: dbt marts, a MetricFlow semantic layer,
-  Airflow orchestration, and a guardrailed AI BI layer on a simulated fintech warehouse.
+  Analytics engineering, governed metrics, and AI that is only allowed to
+  interpret numbers computed in the warehouse. A portfolio for financial
+  services decision support.
+
+# Displayed in the header wordmark. Change name/initials if you want a full name.
+author:
+  name: Tsiagg
+  initials: T
+author_name: Tsiagg
+author_initials: T
 
 url: https://tsiagg.github.io
 baseurl: /fintech-analytics-ai
 
-remote_theme: just-the-docs/just-the-docs
+# Public profiles. Leave blank rather than inventing a URL.
+github_url: https://github.com/tsiagg/fintech-analytics-ai
+github_profile: https://github.com/tsiagg
+linkedin_url: ""
+email: ""
+cv_path: /06-skills.html
+
+remote_theme: just-the-docs/just-the-docs@v0.10.1
 plugins:
   - jekyll-remote-theme
   # Rewrites relative .md links to their built .html paths, so cross-page links
   # work both on github.com and on the published site.
   - jekyll-relative-links
+  - jekyll-seo-tag
+  - jekyll-redirect-from
 
 search_enabled: true
 heading_anchors: true
+color_scheme: portfolio
+
+search:
+  heading_level: 2
+  previews: 3
+  preview_words_before: 5
+  preview_words_after: 10
+  rel_url: true
+  button: false
+  focus_shortcut_key: "k"
 
 # just-the-docs does not render mermaid unless this is set; without it the
 # architecture and guardrail diagrams appear as plain code blocks.
 mermaid:
   version: "9.1.6"
 
-aux_links:
-  View on GitHub:
-    - https://github.com/tsiagg/fintech-analytics-ai
+# Social preview for jekyll-seo-tag. Uses the real dashboard, not stock art.
+logo: /assets/screenshots/executive-dashboard.png
+
+# Keep the Just the Docs sidebar; the custom top header replaces aux_links.
+aux_links: {}
+
+nav_enabled: true
 
 # Every page uses the theme layout unless it overrides it.
 defaults:
@@ -34,6 +67,15 @@ defaults:
       path: ""
     values:
       layout: default
+      image: /assets/screenshots/executive-dashboard.png
+
+callouts:
+  note:
+    title: Note
+    color: blue
+  warning:
+    title: Caution
+    color: yellow
 
 # Note: cfo_report_latest.html is deliberately published, so the site can link to
 # a real generated report.
