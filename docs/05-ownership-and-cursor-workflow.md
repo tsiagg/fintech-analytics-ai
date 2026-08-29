@@ -1,7 +1,7 @@
 ---
 title: Experience
 parent: About
-nav_order: 2
+nav_order: 3
 ---
 
 # Ownership and Cursor workflow
@@ -61,7 +61,7 @@ This is the skill that made the rest possible, and it is mostly not about prompt
 
 **Keep a defined trace for disagreement.** When a KPI looks off, the path is fixed: Streamlit, then the serving mart, then the core mart, then intermediate, then raw. Because the layers are thin and each has one job, the wrong step is usually obvious within a few minutes.
 
-**Interrogate yourself, not just the code.** [`learning-and-ownership.md`](learning-and-ownership.md) contains fourteen interview questions about grain, metric definitions and orchestration that I wrote for the agent to **ask** me rather than answer. Working with an agent makes it very easy to end up with a working system you cannot explain. That list is the check against it.
+**Do not ship a system I cannot explain.** The ownership split in [`learning-and-ownership.md`](learning-and-ownership.md) was written before the code. If a layer is marked mine, I can defend it. If it is marked designed-and-reviewed, I can say what had to be true and how I checked. Working with an agent makes it easy to end up with a working system you cannot explain; that file is the check against it.
 
 ## The honest summary
 

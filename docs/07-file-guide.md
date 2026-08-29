@@ -47,7 +47,7 @@ Skim only, unless you specifically want to see the AI plumbing: **[`app/services
 
 - **[`model-implementation-planning/ROADMAP.md`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/model-implementation-planning/ROADMAP.md)** — phase tracking, Gantt, and the deferred decisions. This is the scaffolding that kept an AI agent on task across sessions.
 - **[`model-implementation-planning/IMPROVEMENTS.md`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/model-implementation-planning/IMPROVEMENTS.md)** — eleven backlog items with effort and priority, including the gaps referenced elsewhere in these docs.
-- **[`docs/learning-and-ownership.md`](learning-and-ownership.md)** — written before the code. The ownership split and fourteen interview questions I wrote for the agent to ask me.
+- **[`docs/learning-and-ownership.md`](learning-and-ownership.md)** — written before the code. What I own, what the agent built completely, and what I designed and reviewed.
 
 ## Skip these
 

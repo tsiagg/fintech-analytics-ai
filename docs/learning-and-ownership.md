@@ -4,121 +4,82 @@ parent: Reference
 nav_order: 3
 ---
 
-# Learning & Ownership Plan
+# Learning and ownership
 
-> Companion to `model-implementation-planning/ROADMAP.md`. The roadmap tracks *what* gets built;
-> this file tracks *who* builds it and *why* — so the project stays a learning vehicle for
-> analytics engineering, not just an AI-generated app.
+This file was written **before** the code, not afterwards as a rationalisation. It sits next to [`model-implementation-planning/ROADMAP.md`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/model-implementation-planning/ROADMAP.md): the roadmap tracks *what* gets built; this page tracks *who* owns it.
 
-## Guiding principle
+The point of using an agent was speed with a QA trail, not a black box that happens to run. I am training as an **analytics engineer**. The value I own is modelling, metric definitions and the trust layer. The UI is a demonstration surface for that work.
 
-I am training to be an **analytics engineer**. The value I own is the **data modeling, metric
-definitions, and the trust layer** — not the UI. Streamlit is a *demonstration surface* for the
-work behind the scenes, so the agent can carry most of that load.
+Every piece of work in this repository falls into one of three buckets.
 
-**Mental model of the stack (and who owns what):**
+| Bucket | Meaning |
+|--------|---------|
+| **Mine** | I designed it, wrote it or would sit in an interview and defend it line by line. |
+| **Agent built completely** | The agent wrote the code. It stands in for work an analytics engineer would not do, or for application plumbing I specified but did not type. |
+| **I designed and reviewed** | I made the product and design calls, the agent implemented them, and I verified the result with tests, traces and smoke checks. |
 
-| Layer | Role it represents | Owner |
-|-------|--------------------|-------|
-| `simulation/` | Data engineering / app devs — *bring data in* | Agent (I don't create or move source data as an AE) |
-| Postgres `public` raw | Source system | Agent |
-| dbt staging → intermediate → marts | **Analytics engineering** | **Me (deep)** |
-| MetricFlow semantic layer | **Metric definitions / trust** | **Me (deep)** |
-| Airflow DAG | Orchestration | Mostly agent, I understand concepts |
-| Streamlit (dashboard / BI / CFO) | UI to *demonstrate* the work | Agent builds; I direct & own SQL/metric choices |
+That split is how the agent made delivery **fast** without removing **QA**.
 
-## Ownership matrix (per area)
+## Who owns which layer
 
-| Area | I own (learn deeply) | Agent does for me |
-|------|----------------------|-------------------|
-| **Metric definition** | Review semantic + dbt layer myself; defend every metric | Nothing — this is mine. Agent only quizzes me (see interview Qs) |
-| **Phase 4 visuals** | Decide *which* visuals; write the SQL behind each | Run Streamlit live, give visual guidelines, harmonize my SQL into the app |
-| **BI Assistant** | Understand each step; make the design calls | Guide me step by step; explain the RAG/allowlist/guardrail pattern before coding |
-| **AI CFO** | Decide report structure & sections; provide the business logic | Guide me, take my input, scaffold the engine once I've decided structure |
-| **Phase 5 wrap-up** | Write the honest attribution narrative | Tally what was AI-generated vs. hand-built |
+| Layer | Represents | Bucket |
+|-------|------------|--------|
+| `simulation/` and Postgres `public` | Data engineering / source system — *bring data in* | Agent built completely |
+| dbt staging → intermediate → marts | Analytics engineering | **Mine** |
+| MetricFlow semantic layer | Metric definitions and trust | **Mine** |
+| Airflow DAG | Orchestration | I designed and reviewed |
+| Streamlit pages | Demonstration UI | I designed and reviewed |
+| BI Assistant and CFO engine | Guardrailed AI on top of the warehouse | I designed and reviewed |
 
----
+An analytics engineer does not create or move source data. The simulator is the upstream product team. My work starts at the raw tables.
 
-## Area 1 — Metric definition (my solo review, ~after Phase 4)
+## Mine
 
-**Plan:** Once Phase 4 exists, I review the semantic layer (`dbt/models/semantic_models/metrics.yml`,
-`semantic_*.yml`) and the dbt marts on my own, then test myself with the interview questions below.
+I own the warehouse contract: grain, business logic, tests and metric meaning.
 
-**Agent's only job here:** ask me these questions, not answer them.
+- **dbt models.** Staging is thin. Intermediate facts are split by process (trading, funding, affiliates). Marts have a stated grain and `unique_combination_of_columns` tests. Serving models are shaped for one consumer.
+- **Trading economics.** Client P&L vs broker position, instrument cost per lot, cashback, VIP treatment, affiliate cost netted to net revenue — in [`int_fct_daily_trading.sql`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/dbt/models/intermediate/int_fct_daily_trading.sql) and the marts that consume it.
+- **MetricFlow.** 57 metrics across three semantic models. I can walk `net_revenue` from raw to the metric, and I can explain why `withdrawal_ratio` is null when deposits are zero rather than a fake spike.
+- **Limitations stated in business language.** Activity retention is not CRM churn. Per-client volume is not in the catalog. Those caveats are mine.
 
-### Interview question bank (metric / semantic / dbt layer)
+This is the part a data team would review first, and the part I would defend without opening a chat log.
 
-**Modeling & grain**
-1. What is the grain of `mrt_company_daily_kpi` vs `mrt_daily_user_activity`? How do you prove a model is at the grain you claim?
-2. Why split `int_fct_daily_trading`, `int_fct_daily_funding`, `int_fct_affiliates_cost` instead of one wide fact?
-3. Where does business logic belong — staging, intermediate, or mart — and why?
-4. How do `mrt_user_lifetime` and `mrt_user_retention` differ in grain and use case?
+## Agent built completely
 
-**Metric definitions & semantic layer**
-5. Walk through `net_revenue` from raw `public` tables to the MetricFlow metric. Where is it actually computed?
-6. Why compute KPIs in the warehouse and let the LLM only interpret them? What breaks if you don't?
-7. Difference between a metric defined as a dbt mart column vs. a MetricFlow metric? When do you need both?
-8. How do you define `withdrawal_ratio` so it's not misleading on low-volume days?
-9. What's the difference between `net_revenue_vs_target` and `net_revenue_attainment`?
+- **`simulation/` and the raw schema.** By design. It is the data-engineering stand-in so the project can focus on transformation and trust.
+- **Streamlit scaffolding** — page shells, layout, Plotly wiring, mock-data fallback.
+- **Airflow boilerplate** — image, compose, DAG file structure.
+- **Large application modules** once the design was fixed — `bi_engine.py`, `reporting/inputs.py`, the CFO HTML template.
 
-**Trust, tests & limitations**
-10. Which dbt tests guard grain/uniqueness, and what would a failure mean upstream?
-11. Why is retention here "activity-based" and not true CRM churn? How would you caveat that to a stakeholder?
-12. A KPI looks wrong on the dashboard — trace your debugging path from Streamlit back to raw.
+I could not have typed those modules quickly from scratch. I also did not accept them unread. Speed came from the agent producing a working surface; quality came from specifying what had to be true before it wrote, and tracing output afterwards.
 
-**Orchestration awareness**
-13. Why `depends_on_past=True` and `catchup=True` for `daily_fintech_analytics`? What problem does sequential backfill solve?
-14. Why is `dbt test` its own gate task after `dbt run`?
+## I designed and reviewed
 
----
+The agent implemented. I decided *what* it was allowed to implement, and I checked that the result matched.
 
-## Area 2 — Phase 4 visuals (I drive, agent harmonizes)
+**Orchestration.** Sequential backfill (`depends_on_past=True`, `catchup=True`) because the simulator has a user lifecycle. `dbt_test` as its own gate so a failing grain test stops the pipeline before the CFO report is generated.
 
-**Working agreement**
-- Agent runs Streamlit live so I see changes immediately.
-- Agent gives **visual guidelines** (chart type per metric, layout, UX) — I make the final call.
-- **I write the SQL** for each visual against `analytics_dev` marts; agent wires it into the app cleanly.
-- Data rule (from Phase 4 README): query marts / MetricFlow only — never raw `public.*` from the app.
+**Dashboard.** Which KPIs, which comparisons, which SQL against serving marts — never against `public.*`. The agent turned that into pages.
 
-**Dashboard v1 target (my SQL, agent's plumbing):** KPI cards (net revenue, gross revenue, active
-users, gross deposits, net flow, withdrawal ratio) + revenue trend, deposits vs withdrawals,
-active users, regional table.
+**BI Assistant.** Guardrail design before code: allowlist from the semantic layer, plan validation, app-built filters, pandas for arithmetic, explainer that only sees returned numbers. Cheap questions stay on a fast model; anomaly and root-cause questions escalate. I had the pattern explained step by step, with a pause for my call at each one, *before* the agent wrote the engine.
 
----
+**AI CFO.** Nine-section structure, what counts as an anomaly, which forecast method, deterministic inputs in Python, LLM for prose only. The agent scaffolded `reporting/` to that spec.
 
-## Area 3 — BI Assistant (agent guides me step by step)
+**Phase briefs, roadmap and backlog.** Constraints live in the repo so a stateless agent cannot reopen scope. Out-of-scope lists, deferred marts and [`IMPROVEMENTS.md`](https://github.com/tsiagg/fintech-analytics-ai/blob/main/model-implementation-planning/IMPROVEMENTS.md) are how I kept delivery fast without letting the agent invent a second project.
 
-I want to *learn the pattern*, so agent teaches before building. Expected steps:
-1. Intent → metric retrieval (allowlisted names only)
-2. RAG over `metrics.yml` + `marts.yml` chunks
-3. Compiled/allowed SQL → real numbers
-4. LLM explains numbers (never invents them)
-5. Guardrails: prompt size cap, token logging, no hallucinated values
+## How that made delivery fast, with QA
 
-Agent pauses at each step for my decisions; I should be able to explain why each guardrail exists.
+The agent removed the slow parts that are not analytics engineering: UI plumbing, simulator, DAG boilerplate, stitching modules together. I kept the slow parts that *are* the job: grain, metric meaning, what the AI is forbidden to do.
 
----
+QA is not a pass at the end. It is how the agent was allowed to move quickly.
 
-## Area 4 — AI CFO (agent guides, I decide structure)
+| Check | What it catches |
+|-------|-----------------|
+| Grain tests on every mart | A plausible join that fans out and overstates revenue |
+| `dbt parse` and `mf query` before the app | A wrong metric that would otherwise look like an app bug |
+| `dbt_test` as a DAG gate | A CFO report generated from a broken warehouse |
+| Data Spot Check | Dashboard wrong vs mart wrong, in seconds |
+| Fixed trace: app → serving → mart → intermediate → raw | Disagreement without a hunt through a 500-line module |
+| Teach-then-build on the BI Assistant | Guardrails I can explain, so I can review the code that implements them |
 
-Agent gets my input on the nine-section report template and what each section needs, then scaffolds
-the reporting modules in `reporting/`. Inputs are precomputed in Python (snapshots, deltas, targets,
-anomalies and forecasts); the LLM only writes prose. I decide which sections matter, what counts as
-an anomaly and which forecast method to use.
-
----
-
-## Area 5 — Phase 5 attribution (honesty about AI vs. me)
-
-When wrapping up, document the split openly:
-
-| Built fully by AI | Built / owned by me |
-|-------------------|---------------------|
-| `simulation/` (represents data-eng / app devs bringing data in) | dbt marts & metric definitions |
-| Streamlit UI scaffolding & components | Visual choices + the SQL behind them |
-| Airflow boilerplate | Orchestration design decisions |
-| BI/CFO code plumbing | Metric trust model, report structure, business logic |
-
-Framing for the portfolio README: *"As the analytics engineer, I don't create or move source data
-— that's the simulation standing in for data engineering. My work is everything from raw tables to
-trusted metrics, and the guardrails that let AI safely interpret them."*
+If I cannot explain why a guardrail exists, I cannot review the code, and I have accepted a black box into my own project. The agent is a multiplier on that loop. It is not a substitute for it.

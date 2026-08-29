@@ -9,7 +9,7 @@
       </p>
       <div class="home-hero__actions">
         <a class="btn-site btn-site--primary" href="{{ '/work/' | relative_url }}">Explore work</a>
-        <a class="btn-site btn-site--ghost" href="{{ site.cv_path | default: '/06-skills.html' | relative_url }}">View CV</a>
+        <a class="btn-site btn-site--ghost" href="{{ site.cv_path | default: '/cv/' | relative_url }}">View CV</a>
       </div>
     </div>
   </section>
@@ -80,113 +80,81 @@
       <p class="home-section__index">03 — Selected work</p>
       <h2 id="work-title">Selected work</h2>
 
-      <article class="work-feature">
-        <p class="work-entry__cat">Analytics</p>
-        <div class="work-feature__grid">
-          <div>
-            <h3>Executive dashboard</h3>
-            <p>
-              A conventional BI surface: four KPI cards with sparklines, month-to-date and week-over-week
-              comparison badges, a weekly revenue breakdown that toggles between region and country,
-              and per-user trend lines.
-            </p>
-            <p class="work-entry__meta">Analytics · Python · SQL</p>
-            <a class="work-entry__link" href="{{ '/01-what-i-built.html' | relative_url }}#executive-dashboard">Explore →</a>
-          </div>
-          <figure class="work-feature__figure">
+      <div class="work-list">
+        <article class="work-entry">
+          <p class="work-entry__cat">Analytics</p>
+          <h3>Executive dashboard</h3>
+          <figure class="work-entry__figure">
             <img
               src="{{ '/assets/screenshots/executive-dashboard.png' | relative_url }}"
-              alt="Executive dashboard with net revenue, active users, net flow and withdrawal ratio for a simulated retail broker."
+              alt="Executive dashboard with net revenue, active users, net flow and withdrawal ratio."
               width="1600"
               height="900">
           </figure>
-        </div>
-      </article>
+          <p>
+            Four KPI cards with sparklines, month-to-date and week-over-week badges,
+            and a weekly revenue breakdown that toggles between region and country.
+          </p>
+          <p class="work-entry__meta">Analytics · Python · SQL</p>
+          <div class="work-entry__actions">
+            <a class="work-entry__link" href="{{ '/01-what-i-built.html' | relative_url }}#executive-dashboard">Explore →</a>
+          </div>
+        </article>
 
-      <div class="work-list">
         <article class="work-entry">
           <p class="work-entry__cat">AI &amp; Machine Learning</p>
           <h3>BI Assistant</h3>
+          <figure class="work-entry__figure">
+            <img
+              src="{{ '/assets/screenshots/bi-assistant-2.png' | relative_url }}"
+              alt="BI Assistant answering an anomaly question on the stronger model, with a chart, outlier table and model badge."
+              width="1600"
+              height="900">
+          </figure>
           <p>
-            A chat interface for ad-hoc questions. What it does not do is generate SQL.
-            The question is turned into a plan naming metrics and dimensions from an allowlist,
-            the plan is validated, MetricFlow executes it, and only then does an LLM see the numbers.
+            Cheap lookups stay on a fast model; anomaly and root-cause questions escalate.
+            Neither model writes SQL.
           </p>
           <p class="work-entry__meta">AI · MetricFlow · Python</p>
-          <a class="work-entry__link" href="{{ '/01-what-i-built.html' | relative_url }}#bi-assistant">Explore →</a>
+          <div class="work-entry__actions">
+            <a class="work-entry__link" href="{{ '/01-what-i-built.html' | relative_url }}#bi-assistant">Explore →</a>
+          </div>
         </article>
 
         <article class="work-entry">
           <p class="work-entry__cat">AI &amp; Machine Learning</p>
           <h3>AI CFO report</h3>
           <p>
-            A nine-section executive report, generated on a schedule rather than on request.
-            Every quantitative element is computed in Python before the LLM is involved.
-            The model writes the prose around those facts and nothing else.
+            A nine-section executive report, generated on a schedule.
+            Every quantitative element is computed in Python; the model writes the prose around those facts.
           </p>
           <p class="work-entry__meta">Reporting · Airflow · Python</p>
-          <a class="work-entry__link" href="{{ '/01-what-i-built.html' | relative_url }}#ai-cfo-report">Explore →</a>
-          <a class="work-entry__link" href="{{ '/cfo_report_latest.html' | relative_url }}">Open a generated report →</a>
+          <div class="work-entry__actions">
+            <a class="work-entry__link" href="{{ '/01-what-i-built.html' | relative_url }}#ai-cfo-report">Explore →</a>
+            <a class="work-entry__link" href="{{ '/cfo_report_latest.html' | relative_url }}">Open a generated report →</a>
+          </div>
         </article>
 
         <article class="work-entry">
           <p class="work-entry__cat">Financial Analytics</p>
           <h3>Semantic layer and metric trust</h3>
           <p>
-            Three MetricFlow semantic models and 57 metrics: simple, ratio, cumulative and derived.
-            Two different consumers, two different query paths, one definition — because both resolve
-            back to the same modelled logic.
+            Three MetricFlow semantic models and 57 metrics.
+            Two consumers, two query paths, one definition.
           </p>
           <p class="work-entry__meta">dbt · MetricFlow · Governance</p>
-          <a class="work-entry__link" href="{{ '/03-semantic-layer-and-metric-trust.html' | relative_url }}">Explore →</a>
+          <div class="work-entry__actions">
+            <a class="work-entry__link" href="{{ '/03-semantic-layer-and-metric-trust.html' | relative_url }}">Explore →</a>
+          </div>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="home-section home-section--muted" id="method" aria-labelledby="method-title">
-    <div class="home-wrap">
-      <p class="home-section__index">04 — How I work</p>
-      <h2 id="method-title">How I work</h2>
-      <ol class="process-list">
-        <li>
-          <span class="process-list__step">01</span>
-          <strong>Business question</strong>
-          <span>What decision needs a number?</span>
-        </li>
-        <li>
-          <span class="process-list__step">02</span>
-          <strong>Data</strong>
-          <span>Grain, sources and tests first.</span>
-        </li>
-        <li>
-          <span class="process-list__step">03</span>
-          <strong>Analysis / AI</strong>
-          <span>Warehouse computes. Model narrates.</span>
-        </li>
-        <li>
-          <span class="process-list__step">04</span>
-          <strong>Insight</strong>
-          <span>Variance, drivers, exceptions.</span>
-        </li>
-        <li>
-          <span class="process-list__step">05</span>
-          <strong>Decision</strong>
-          <span>A recommendation a stakeholder can use.</span>
-        </li>
-        <li>
-          <span class="process-list__step">06</span>
-          <strong>Impact</strong>
-          <span>Trusted metrics, reused across surfaces.</span>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="home-section" id="about" aria-labelledby="about-title">
+  <section class="home-section home-section--muted" id="about" aria-labelledby="about-title">
     <div class="home-wrap home-split">
       <div>
-        <p class="home-section__index">05 — About</p>
+        <p class="home-section__index">04 — About</p>
         <h2 id="about-title">About</h2>
       </div>
       <div class="home-prose">
@@ -195,43 +163,15 @@
           understand the business model, turn it into reliable data products,
           and communicate the result in a form that supports decisions.
         </p>
-        <p>Analytics engineering: SQL, dbt Core, dimensional modelling, data quality, MetricFlow and semantic-layer design.</p>
-        <p>Business analytics: brokerage unit economics, customer acquisition, retention, cash flow, target setting and performance management.</p>
-        <p>AI-enabled analytics: constrained LLM workflows in which governed data is computed first and AI is used only for interpretation.</p>
+        <p>Technical skills: SQL, dbt Core, dimensional modelling, data quality, MetricFlow and semantic-layer design.</p>
+        <p>Business skills: brokerage unit economics, customer acquisition, retention, cash flow, target setting and performance management.</p>
+        <p>Soft skills: requirements translation, scoping, stakeholder communication and transparent ownership of AI-assisted work.</p>
         <p>
           The modelling layer is mine. The Streamlit surfaces and larger Python modules were built
           with an AI coding agent under direction and review. That split is documented rather than implied.
         </p>
-        <p><a class="text-link" href="{{ '/about/' | relative_url }}">Profile and experience →</a></p>
+        <p><a class="text-link" href="{{ '/about/' | relative_url }}">Profile, CV and how to read this →</a></p>
       </div>
-    </div>
-  </section>
-
-  <section class="home-section home-section--muted" id="start" aria-labelledby="start-title">
-    <div class="home-wrap">
-      <p class="home-section__index">06 — Reading paths</p>
-      <h2 id="start-title">Two ways to read this</h2>
-      <div class="path-grid">
-        <article class="path-card">
-          <p class="work-entry__cat">Recruiters and hiring managers</p>
-          <h3>Five-minute overview</h3>
-          <ol>
-            <li><a href="{{ '/01-what-i-built.html' | relative_url }}">What I built</a> — the four surfaces and the pipeline behind them</li>
-            <li><a href="{{ '/06-skills.html' | relative_url }}">Skills</a> — technical capabilities, retail brokerage knowledge and ways of working</li>
-            <li><a href="{{ '/05-ownership-and-cursor-workflow.html' | relative_url }}">Ownership and Cursor workflow</a> — what I built, what an agent contributed, how I verified the work</li>
-          </ol>
-        </article>
-        <article class="path-card">
-          <p class="work-entry__cat">Analytics and BI leaders</p>
-          <h3>Fifteen-minute technical review</h3>
-          <ol>
-            <li><a href="{{ '/02-architecture-and-data-model.html' | relative_url }}">Architecture and data model</a> — layers, grain, and why each model exists</li>
-            <li><a href="{{ '/03-semantic-layer-and-metric-trust.html' | relative_url }}">Semantic layer and metric trust</a> — the core of the work</li>
-            <li><a href="{{ '/04-bi-implementation-strategy.html' | relative_url }}">BI implementation strategy</a> — how I would put AI in front of a warehouse in a real team</li>
-          </ol>
-        </article>
-      </div>
-      <p>Either way, <a class="text-link" href="{{ '/07-file-guide.html' | relative_url }}">the file guide</a> tells you which files are worth opening and which to ignore.</p>
     </div>
   </section>
 
@@ -247,7 +187,7 @@
         {% if site.email and site.email != "" %}
           <a class="btn-site btn-site--ghost" href="mailto:{{ site.email }}">Email</a>
         {% endif %}
-        <a class="btn-site btn-site--primary" href="{{ site.cv_path | default: '/06-skills.html' | relative_url }}">CV</a>
+        <a class="btn-site btn-site--primary" href="{{ site.cv_path | default: '/cv/' | relative_url }}">CV</a>
       </div>
     </div>
   </section>

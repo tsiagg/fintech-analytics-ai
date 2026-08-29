@@ -59,6 +59,7 @@ a:focus:not(:focus-visible) {
   gap: 0.7rem;
   color: $site-ink;
   text-decoration: none;
+  background-image: none;
   min-width: 0;
 }
 
@@ -84,6 +85,7 @@ a:focus:not(:focus-visible) {
   font-size: 0.9375rem;
   font-weight: 600;
   letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 .site-topnav,
@@ -100,6 +102,7 @@ a:focus:not(:focus-visible) {
   font-size: 0.875rem;
   font-weight: 500;
   text-decoration: none;
+  background-image: none;
 }
 
 .site-topnav__link:hover,
@@ -149,6 +152,7 @@ a:focus:not(:focus-visible) {
   border-radius: $site-radius;
   color: #fff;
   background: $site-ink;
+  background-image: none;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -225,7 +229,22 @@ a:focus:not(:focus-visible) {
   }
 }
 
-@media (max-width: 31.24rem) {
+@media (min-width: 50rem) and (max-width: 67.99rem) {
+  .site-wordmark__name {
+    font-size: 0.8125rem;
+  }
+
+  .site-topnav,
+  .site-primary-nav {
+    gap: 1.15rem;
+  }
+
+  .site-topbar .search {
+    width: 10.5rem;
+  }
+}
+
+@media (max-width: 39.99rem) {
   .site-wordmark__name {
     display: none;
   }
@@ -388,6 +407,16 @@ a:focus:not(:focus-visible) {
   color: $site-accent-hover;
 }
 
+.main-content a.index-card,
+.main-content a.index-card:hover,
+.main-content a.btn-site,
+.main-content a.work-entry__link,
+.main-content a.text-link {
+  color: inherit;
+  text-decoration: none;
+  background-image: none;
+}
+
 .main-content blockquote {
   margin: 1.5rem 0;
   padding: 0.25rem 0 0.25rem 1rem;
@@ -493,28 +522,39 @@ a:focus:not(:focus-visible) {
   display: grid;
   gap: 1rem;
   margin-top: 2rem;
+  align-items: stretch;
 }
 
 .index-card {
-  display: grid;
-  gap: 0.45rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  min-height: 100%;
   padding: 1.35rem;
   background: #fff;
   border: 1px solid $site-line;
   border-radius: $site-radius;
+  color: $site-ink;
   text-decoration: none;
+  background-image: none !important;
   transition: border-color $site-ease, transform $site-ease;
 }
 
 .index-card:hover {
   border-color: #d1d5db;
   transform: translateY(-2px);
-  background-image: none;
+  color: $site-ink;
+  background-image: none !important;
 }
 
-.index-card h2 {
-  margin: 0;
+.index-card__title {
+  margin: 0 0 0.45rem;
+  color: $site-ink;
   font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
 }
 
 .index-card p {
@@ -523,12 +563,36 @@ a:focus:not(:focus-visible) {
   font-size: 0.9375rem;
 }
 
-.index-card__cat {
+.index-card p.index-card__title {
+  color: $site-ink;
+  font-size: 1.25rem;
+}
+
+.index-card__cat,
+.index-card p.index-card__cat {
+  margin: 0 0 0.45rem;
   color: $site-ink-muted;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.index-card__cta,
+.index-card .work-explore {
+  display: inline-flex;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 0.85rem;
+  color: $site-ink;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  background-image: none;
+}
+
+.index-card .anchor-heading {
+  display: none;
 }
 
 @media (min-width: 50rem) {
@@ -569,6 +633,7 @@ a:focus:not(:focus-visible) {
 .site-end__links a {
   color: $site-ink-muted;
   text-decoration: none;
+  background-image: none;
 }
 
 .site-end__links a:hover {
@@ -688,6 +753,7 @@ a:focus:not(:focus-visible) {
   font-weight: 600;
   letter-spacing: 0.04em;
   text-decoration: none;
+  background-image: none;
   transition: background $site-ease, color $site-ease, border-color $site-ease;
 }
 
@@ -730,8 +796,14 @@ a:focus:not(:focus-visible) {
   background: $site-bg-muted;
 }
 
-.home-section__index {
-  margin-bottom: 1.5rem;
+.home-section__index,
+.home-section p.home-section__index {
+  margin: 0 0 0.75rem;
+  color: $site-ink-muted;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .home-section__index--row {
@@ -767,6 +839,16 @@ a:focus:not(:focus-visible) {
   line-height: 1.7;
 }
 
+.home-section p.home-section__index {
+  margin: 0 0 0.75rem;
+  color: $site-ink-muted;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
 .home-lead {
   font-size: 1.125rem;
 }
@@ -800,6 +882,7 @@ a:focus:not(:focus-visible) {
   border: 1px solid $site-line;
   border-radius: $site-radius;
   padding: 1.35rem;
+  transition: border-color $site-ease, transform $site-ease;
 }
 
 .capability-grid h3,
@@ -847,6 +930,17 @@ a:focus:not(:focus-visible) {
   gap: 1.25rem;
 }
 
+.work-feature__copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+}
+
+.work-feature__copy .work-entry__actions {
+  margin-top: auto;
+}
+
 .work-feature__figure {
   margin: 0;
 }
@@ -858,13 +952,35 @@ a:focus:not(:focus-visible) {
   border-radius: $site-radius;
 }
 
+.work-entry__figure {
+  margin: 0.35rem 0 0.85rem;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: $site-bg-muted;
+  border: 1px solid $site-line;
+  border-radius: $site-radius;
+}
+
+.work-entry__figure img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+  border-radius: 0;
+}
+
 .work-list {
   display: grid;
   gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 .work-entry,
 .path-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   background: #fff;
   border: 1px solid $site-line;
   border-radius: $site-radius;
@@ -880,24 +996,33 @@ a:focus:not(:focus-visible) {
 
 .work-explore,
 .work-entry__link {
-  display: inline-block;
-  margin-top: 0.75rem;
+  display: inline-flex;
+  align-items: center;
   color: $site-ink;
   font-size: 0.875rem;
   font-weight: 600;
   text-decoration: none;
+  background-image: none;
 }
 
 .work-explore:hover,
-.work-entry__link:hover {
+.work-entry__link:hover,
+.main-content a.work-entry__link:hover {
   color: $site-accent;
   background-image: none;
+}
+
+.main-content a.work-entry__link {
+  color: $site-ink;
 }
 
 .work-entry__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.65rem 1.25rem;
+  margin-top: auto;
+  padding-top: 0.85rem;
 }
 
 .process,
@@ -909,6 +1034,8 @@ a:focus:not(:focus-visible) {
   list-style: none;
   background: #fff;
   border: 1px solid $site-line;
+  border-radius: $site-radius;
+  overflow: hidden;
 }
 
 .process li,
@@ -941,11 +1068,27 @@ a:focus:not(:focus-visible) {
 .path-grid {
   display: grid;
   gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 .path-card ol {
   margin: 0;
   padding-left: 1.1rem;
+}
+
+.path-card > p {
+  margin: 0 0 0.85rem;
+}
+
+.main-content .path-card h3 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.main-content p.about-also {
+  margin-top: 1.75rem;
+  color: $site-ink-muted;
+  font-size: 0.9375rem;
 }
 
 .home-contact {
@@ -978,12 +1121,12 @@ a:focus:not(:focus-visible) {
   }
 
   .capability-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
-  .capability-grid li:last-child {
-    grid-column: 1 / -1;
-    max-width: calc(50% - 0.5rem);
+  .capability-card,
+  .capability-grid li {
+    grid-column: span 2;
   }
 
   .work-feature__grid {
@@ -991,9 +1134,20 @@ a:focus:not(:focus-visible) {
     align-items: center;
   }
 
-  .work-list,
+  .work-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
   .path-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .capability-card:nth-child(4),
+  .capability-card:nth-child(5),
+  .capability-grid li:nth-child(4),
+  .capability-grid li:nth-child(5) {
+    grid-column: span 3;
   }
 
   .process,
@@ -1023,7 +1177,12 @@ a:focus:not(:focus-visible) {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
-  .capability-grid li:last-child {
+  .capability-card,
+  .capability-grid li,
+  .capability-card:nth-child(4),
+  .capability-card:nth-child(5),
+  .capability-grid li:nth-child(4),
+  .capability-grid li:nth-child(5) {
     grid-column: auto;
     max-width: none;
   }
@@ -1065,10 +1224,8 @@ a:focus:not(:focus-visible) {
 }
 
 @media (max-width: 31.24rem) {
-  .home-actions .btn,
-  .home-contact__links .btn,
-  .home-hero__actions .btn-site {
-    width: 100%;
+  .home-hero__actions {
+    gap: 0.6rem;
   }
 }
 
@@ -1094,18 +1251,31 @@ a:focus:not(:focus-visible) {
 }
 
 .process-list li {
-  grid-template-columns: 2.5rem 1fr;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
   grid-template-rows: auto auto;
   column-gap: 0.9rem;
+  align-items: start;
 }
 
 .process-list__step {
+  grid-column: 1;
   grid-row: 1 / span 2;
   color: $site-accent;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   padding-top: 0.2rem;
+}
+
+.process-list li strong {
+  grid-column: 2;
+  grid-row: 1;
+  color: $site-ink;
+}
+
+.process-list li > span:not(.process-list__step) {
+  grid-column: 2;
+  grid-row: 2;
 }
 
 .work-entry__meta {
@@ -1126,6 +1296,143 @@ a:focus:not(:focus-visible) {
 .layout-home .main-content a.work-entry__link,
 .layout-home .main-content a.text-link {
   text-decoration: none;
+  background-image: none;
+}
+
+.layout-home .main-content a.btn-site--primary,
+.layout-home .main-content a.btn-site--primary:hover {
+  color: #fff;
+}
+
+.layout-home .main-content a.btn-site--ghost {
+  color: $site-ink;
+}
+
+.main-content a.index-card {
+  color: $site-ink;
+}
+
+.path-card ol a {
+  display: inline;
+  color: $site-accent;
+  background-image: none;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.main-content:has(.cv-kicker) .anchor-heading {
+  display: none;
+}
+
+.cv-kicker,
+.main-content p.cv-kicker {
+  margin: 0 0 0.75rem;
+  color: $site-accent;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cv-role,
+.main-content p.cv-role {
+  margin: -0.35rem 0 1rem;
+  color: $site-ink-muted;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.cv-contact,
+.main-content p.cv-contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.15rem;
+  margin: 0 0 2.25rem;
+  color: $site-ink-muted;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.cv-contact a {
+  color: $site-accent;
+}
+
+.cv-contact__sep {
+  color: #d1d5db;
+  padding: 0 0.4rem;
+}
+
+.cv-job {
+  margin: 0 0 1.5rem;
+  padding: 0 0 1.5rem;
+  border-bottom: 1px solid $site-line;
+}
+
+.cv-job__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 1.5rem;
+  margin-bottom: 0.65rem;
+}
+
+.cv-job__title,
+.main-content p.cv-job__title {
+  margin: 0;
+  color: $site-ink;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.cv-job__org,
+.main-content p.cv-job__org {
+  margin: 0.15rem 0 0;
+  color: $site-ink-muted;
+  font-size: 0.9375rem;
+}
+
+.cv-job__when,
+.main-content p.cv-job__when {
+  margin: 0;
+  color: $site-ink-muted;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.cv-job ul {
+  margin: 0.35rem 0 0;
+}
+
+.cv-skill-list,
+.main-content ul.cv-skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0.35rem 0 0;
+  list-style: none;
+}
+
+.cv-skill-list li {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.7rem;
+  background: #fff;
+  border: 1px solid $site-line;
+  border-radius: $site-radius;
+  color: $site-ink;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+@media (max-width: 49.99rem) {
+  .cv-job__when {
+    white-space: normal;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1142,7 +1449,8 @@ a:focus:not(:focus-visible) {
 
   .work-entry:hover,
   .path-card:hover,
-  .index-card:hover {
+  .index-card:hover,
+  .capability-card:hover {
     transform: none;
   }
 }

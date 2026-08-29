@@ -20,7 +20,7 @@
       {% if site.search_enabled != false %}
         {% include components/search_header.html %}
       {% endif %}
-      <a class="site-cv-btn" href="{{ site.cv_path | default: '/06-skills.html' | relative_url }}">CV</a>
+      <a class="site-cv-btn" href="{{ site.cv_path | default: '/cv/' | relative_url }}">CV</a>
       <button id="menu-button" class="site-menu-btn btn-reset" type="button" aria-label="Toggle menu" aria-controls="site-nav" aria-pressed="false">
         <span class="site-menu-btn__label">Menu</span>
         <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
