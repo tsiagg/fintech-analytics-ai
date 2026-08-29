@@ -541,7 +541,7 @@ a.card:hover .card__cta {
   .trust-flow li {
     grid-template-columns: 1fr;
     gap: $space-2;
-    min-height: $space-9 + $space-6;
+    min-height: 7rem;
     padding: $space-4;
     border-top: 0;
     border-left: 1px solid $color-border;

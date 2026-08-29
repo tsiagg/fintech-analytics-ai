@@ -14,8 +14,8 @@
   --color-accent-hover: #{$color-accent-hover};
   --color-on-accent: #{$color-on-accent};
 
-  --font-sans: #{$font-sans};
-  --font-mono: #{$font-mono};
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", ui-monospace, consolas, monospace;
 
   --text-display: #{$text-display};
   --text-title: #{$text-title};
@@ -41,8 +41,8 @@
   --width-wide: #{$width-wide};
   --width-prose: #{$width-prose};
   --radius: #{$radius};
-  --shadow: #{$shadow};
-  --ease: #{$ease};
+  --shadow: 0 1px 1px rgba(26, 25, 23, 0.04);
+  --ease: 180ms ease;
   --header-height: #{$header-height};
 }
 
@@ -83,7 +83,7 @@ a:focus:not(:focus-visible) {
   top: 0;
   z-index: 400;
   min-height: $header-height;
-  background: rgba($color-bg, 0.94);
+  background: rgba(248, 246, 241, 0.94);
   border-bottom: 1px solid $color-border;
   backdrop-filter: blur(8px);
 }
@@ -525,8 +525,8 @@ a:focus:not(:focus-visible) {
   }
 }
 
-@import "./components";
-@import "./home";
+@import "custom/components";
+@import "custom/home";
 
 @media (prefers-reduced-motion: reduce) {
   html {
