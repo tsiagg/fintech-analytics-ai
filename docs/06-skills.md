@@ -3,11 +3,13 @@ title: Skills demonstrated on this project
 parent: About this project
 nav_order: 1
 permalink: /06-skills.html
+eyebrow: Skills
+lede: Capabilities shown in this repository, grouped as technical, business, and soft skills. This is not a general skills list. The CV is the career record.
+description: Technical, business and soft skills demonstrated on this project, with evidence.
+has_toc: false
 ---
 
-# Skills demonstrated on this project
-
-Capabilities shown in this repository, grouped as technical, business, and soft skills. This is not a general skills list. The [CV]({{ '/cv/' | relative_url }}) is the career record.
+The [CV]({{ '/cv/' | relative_url }}) is the career record.
 
 ## Technical skills
 

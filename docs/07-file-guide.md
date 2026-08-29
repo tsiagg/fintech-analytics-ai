@@ -2,11 +2,11 @@
 title: File guide
 parent: Thinking
 nav_order: 3
+eyebrow: Data and technology
+lede: The repository contains more than 100 tracked files. Around fifteen carry most of the signal for a reviewer. This page explains which ones to open and why.
+description: Which repository files are worth opening, and which to skip.
+has_toc: false
 ---
-
-# File guide
-
-The repository contains more than 100 tracked files. Around fifteen carry most of the signal for a reviewer. This page explains which ones to open and why.
 
 ## If you have five minutes
 

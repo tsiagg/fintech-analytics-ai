@@ -2,11 +2,12 @@
 title: Run it yourself
 parent: Reference
 nav_order: 1
+eyebrow: Reference
+lede: Everything runs locally. The dashboard needs no API key; only the BI Assistant and the CFO report do.
+tech: Docker · dbt · Airflow · Python
+description: Local setup for the warehouse, Airflow pipeline, and Streamlit app.
+has_toc: false
 ---
-
-# Run it yourself
-
-Everything runs locally. The dashboard needs no API key; only the BI Assistant and the CFO report do.
 
 You need Docker Desktop and Python 3.11. Commands are PowerShell, run from the project root.
 

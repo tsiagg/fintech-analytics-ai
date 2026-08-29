@@ -1,0 +1,13 @@
+{%- assign header_title = page.header_title | default: page.title -%}
+<header class="page-header">
+  {% if page.eyebrow %}
+    <p class="page-header__eyebrow">{{ page.eyebrow }}</p>
+  {% endif %}
+  <h1 class="page-header__title" id="page-title">{{ header_title }}</h1>
+  {% if page.lede %}
+    <p class="page-header__lede">{{ page.lede }}</p>
+  {% endif %}
+  {% if page.tech %}
+    <p class="tech-meta">{{ page.tech }}</p>
+  {% endif %}
+</header>

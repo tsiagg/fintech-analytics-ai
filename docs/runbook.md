@@ -2,15 +2,14 @@
 title: Runbook
 parent: Reference
 nav_order: 2
+eyebrow: Reference
+lede: Daily commands for this repo. Run PowerShell from the project root — the folder that contains infra/, dbt/ and simulation/.
+tech: Docker · Airflow · dbt · Postgres
+description: Operational runbook for the local fintech analytics stack on Windows.
+has_toc: false
 ---
-
-# Runbook (Windows)
-
-Daily commands for this repo. Run PowerShell from the **project root** (folder that contains `infra/`, `dbt/`, `simulation/`).
 
 **Prerequisites:** Docker Desktop installed. Stack = **fintech Postgres** + **Airflow 3** (DAG `daily_fintech_analytics`: simulation → dbt run → dbt test → CFO report).
-
----
 
 ## Start of day
 
@@ -34,8 +33,6 @@ docker compose -f infra/docker-compose.yml ps
 
 You do **not** need to activate `.venv` or trigger the DAG for normal daily operation — Airflow handles simulation and dbt inside Docker.
 
----
-
 ## End of day
 
 Do this before shutting down the PC (or when you want Docker off).
@@ -50,8 +47,6 @@ docker compose -f infra/docker-compose.yml down
 3. Shut down Windows as usual.
 
 **Next morning:** repeat **Start of day** (Docker Desktop → `up -d`).
-
----
 
 ## First-time setup (once)
 
@@ -92,8 +87,6 @@ If activation fails:
 Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 ```
 
----
-
 ## Quick checks
 
 ### Containers running
@@ -115,8 +108,6 @@ docker exec -it fintech-postgres psql -U fintech -d fintech -c "SELECT MAX(effec
 ```powershell
 docker exec -it fintech-postgres psql -U fintech -d fintech -c "\dt"
 ```
-
----
 
 ## Airflow
 
@@ -145,8 +136,6 @@ docker compose -f infra/docker-compose.yml up -d
 | Port 8080 in use | Set `AIRFLOW_WEBSERVER_PORT` in `.env` |
 | Log permission errors | Set `AIRFLOW_UID=50000` in `.env` |
 
----
-
 ## Manual simulation (host — optional)
 
 Use when developing the simulator without Airflow. Postgres must be up; activate `.venv` first.
@@ -170,8 +159,6 @@ Optional flags:
 python -m simulation --date 2026-05-17 --scenario market_crash
 python -m simulation --list-scenarios
 ```
-
----
 
 ## Manual dbt (host — optional)
 
@@ -203,8 +190,6 @@ Without activating venv:
 .\.venv\Scripts\dbt.exe run --project-dir dbt --profiles-dir dbt
 ```
 
----
-
 ## MetricFlow (host — optional)
 
 From `dbt/` with venv active. **57** metrics in `models/semantic_models/metrics.yml`.
@@ -222,8 +207,6 @@ $env:PYTHONIOENCODING='utf-8'
 mf query --metrics daily_gross_trade_revenue_total --group-by metric_time__day
 ```
 
----
-
 ## Danger zone — wipes all Postgres data
 
 Only when you **intentionally** want a blank database:
@@ -234,8 +217,6 @@ docker compose -f infra/docker-compose.yml up -d
 ```
 
 `-v` removes volumes → **all fintech and Airflow metadata on this stack is gone**.
-
----
 
 ## Streamlit app (host)
 
@@ -284,8 +265,6 @@ Get-NetTCPConnection -LocalPort 8501 | Select-Object -Expand OwningProcess | For
 
 - Port 8501 in use → pick another, e.g. `--server.port 8502`.
 - Reads marts from `analytics_dev`; if KPIs look stale, confirm a green DAG run (see **Quick checks**).
-
----
 
 ## BI Assistant (OpenRouter)
 

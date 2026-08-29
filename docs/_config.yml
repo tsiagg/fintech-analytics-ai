@@ -58,7 +58,7 @@ logo: /assets/screenshots/executive-dashboard.png
 # Keep the Just the Docs sidebar; the custom top header replaces aux_links.
 aux_links: {}
 
-nav_enabled: true
+nav_enabled: false
 
 # Every page uses the theme layout unless it overrides it.
 defaults:
@@ -66,6 +66,7 @@ defaults:
       path: ""
     values:
       layout: default
+      has_toc: false
       image: /assets/screenshots/executive-dashboard.png
 
 callouts:
