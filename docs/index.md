@@ -4,7 +4,7 @@ title: Home
 nav_exclude: true
 nav_enabled: false
 description: >-
-  Analytics engineering, governed metrics, and AI that is only allowed to
-  interpret numbers computed in the warehouse.
+  I build reliable data products that turn financial data into clear business
+  decisions. Trusted data first. AI second.
 has_toc: false
 ---

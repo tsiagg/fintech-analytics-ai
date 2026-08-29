@@ -1,9 +1,9 @@
 ---
 title: CV
-parent: About
-nav_order: 2
+nav_order: 5
 permalink: /cv/
 has_toc: false
+has_children: false
 description: Curriculum vitae for Angelos Tsiannis, Data Analyst and Analytics Engineer.
 ---
 
@@ -107,8 +107,6 @@ I am drawn to relational structure, statistics and pattern recognition, but I tr
   <li>Microsoft Excel</li>
   <li>GitHub</li>
   <li>Airflow (basic)</li>
-  <li>AutoCAD</li>
-  <li>e-Soft Accounting and Stock</li>
 </ul>
 
 ## Publications

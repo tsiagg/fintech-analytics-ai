@@ -8,6 +8,12 @@ nav_order: 2
 
 This is the part of the project I own outright and would defend line by line in an interview. Everything else exists so that this layer has somewhere to live and something to serve.
 
+<p><span class="case-k">Problem</span> The same commercial figure — net revenue, active users, withdrawal ratio — is easy to define differently in a dashboard, a chat answer and a report.</p>
+<p><span class="case-k">Approach</span> Compute each metric once in dbt, test the grain, and publish it through MetricFlow so every consumer reads the same definition.</p>
+<p><span class="case-k">What I built</span> Three semantic models and 57 metrics on tested marts, including the path from raw trades to net revenue.</p>
+<p><span class="case-k">Why it matters</span> The executive dashboard and the BI Assistant use different query paths. They cannot drift, because both resolve back to the same intermediate model.</p>
+<p class="case-tech">dbt Core · MetricFlow · SQL · Postgres</p>
+
 ## What is in it
 
 Three MetricFlow semantic models sit on top of core marts:
